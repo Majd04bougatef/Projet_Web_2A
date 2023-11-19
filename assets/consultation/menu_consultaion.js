@@ -43,7 +43,6 @@ navLinks.forEach((link) => {
         // Récupérez la valeur de l'attribut data-target
         const targetId = link.getAttribute('data-target');
 
-        // Chargez le contenu de la page "rendez-vous.html"
         if (targetId === 'rendezvous-form') {
             fetch('rendez-vous.php').then((response) => response.text()).then((html) => {
                     // Insérez le contenu dans la section

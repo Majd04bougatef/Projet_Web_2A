@@ -15,40 +15,46 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="https:://cdnjs.cloudflare.com/ajax/libs/font-awsome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/formulaire_rendez-vous/formulaire_rendez-vous.css">
-    <script src="../assets/formulaire_rendez-vous/formulaire_rendez-vous.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>Document</title>
 </head>
 <body>
 
 
+    
     <?php
-        if (isset($_POST['idrdv'])) {
-            $rdv = $consultR->showPatient($_POST['idrdv']);
+        if (isset($_GET['id_rdv'])) {
+            $id_rdv = $_GET['id_rdv'];
+            $nom = isset($_GET['nom']) ? $_GET['nom'] : '';
+            $prenom = isset($_GET['prenom']) ? $_GET['prenom'] : '';
+            $age = isset($_GET['age']) ? $_GET['age'] : '';
 
-    ?>  
 
+        } 
+    ?>
     <form class="form" method="POST" action="../controller/addconsultation.php">
         <p class="title">Register Consultation</p>
         <p class="message">Information Patient</p>
             <div class="flex">
-                <label>
+                <label for="nom">
                     <span>Nom : </span>
-                    <input  type="hidden" name="idrdv" value="<?php echo $_POST['idrdv'] ?>">
-                    <input class="input" type="text" name="nom" value="<?php echo $rdv['nom']; ?>">
+                    <input  type="hidden" name="idrdv" value="<?php echo $id_rdv; ?>">
+                    <input class="input" id="nom"  type="text" name="nom" value="<?php echo $nom; ?>">
                     
                 </label>
         
-                <label>
+                <label for="prenom">
                     <span>Prénom : </span>
-                    <input class="input" type="text" name="prenom" value="<?php echo $rdv['prenom']; ?>">
+                    <input class="input" type="text" id="prenom"  name="prenom" value="<?php echo $prenom; ?>">
                     
                 </label>
             </div>  
                 
             <div class="flex">
-                <label>
+                <label for="age">
                     <span>Age :</span>
-                    <input class="input" type="text" name="age" value="<?php echo $rdv['age']; ?>">
+                    <input class="input" type="text" id="age" name="age" value="<?php echo $age; ?>">
                     
                 </label> 
                     
@@ -58,14 +64,14 @@
 
         <p class="message">Information Consultation</p>
             <div class="flex">
-                <label>
+                <label for="date">
                     <span>Date Consultation</span>
-                    <input class="input" type="date" name="date" >
+                    <input class="input" type="date" id="date"  name="date" >
                 </label>
                 
-                <label>
+                <label for="description">
                     <span>Description Consultation</span>
-                    <textarea class="input" type="text" name="description" ></textarea>
+                    <textarea class="input" id="description"  type="text" name="description" ></textarea>
                 </label>
 
                 
@@ -73,68 +79,127 @@
             </div>  
                 
             <div class="flex">
-                <label>
+                <label for="motif">
                     <span>Motif Consultation</span>
-                    <input class="input" type="text" name="motif" >
+                    <input class="input" id="motif"  type="text" name="motif" >
                 </label> 
                   
-                <label>
+                <label for="symptomes">
                     <span>Symptomes</span>
-                    <select id="symptomes" name="symptomes" class="input">
-                        <option value="">Sélectionnez un symptôme</option>
-                        <option value="fievre">Fièvre persistante</option>
-                        <option value="douleur">Douleur abdominale sévère</option>
-                        <option value="essoufflement">Essoufflement inexpliqué</option>
-                        <option value="douleur_thoracique">Douleur thoracique</option>
-                        <option value="maux_de_tete">Maux de tête graves et persistants</option>
-                        <option value="vertiges">Vertiges récurrents</option>
-                        <option value="saignements">Saignements anormaux ou saignements inhabituels</option>
-                        <option value="perte_de_poids">Perte de poids inexpliquée</option>
-                        <option value="symptômes_neurologiques">Symptômes neurologiques</option>
-                        <option value="changements_vision">Changements de la vision</option>
-                        <option value="problemes_peau">Problèmes de peau graves</option>
-                        <option value="douleur_articulaire">Douleur articulaire ou musculaire sévère</option>
-                        <option value="toux_persistante">Toux persistante</option>
-                        <option value="saignements_expectorants">Saignements expectorants</option>
-                        <option value="urineusanglante">Urine sanglante</option>
-                        <option value="problemes_gastro">Problèmes gastro-intestinaux graves</option>
-                        <option value="reaction_allergique">Réaction allergique grave</option>
-                        <option value="symptomes_cardiaques">Symptômes cardiaques</option>
-                        <option value="symptomes_psychiatriques">Symptômes psychiatriques graves</option>
-                        <option value="fievre_nourrissons">Fièvre chez les nourrissons de moins de 3 mois</option>
-                        <option value="Autres_symptomes">Autres symptômes graves, inhabituels ou inquiétants</option>
-                    </select>
+                    <input class="input" id="symptomes"  type="text" name="symptomes" >
                 </label> 
             </div>
 
             <div class="flex">
-                <label>
+                <label for="prescription">
                     <span>Prescription Consultation</span>
-                    <input class="input" type="text" name="prescription" >
+                    <input class="input" id="prescription"  type="text" name="prescription" >
                 </label> 
                   
-                <label>
+                <label for="examen">
                     <span>Examen_complementaires</span>
-                    <input class="input" type="text" name="examen" >
+                    <input class="input" id="examen" type="text" name="examen" >
                 </label> 
             </div>
 
-            <div class="flex">
-                <label>
-                    <span>durée Consultation</span>
-                    <input class="input" type="number" name="duree" >
-                </label> 
-                  
-    
-            </div>
+            
 
         </p>
-        <input class="submit" type="submit" onclick="validation_champs()" >
+        <input class="submit" type="submit" onclick="validation_champs(event)" >
 
     </form>
-    <?php
+
+    <script>
+        function valider_champs_lettres(chaine) {
+    if (/^[A-Za-z ]+$/.test(chaine)) {
+        return true;
+    } else {
+        return false;
     }
-    ?>
+}
+
+function valider_champs_nombre(num) {
+    if (/^[0-9]+$/.test(num) && num < 150 && num > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function valider_champs_vide(chaine) {
+    if (chaine !== "") {
+        return true;
+    } else {
+        return false;
+    }
+}
+function validation_champs(event) {
+    event.preventDefault();
+
+    var nom = document.getElementsByName("nom")[0].value;
+    var prenom = document.getElementsByName("prenom")[0].value;
+    var desc = document.getElementsByName("description")[0].value;
+    var motif = document.getElementsByName("motif")[0].value;
+    var symp = document.getElementsByName("symptomes")[0].value;
+    var examen = document.getElementsByName("examen")[0].value;
+
+    if (!valider_champs_lettres(nom)) {
+        alert("Nom incorrect");
+        return false;
+    }
+
+    if (!valider_champs_lettres(prenom)) {
+        alert("Prénom incorrect");
+        return false;
+    }
+
+    if (!valider_champs_vide(desc)) {
+        alert("Manque de description");
+        return false;
+    }
+
+    if (!valider_champs_vide(motif)) {
+        alert("Manque de Motif");
+        return false;
+    }
+
+    if (!valider_champs_vide(symp)) {
+        alert("Manque de Symptomes");
+        return false;
+    }
+
+    if (!valider_champs_vide(examen)) {
+        alert("Manque de Examen");
+        return false;
+    }
+    console.log($("form").serialize());
+    $.ajax({
+        type: "POST",
+        url: "../controller/addconsultation.php",
+        data: $("form").serialize(),
+        success: function (response) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Enregistrement réussi!',
+                text: 'Les données ont été ajoutées avec succès.'
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error("Erreur lors de l'envoi de la requête AJAX", error);
+            console.log(xhr.responseText); 
+        }
+    });
+
+    return false; 
+}
+document.addEventListener("DOMContentLoaded", function () {
+    var date = document.getElementsByName("date")[0];
+    var dateActuelle = new Date();
+    var dateFormat = dateActuelle.toISOString().slice(0, 10);
+    date.value = dateFormat;
+});
+    </script>
     
+   
 </body>
 </html>

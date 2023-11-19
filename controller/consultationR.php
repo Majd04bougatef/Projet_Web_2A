@@ -4,9 +4,9 @@ include_once '../model/consultation.php';
 
 class consultationfunction
 {
-    public function listRendez_vous()
+    public function listRendez_vous_calendar_Monday()
     {
-        $sql = "SELECT * FROM rendezvous,user WHERE DATE(rendezvous.date_rdv) = CURDATE() and rendezvous.id_user = user.id_user";
+        $sql = "SELECT * FROM rendezvous,user WHERE DAYOFWEEK(rendezvous.date_rdv) = 2 and isdelete=0 and rendezvous.id_user=user.id_user";
         $db = config::getConnexion();
         try {
             $liste = $db->query($sql);
@@ -15,6 +15,72 @@ class consultationfunction
             die('Error:' . $e->getMessage());
         }
     }
+
+    public function listRendez_vous_calendar_Tuesday()
+    {
+        $sql = "SELECT * FROM rendezvous,user WHERE DAYOFWEEK(rendezvous.date_rdv) = 3 and isdelete=0 and rendezvous.id_user=user.id_user";
+        $db = config::getConnexion();
+        try {
+            $liste = $db->query($sql);
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+
+    public function listRendez_vous_calendar_Wednesday()
+    {
+        $sql = "SELECT * FROM rendezvous,user WHERE DAYOFWEEK(rendezvous.date_rdv) = 4 and isdelete=0 and rendezvous.id_user=user.id_user";
+        $db = config::getConnexion();
+        try {
+            $liste = $db->query($sql);
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+
+    public function listRendez_vous_calendar_Thursday()
+    {
+        $sql = "SELECT * FROM rendezvous,user WHERE DAYOFWEEK(rendezvous.date_rdv) = 5 and isdelete=0 and rendezvous.id_user=user.id_user";
+        $db = config::getConnexion();
+        try {
+            $liste = $db->query($sql);
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+
+    public function listRendez_vous_calendar_Friday()
+    {
+        $sql = "SELECT * FROM rendezvous,user WHERE DAYOFWEEK(rendezvous.date_rdv) = 6 and isdelete=0 and rendezvous.id_user=user.id_user";
+        $db = config::getConnexion();
+        try {
+            $liste = $db->query($sql);
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+
+
+
+
+
+
+    public function listRendez_vous()
+    {
+        $sql = "SELECT * FROM rendezvous  ";
+        $db = config::getConnexion();
+        try {
+            $liste = $db->query($sql);
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+
 
     public function showPatient($id_rdv)
     {
@@ -32,7 +98,7 @@ class consultationfunction
     }
     function addConsultation($consult)
     {
-        $sql = "INSERT INTO `consultation` (`id_c`, `date_consultation`, `description_consultation`, `symptomes`, `prescription_consultation`, `examen_consultation`, `duree_consultation`, `id_rdv` ) VALUES (NULL, :date, :desc, :symptomes, :prescription, :examen, :duree,:id)";
+        $sql = "INSERT INTO `consultation` (`id_c`, `date_consultation`, `description_consultation`, `symptomes`, `prescription_consultation`, `examen_consultation`, `id_rdv` ) VALUES (NULL, :date, :desc, :symptomes, :prescription, :examen,:id)";
         $db = config::getConnexion();
         try {
             
@@ -43,7 +109,6 @@ class consultationfunction
                 'symptomes' => $consult->getSymptomes(),
                 'prescription' => $consult->getPrescription_conultation(),
                 'examen' => $consult->getExamen(),
-                'duree' => $consult->getDuree(),
                 'id' => $consult->getId_r()
             ]);
     

@@ -39,10 +39,10 @@
                 </li>
 
                 <ul class="menu-links">
-                    <li class="nav-link">
-                        <a href="../view/rendez-vous.php" data-target="rendezvous-form">
+                    <li class="">
+                        <a href="../view/calendar.php" >
                             <i class='bx bx-clinic icon'></i>
-                            <span class="text nav-text" >Rendez-vous</span>
+                            <span class="text nav-text" >Calendar</span>
                         </a>
                     </li>
 

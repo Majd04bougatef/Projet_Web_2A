@@ -7,9 +7,8 @@ class consultation
     private ?string $symptomes = null;
     private ?string $prescription_consultation = null;
     private ?string $examen_comp = null;
-    private ?int $duree = null;
     private ?int $id_r = null;
-    public function __construct( $d, $desc, $s, $pres,$examen,$duree,$id_r)
+    public function __construct( $d, $desc, $s, $pres,$examen,$id_r)
     {
         
         $this->date_conusltation = $d;
@@ -17,7 +16,6 @@ class consultation
         $this->symptomes = $s;
         $this->prescription_consultation = $pres;
         $this->examen_comp = $examen;
-        $this->duree = $duree;
         $this->id_r = $id_r; 
     }
 
@@ -92,19 +90,7 @@ class consultation
     }
 
 
-    /**
-     * Get and set the value of duree
-     */
-    public function getDuree()
-    {
-        return $this->duree;
-    }
-
-    public function setDuree($duree)
-    {
-        $this->duree = $duree;
-    }
-
+   
     /**
      * Get and set the value of id__r
      */

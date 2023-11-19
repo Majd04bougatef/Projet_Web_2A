@@ -15,7 +15,7 @@
             $_POST['symptomes'],
             $_POST['prescription'],
             $_POST['examen'],
-            $_POST['duree'],
+    
             $_POST['idrdv']
         );        $consultR->addConsultation($consult);
         echo '<center><b><h2>consultation enregistree avec succes</h2><b></center>';
