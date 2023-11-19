@@ -1,14 +1,14 @@
 <?php
-    include '../controller/consultationR.php';
+include '../controller/consultationR.php';
 
-    $consult = new consultationfunction();
+$consult = new consultationfunction();
 
-    if (isset($_GET['id_c'])) {
-        $id_c = $_GET['id_c'];
-        $consult->deleteConsult($id_c);
-        echo '<center><h1><b>Consultation Supprimer</b></h1></center>';
-        exit();
-    } else {
-        echo "Consultation ID not provided.";
-    }
+if (isset($_POST['id_c'])) {
+    $id_c = $_POST['id_c'];
+    $consult->deleteConsult($id_c);
+    echo json_encode(['success' => true]);
+    exit();
+} else {
+    echo json_encode(['success' => false, 'message' => 'Consultation ID not provided.']);
+}
 ?>

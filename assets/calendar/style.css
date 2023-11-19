@@ -11,9 +11,25 @@
   --eventColor5: #90E0EF;
 }
 
-.title{
-  display: flex;
-  align-items: center;
+
+.header {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 300;
+  font-size: 30px;
+}
+
+.name-med h1 {
+  margin: 0;
+}
+
+.date input[type="date"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 150px;
+  margin-left: 10px;
 }
 
 .calendar {

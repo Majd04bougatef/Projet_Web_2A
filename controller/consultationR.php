@@ -6,11 +6,12 @@ class consultationfunction
 {
     public function listRendez_vous_calendar_Monday()
     {
-        $sql = "SELECT * FROM rendezvous,user WHERE DAYOFWEEK(rendezvous.date_rdv) = 2 and isdelete=0 and rendezvous.id_user=user.id_user";
+        $sql = "SELECT * FROM rendezvous,user WHERE rendezvous.date_rdv='2023-11-13' and isdelete=0 and rendezvous.id_user=user.id_user";
         $db = config::getConnexion();
         try {
-            $liste = $db->query($sql);
-            return $liste;
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll();
         } catch (Exception $e) {
             die('Error:' . $e->getMessage());
         }
@@ -18,6 +19,7 @@ class consultationfunction
 
     public function listRendez_vous_calendar_Tuesday()
     {
+
         $sql = "SELECT * FROM rendezvous,user WHERE DAYOFWEEK(rendezvous.date_rdv) = 3 and isdelete=0 and rendezvous.id_user=user.id_user";
         $db = config::getConnexion();
         try {
@@ -42,6 +44,7 @@ class consultationfunction
 
     public function listRendez_vous_calendar_Thursday()
     {
+        
         $sql = "SELECT * FROM rendezvous,user WHERE DAYOFWEEK(rendezvous.date_rdv) = 5 and isdelete=0 and rendezvous.id_user=user.id_user";
         $db = config::getConnexion();
         try {
@@ -54,14 +57,17 @@ class consultationfunction
 
     public function listRendez_vous_calendar_Friday()
     {
-        $sql = "SELECT * FROM rendezvous,user WHERE DAYOFWEEK(rendezvous.date_rdv) = 6 and isdelete=0 and rendezvous.id_user=user.id_user";
+        $sql = "SELECT * FROM rendezvous,user WHERE  rendezvous.date_rdv='2023-11-17' and isdelete=0 and rendezvous.id_user=user.id_user";
         $db = config::getConnexion();
         try {
             $liste = $db->query($sql);
             return $liste;
+          
         } catch (Exception $e) {
             die('Error:' . $e->getMessage());
         }
+
+        
     }
 
 
@@ -118,16 +124,14 @@ class consultationfunction
     }
 
 
-    public function listDossier($nom,$prenom,$age)
+    public function listDossier($id)
     {
-        $sql = "SELECT * FROM consultation,rendezvous,user WHERE consultation.id_rdv=rendezvous.id_rdv and rendezvous.id_user=user.id_user and user.nom=:nom and user.prenom=:prenom and user.age=:age;";
+        $sql = "SELECT DISTINCT consultation.id_c, consultation.date_consultation, consultation.description_consultation, consultation.symptomes, consultation.prescription_consultation, consultation.examen_consultation, consultation.isdelete FROM consultation, rendezvous, user WHERE consultation.id_rdv = rendezvous.id_rdv AND rendezvous.id_user =:id AND consultation.isdelete = 0;";
         $db = config::getConnexion();
         try {
             $list = $db->prepare($sql);
             $list->execute([
-                'nom' => $nom,
-                'prenom' => $prenom,
-                'age' => $age
+                'id' => $id
             ]);
             return $list;
         } catch (Exception $e) {
@@ -137,7 +141,7 @@ class consultationfunction
 
     public function deleteConsult($id_c)
     {
-        $sql = "DELETE from consultation WHERE id_c=:id";
+        $sql = "UPDATE consultation SET isdelete=1 WHERE id_c=:id";
         $db = config::getConnexion();
         try {
             $del = $db->prepare($sql);
@@ -147,29 +151,38 @@ class consultationfunction
         }
     }
 
-    public function UpdateConsult($id_c)
+    public function UpdateConsult($id_c, $d, $s, $p, $ex)
     {
-        $sql = "UPDATE consultation SET ";
+        $sql = "UPDATE consultation SET description_consultation=:desc, symptomes=:s, prescription_consultation=:pres, examen_consultation=:ex WHERE id_c=:id";
         $db = config::getConnexion();
         try {
-            $del = $db->prepare($sql);
-            $del->execute(['id' => $id_c]);
+            $up = $db->prepare($sql);
+            $up->execute([
+                'desc' => $d,
+                's' => $s,
+                'pres' => $p,
+                'ex' => $ex,
+                'id' => $id_c
+            ]);
+  
         } catch (Exception $e) {
             die('Error:' . $e->getMessage());
         }
     }
 
 
-    public function getConsult($id_c)
+    function getConsult($id_c)
     {
-        $sql = "SELECT * FROM consultation WHERE id_c=:id";
+        $sql = "SELECT * from consultation where id_c = :id";
         $db = config::getConnexion();
         try {
-            $cons = $db->prepare($sql);
-            $cons->execute(['id' => $id_c]);
-            return $cons;
+            $query = $db->prepare($sql);
+            $query->execute(['id' => $id_c]);
+
+            $consult = $query->fetch();
+            return $consult;
         } catch (Exception $e) {
-            die('Error:' . $e->getMessage());
+            die('Error: ' . $e->getMessage());
         }
     }
 
