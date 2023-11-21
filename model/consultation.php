@@ -7,8 +7,10 @@ class consultation
     private ?string $symptomes = null;
     private ?string $prescription_consultation = null;
     private ?string $examen_comp = null;
+    private ?int $isdelete = null;
     private ?int $id_r = null;
-    public function __construct( $d, $desc, $s, $pres,$examen,$id_r)
+    private ?string $id_m = null;
+    public function __construct( $d, $desc, $s, $pres,$examen,$isdelete,$id_r,$id_m)
     {
         
         $this->date_conusltation = $d;
@@ -16,7 +18,9 @@ class consultation
         $this->symptomes = $s;
         $this->prescription_consultation = $pres;
         $this->examen_comp = $examen;
+        $this->isdelete = $isdelete; 
         $this->id_r = $id_r; 
+        $this->id_m = $id_m;
     }
 
   
@@ -92,6 +96,20 @@ class consultation
 
    
     /**
+     * Get and set the value of isdelete
+     */
+    public function getisdelete()
+    {
+        return $this->isdelete;
+    }
+
+    public function setisdelete($isdelete)
+    {
+        $this->isdelete = $isdelete;
+    }
+
+
+    /**
      * Get and set the value of id__r
      */
     public function getId_r()
@@ -102,5 +120,19 @@ class consultation
     public function setid_r($id_r)
     {
         $this->id_r = $id_r;
+    }
+
+
+    /**
+     * Get and set the value of id_m
+     */
+    public function getId_m()
+    {
+        return $this->id_m;
+    }
+
+    public function setid_m($id_m)
+    {
+        $this->id_m = $id_m;
     }
 }

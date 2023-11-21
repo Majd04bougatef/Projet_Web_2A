@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">
+    <link rel="stylesheet" type="text/css" href="../assets/menu_consultation_patient/menu_consultation_patient.css">
     <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
    
     <title>Consultation</title>
@@ -17,7 +17,7 @@
         <header>
             <div class="image-text">
                 <span class="image">
-                    <a href="menu_consultation.php"><img class="imglogo" src="../image/logo/logo.png" alt="logo"></a>
+                    <a href="../view/menu_consultation_patient.php"><img class="imglogo" src="../image/logo/logo.png" alt="logo"></a>
                 </span>
 
                 <div class="text header-text">
@@ -31,24 +31,12 @@
 
         <div class="menu-bar">
             <div class="menu">
-                <li class="search-box">
-                    
-                        <i class="bx bx-search icon"></i>
-                        <input type="search" placeholder="Search..">
-                    
-                </li>
+                
 
                 <ul class="menu-links">
+                                 
                     <li class="">
-                        <a href="../view/calendar.php" >
-                            <i class='bx bx-clinic icon'></i>
-                            <span class="text nav-text" >Calendar</span>
-                        </a>
-                    </li>
-
-                   
-                    <li class="">
-                        <a href="consulter_consultation.php">
+                        <a href="selectionner_dossier.php">
                             <i class="bx bxs-box icon"></i>
                             <span class="text nav-text">Consulter Dossier</span>
                         </a>
@@ -59,12 +47,7 @@
             </div>
 
             <div class="bottom-content">
-                <li class="">
-                    <a href="#">
-                        <i class="bx bx-log-out icon"></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
-                </li>
+                
 
                 <li class="mode">
                     <div class="moon-sun">
@@ -98,7 +81,7 @@
           </div>
         </div>
     </div>
-    <script src="../assets/consultation/menu_consultaion.js"></script>
+    <script src="../assets/menu_consultation_patient/menu_consultaion_patient.js"></script>
 
 </body>
 </html>

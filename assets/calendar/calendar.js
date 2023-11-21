@@ -1,6 +1,8 @@
 
+
+
 document.addEventListener('DOMContentLoaded', function() {
-        updateCurrentWeekOnLoad(); // Appeler la fonction lors de l'ouverture de la page
+        updateCurrentWeekOnLoad(); 
       });
 
       document.getElementById('datePicker').addEventListener('input', function() {

@@ -4,12 +4,54 @@ include_once '../model/consultation.php';
 
 class consultationfunction
 {
-    public function listRendez_vous_calendar_Monday()
+    public function listRendez_vous_calendar_Monday($selectedDate)
     {
-        $sql = "SELECT * FROM rendezvous,user WHERE rendezvous.date_rdv='2023-11-13' and isdelete=0 and rendezvous.id_user=user.id_user";
+        if (empty($selectedDate)) {
+            $selectedDate = date('Y-m-d');
+        }
+
+        $dateTime = new DateTime($selectedDate);
+
+        if ($dateTime->format('N') != 1) { 
+            $mondayOfSelectedWeek = $dateTime->modify('this week monday')->format('Y-m-d');
+        } else {
+            $mondayOfSelectedWeek = $dateTime->format('Y-m-d');
+        }
+
+        echo $mondayOfSelectedWeek .'  / ';
+        
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
         $db = config::getConnexion();
         try {
             $stmt = $db->prepare($sql);
+            $stmt->bindParam(':selectedDate', $mondayOfSelectedWeek);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+    public function listRendez_vous_calendar_Tuesday($selectedDate)
+    {
+        if (empty($selectedDate)) {
+            $selectedDate = date('Y-m-d');
+        }
+    
+        $dateTime = new DateTime($selectedDate);
+        
+        if ($dateTime->format('N') != 2) { 
+            $tuesdayOfSelectedWeek = $dateTime->modify('this week tuesday')->format('Y-m-d');
+        } else {
+            $tuesdayOfSelectedWeek = $dateTime->format('Y-m-d');
+        }
+    
+        echo '                                       ' . $tuesdayOfSelectedWeek.'  / ';
+        
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':selectedDate', $tuesdayOfSelectedWeek);
             $stmt->execute();
             return $stmt->fetchAll();
         } catch (Exception $e) {
@@ -17,57 +59,94 @@ class consultationfunction
         }
     }
 
-    public function listRendez_vous_calendar_Tuesday()
+    public function listRendez_vous_calendar_Wednesday($selectedDate)
     {
-
-        $sql = "SELECT * FROM rendezvous,user WHERE DAYOFWEEK(rendezvous.date_rdv) = 3 and isdelete=0 and rendezvous.id_user=user.id_user";
-        $db = config::getConnexion();
-        try {
-            $liste = $db->query($sql);
-            return $liste;
-        } catch (Exception $e) {
-            die('Error:' . $e->getMessage());
+        if (empty($selectedDate)) {
+            $selectedDate = date('Y-m-d');
         }
-    }
 
-    public function listRendez_vous_calendar_Wednesday()
-    {
-        $sql = "SELECT * FROM rendezvous,user WHERE DAYOFWEEK(rendezvous.date_rdv) = 4 and isdelete=0 and rendezvous.id_user=user.id_user";
-        $db = config::getConnexion();
-        try {
-            $liste = $db->query($sql);
-            return $liste;
-        } catch (Exception $e) {
-            die('Error:' . $e->getMessage());
+        $dateTime = new DateTime($selectedDate);
+
+        $dateTime->modify('this week')->modify($selectedDate);
+
+        if ($dateTime->format('N') != 3) { 
+            $wednesdayOfSelectedWeek = $dateTime->modify('next wednesday')->format('Y-m-d');
+        } else {
+            $wednesdayOfSelectedWeek = $dateTime->format('Y-m-d');
         }
-    }
 
-    public function listRendez_vous_calendar_Thursday()
-    {
+        echo $wednesdayOfSelectedWeek.'  / ';
         
-        $sql = "SELECT * FROM rendezvous,user WHERE DAYOFWEEK(rendezvous.date_rdv) = 5 and isdelete=0 and rendezvous.id_user=user.id_user";
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
         $db = config::getConnexion();
         try {
-            $liste = $db->query($sql);
-            return $liste;
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':selectedDate', $wednesdayOfSelectedWeek);
+            $stmt->execute();
+            return $stmt->fetchAll();
         } catch (Exception $e) {
             die('Error:' . $e->getMessage());
         }
     }
 
-    public function listRendez_vous_calendar_Friday()
+    public function listRendez_vous_calendar_Thursday($selectedDate)
     {
-        $sql = "SELECT * FROM rendezvous,user WHERE  rendezvous.date_rdv='2023-11-17' and isdelete=0 and rendezvous.id_user=user.id_user";
+        if (empty($selectedDate)) {
+            $selectedDate = date('Y-m-d');
+        }
+
+        $dateTime = new DateTime($selectedDate);
+
+        $dateTime->modify('this week')->modify($selectedDate);
+
+        if ($dateTime->format('N') != 4) {
+            $thursdayOfSelectedWeek = $dateTime->modify('this week thursday')->format('Y-m-d');
+        } else {
+            $thursdayOfSelectedWeek = $dateTime->modify('next week thursday')->format('Y-m-d');
+        }
+
+        echo $thursdayOfSelectedWeek.'  / ';
+        
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
         $db = config::getConnexion();
         try {
-            $liste = $db->query($sql);
-            return $liste;
-          
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':selectedDate', $thursdayOfSelectedWeek);
+            $stmt->execute();
+            return $stmt->fetchAll();
         } catch (Exception $e) {
             die('Error:' . $e->getMessage());
         }
+    }
 
+    public function listRendez_vous_calendar_Friday($selectedDate)
+    {
+        if (empty($selectedDate)) {
+            $selectedDate = date('Y-m-d');
+        }
+
+        $dateTime = new DateTime($selectedDate);
+
+        $dateTime->modify('this week')->modify($selectedDate);
+
+        if ($dateTime->format('N') != 5) { 
+            $fridayOfSelectedWeek = $dateTime->modify('next friday')->format('Y-m-d');
+        } else {
+            $fridayOfSelectedWeek = $dateTime->format('Y-m-d');
+        }
+
+        echo $fridayOfSelectedWeek.'  / ';
         
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':selectedDate', $fridayOfSelectedWeek);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
     }
 
 
@@ -104,8 +183,9 @@ class consultationfunction
     }
     function addConsultation($consult)
     {
-        $sql = "INSERT INTO `consultation` (`id_c`, `date_consultation`, `description_consultation`, `symptomes`, `prescription_consultation`, `examen_consultation`, `id_rdv` ) VALUES (NULL, :date, :desc, :symptomes, :prescription, :examen,:id)";
+        $sql = "INSERT INTO `consultation` (`id_c`, `date_consultation`, `description_consultation`, `symptomes`, `prescription_consultation`, `examen_consultation`,`isdelete`, `id_rdv`,`id_med` ) VALUES (NULL, :date, :desc, :symptomes, :prescription, :examen,:isdelete,:id_rdv,:id_m)";
         $db = config::getConnexion();
+        
         try {
             
             $query = $db->prepare($sql);
@@ -115,7 +195,9 @@ class consultationfunction
                 'symptomes' => $consult->getSymptomes(),
                 'prescription' => $consult->getPrescription_conultation(),
                 'examen' => $consult->getExamen(),
-                'id' => $consult->getId_r()
+                'isdelete' => $consult->getisdelete(),
+                'id_rdv' => $consult->getId_r(),
+                'id_m'=>'MM12345676'
             ]);
     
         } catch (Exception $e) {
@@ -185,6 +267,46 @@ class consultationfunction
             die('Error: ' . $e->getMessage());
         }
     }
+
+    
+
+    function lister_Medecin($id_p)
+    {
+        $sql = "SELECT DISTINCT user.nom,user.prenom,rendezvous.id_med from rendezvous,user where rendezvous.id_user=:id and rendezvous.id_med=user.id_user and  user.role='medecin'";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute(['id' => $id_p]);
+
+            $consult = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+            return $consult;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
+
+    function Dossier_Patient($id_p,$id_m)
+    {
+        $sql = "SELECT DISTINCT consultation.date_consultation, consultation.description_consultation, consultation.symptomes,consultation.prescription_consultation,consultation.examen_consultation  from rendezvous,consultation where rendezvous.id_user=:id_p and rendezvous.id_med=:id_m and rendezvous.id_rdv =consultation.id_rdv";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute(['id_p' => $id_p,'id_m'=>$id_m]);
+
+            $consult = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+            return $consult;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
+
+
+
+
 
 
 }

@@ -27,15 +27,22 @@
     </form>
     <script>
     function valider_champs() {
-        var id = document.getElementsByName("id")[0].value;
-        
-        if (id === "") {
-            alert("Donner une ID");
-            event.preventDefault();
-            return false;
-        }
-        return true;
+    var id = document.getElementsByName("id")[0].value;
+
+    if (id === "") {
+        alert("Donner une ID");
+        event.preventDefault();
+        return false;
     }
+
+    if (id.length !== 10) {
+        alert("L'ID doit avoir une longueur de 10 caractères");
+        event.preventDefault();
+        return false;
+    }
+
+    return true;
+}
 </script>
 
 </body>

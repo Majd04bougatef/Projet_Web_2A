@@ -1,14 +1,23 @@
+
 <?php
 include_once '../controller/consultationR.php';
 $consultR = new consultationfunction();
 
-      
-        $list_Monday = $consultR->listRendez_vous_calendar_Monday();
-        $list_Tuesday = $consultR->listRendez_vous_calendar_Tuesday();
-        $list_Wednesday = $consultR->listRendez_vous_calendar_Wednesday();
-        $list_Thursday = $consultR->listRendez_vous_calendar_Thursday();
-        $list_Friday = $consultR->listRendez_vous_calendar_Friday();
-     
+
+
+if(isset($_POST['date'])){
+    $selectedDate = $_POST['date'];
+    $list_Monday = $consultR->listRendez_vous_calendar_Monday($selectedDate);
+
+    $list_Tuesday = $consultR->listRendez_vous_calendar_Tuesday($selectedDate);
+    $list_Wednesday = $consultR->listRendez_vous_calendar_Wednesday($selectedDate);
+    $list_Thursday = $consultR->listRendez_vous_calendar_Thursday($selectedDate);
+    $list_Friday = $consultR->listRendez_vous_calendar_Friday($selectedDate);
+}
+
+    
+
+
 ?>
 
 
@@ -22,14 +31,27 @@ $consultR = new consultationfunction();
 
 </head>
 <body>
-  <div class="header">
-    <div class="name-med">
-      <h1>Calendar</h1>
+  <form method="post" action="">
+    <div class="name-med" style="text-align: center;">
+      <h1 style="font-size: 4em;  color: #333;  font-weight: bold; text-align: center;  margin-bottom: 20px; ">Calendar</h1>
       <br>
-      Date debut : 
+      <h4>Date debut :
       <input type="date" name="date" id="datePicker">
-    </div>
-  </div>
+      <input type="submit" value="Afficher" style="padding: 10px 20px;  font-size: 16px;  font-weight: bold;  text-transform: uppercase;  background-color: #0077B6; color: #fff;   border: none;  border-radius: 5px; cursor: pointer;">
+    </h4>
+   </div>
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var currentDate = new Date().toISOString().slice(0, 10);
+
+    document.getElementById('datePicker').value = currentDate;
+    });
+
+
+    
+  </script>
 
   <div class="calendar">
     <div class="timeline">
@@ -54,7 +76,8 @@ $consultR = new consultationfunction();
         </div>
         <div class="events">
           <?php
-            foreach ($list_Monday as $rdv) {
+            if (isset($list_Monday)) {
+              foreach ($list_Monday as $rdv) {
             
           ?>
           
@@ -67,6 +90,7 @@ $consultR = new consultationfunction();
           
           <?php
             }
+          }
           ?>
         </div>
       </div>
@@ -80,6 +104,7 @@ $consultR = new consultationfunction();
         </div>
           <div class="events">
             <?php
+            if (isset($list_Tuesday)) {
               foreach ($list_Tuesday as $rdv) {
             ?>
             
@@ -92,6 +117,7 @@ $consultR = new consultationfunction();
 
             <?php
               }
+            }
             ?>
         </div>  
       </div>
@@ -105,6 +131,7 @@ $consultR = new consultationfunction();
         </div>
         <div class="events">
           <?php
+          if (isset($list_Wednesday)) {
             foreach ($list_Wednesday as $rdv) {
           ?>
             <div class="event start-<?php echo $rdv['deb_rdv'];?> end-<?php echo $rdv['fin_rdv'];?> writing">
@@ -115,6 +142,7 @@ $consultR = new consultationfunction();
             </div>
           <?php
             }
+          }
           ?>   
         </div>
       </div>
@@ -128,6 +156,7 @@ $consultR = new consultationfunction();
         </div>
           <div class="events">
             <?php
+            if (isset($list_Thursday)) {
               foreach ($list_Thursday as $rdv) {
             ?>
               <div class="event start-<?php echo $rdv['deb_rdv'];?> end-<?php echo $rdv['fin_rdv'];?> securities">
@@ -138,6 +167,7 @@ $consultR = new consultationfunction();
               </div>
             <?php
               }
+            }
             ?>
           </div>
       </div>
@@ -152,6 +182,7 @@ $consultR = new consultationfunction();
         </div>
         <div class="events">
           <?php
+          if (isset($list_Friday)) {
             foreach ($list_Friday as $rdv) {
           ?> 
             <div class="event start-<?php echo $rdv['deb_rdv'];?> end-<?php echo $rdv['fin_rdv'];?> ssecurities">
@@ -163,6 +194,7 @@ $consultR = new consultationfunction();
        
           <?php
             }
+          }
           ?>
       </div>
 
