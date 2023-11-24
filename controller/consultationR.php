@@ -4,6 +4,8 @@ include_once '../model/consultation.php';
 
 class consultationfunction
 {
+
+    //Medecin
     public function listRendez_vous_calendar_Monday($selectedDate)
     {
         if (empty($selectedDate)) {
@@ -268,7 +270,7 @@ class consultationfunction
         }
     }
 
-    
+ //patient   
 
     function lister_Medecin($id_p)
     {
@@ -304,6 +306,171 @@ class consultationfunction
     }
 
 
+//Admin
+    public function listMedecinsBySpecialite($specialite)
+    {
+        $sql = "SELECT * FROM user WHERE role = 'medecin' AND specialite = :specialite";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':specialite', $specialite);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+
+
+
+    public function listRendez_vous_calendar_Monday_admin($selectedDate,$id_med)
+    {
+        if (empty($selectedDate)) {
+            $selectedDate = date('Y-m-d');
+        }
+
+        $dateTime = new DateTime($selectedDate);
+
+        if ($dateTime->format('N') != 1) { 
+            $mondayOfSelectedWeek = $dateTime->modify('this week monday')->format('Y-m-d');
+        } else {
+            $mondayOfSelectedWeek = $dateTime->format('Y-m-d');
+        }
+
+        echo $id_med;
+        
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user and id_med=:id_m ";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':selectedDate', $mondayOfSelectedWeek);
+            $stmt->bindParam(':id_m', $id_med);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+    public function listRendez_vous_calendar_Tuesday_admin($selectedDate,$id_med)
+    {
+        if (empty($selectedDate)) {
+            $selectedDate = date('Y-m-d');
+        }
+    
+        $dateTime = new DateTime($selectedDate);
+        
+        if ($dateTime->format('N') != 2) { 
+            $tuesdayOfSelectedWeek = $dateTime->modify('this week tuesday')->format('Y-m-d');
+        } else {
+            $tuesdayOfSelectedWeek = $dateTime->format('Y-m-d');
+        }
+    
+        
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user and id_med=:id_m ";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':selectedDate', $tuesdayOfSelectedWeek);
+            $stmt->bindParam(':id_m', $id_med);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+
+    public function listRendez_vous_calendar_Wednesday_admin($selectedDate,$id_med)
+    {
+        if (empty($selectedDate)) {
+            $selectedDate = date('Y-m-d');
+        }
+
+        $dateTime = new DateTime($selectedDate);
+
+        $dateTime->modify('this week')->modify($selectedDate);
+
+        if ($dateTime->format('N') != 3) { 
+            $wednesdayOfSelectedWeek = $dateTime->modify('next wednesday')->format('Y-m-d');
+        } else {
+            $wednesdayOfSelectedWeek = $dateTime->format('Y-m-d');
+        }
+
+      
+        
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user and id_med=:id_m";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':selectedDate', $wednesdayOfSelectedWeek);
+            $stmt->bindParam(':id_m', $id_med);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+
+    public function listRendez_vous_calendar_Thursday_admin($selectedDate,$id_med)
+    {
+        if (empty($selectedDate)) {
+            $selectedDate = date('Y-m-d');
+        }
+
+        $dateTime = new DateTime($selectedDate);
+
+        $dateTime->modify('this week')->modify($selectedDate);
+
+        if ($dateTime->format('N') != 4) {
+            $thursdayOfSelectedWeek = $dateTime->modify('this week thursday')->format('Y-m-d');
+        } else {
+            $thursdayOfSelectedWeek = $dateTime->modify('next week thursday')->format('Y-m-d');
+        }
+
+        
+        
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user and id_med=:id_m";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':selectedDate', $thursdayOfSelectedWeek);
+            $stmt->bindParam(':id_m', $id_med);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+
+    public function listRendez_vous_calendar_Friday_admin($selectedDate,$id_med)
+    {
+        if (empty($selectedDate)) {
+            $selectedDate = date('Y-m-d');
+        }
+
+        $dateTime = new DateTime($selectedDate);
+
+        $dateTime->modify('this week')->modify($selectedDate);
+
+        if ($dateTime->format('N') != 5) { 
+            $fridayOfSelectedWeek = $dateTime->modify('next friday')->format('Y-m-d');
+        } else {
+            $fridayOfSelectedWeek = $dateTime->format('Y-m-d');
+        }
+
+   
+        
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user and id_med=:id_m";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':selectedDate', $fridayOfSelectedWeek);
+            $stmt->bindParam(':id_m', $id_med);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
 
 
 
