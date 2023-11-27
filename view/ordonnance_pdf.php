@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 require('../view/fpdf/fpdf.php');
+include'../controller/ordonnanceR.php';
 
 // Vérifiez si les clés existent avant de les utiliser
 $nom_pat = isset($_GET['nomPatient']) ? $_GET['nomPatient'] : '';
@@ -9,6 +10,7 @@ $age_pat = isset($_GET['agePatient']) ? $_GET['agePatient'] : '';
 $nom_med = isset($_GET['nomMedecin']) ? $_GET['nomMedecin'] : '';
 $prenom_med = isset($_GET['prenomMedecin']) ? $_GET['prenomMedecin'] : '';
 $date = isset($_GET['date']) ? $_GET['date'] : '';
+$id_c = isset($_GET['id_c']) ? $_GET['id_c'] : '';
 
 $medicaments = isset($_GET['nomMedicament']) ? $_GET['nomMedicament'] : [];
 $posologies = isset($_GET['posologie']) ? $_GET['posologie'] : [];
@@ -90,8 +92,14 @@ $pdf->Line(10, $pdf->GetY() + 2, 200, $pdf->GetY() + 2);
 
 
 
+$pdfContent = $pdf->Output('S', 'ordonnance_'.$nom_pat.'_'.$prenom_pat.'.pdf', true);
+
+// Enregistrement dans la base de données
+$ordR = new ordonnancefunction();
+$ordR->addOrdonnanceWithPDF($id_c,$pdfContent);
 
 
-$pdf->Output(dest:'', name:'ordonnance_'.$nom_pat.'_'.$prenom_pat.'.pdf', isUTF8:true);
+
+
 exit();
 ?>
