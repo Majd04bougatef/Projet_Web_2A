@@ -20,7 +20,7 @@ class consultationfunction
             $mondayOfSelectedWeek = $dateTime->format('Y-m-d');
         }
 
-        echo $mondayOfSelectedWeek .'  / ';
+
         
         $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
         $db = config::getConnexion();
@@ -47,7 +47,7 @@ class consultationfunction
             $tuesdayOfSelectedWeek = $dateTime->format('Y-m-d');
         }
     
-        echo '                                       ' . $tuesdayOfSelectedWeek.'  / ';
+
         
         $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
         $db = config::getConnexion();
@@ -77,7 +77,7 @@ class consultationfunction
             $wednesdayOfSelectedWeek = $dateTime->format('Y-m-d');
         }
 
-        echo $wednesdayOfSelectedWeek.'  / ';
+    
         
         $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
         $db = config::getConnexion();
@@ -107,7 +107,7 @@ class consultationfunction
             $thursdayOfSelectedWeek = $dateTime->modify('next week thursday')->format('Y-m-d');
         }
 
-        echo $thursdayOfSelectedWeek.'  / ';
+       
         
         $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
         $db = config::getConnexion();
@@ -137,7 +137,7 @@ class consultationfunction
             $fridayOfSelectedWeek = $dateTime->format('Y-m-d');
         }
 
-        echo $fridayOfSelectedWeek.'  / ';
+    
         
         $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
         $db = config::getConnexion();

@@ -2,7 +2,6 @@
 <?php
 
     include_once 'consultationR.php';
-    //include '../view/rendez-vous.php';
 
     $consult = null;
 

@@ -1,25 +1,23 @@
-
 <?php
 include_once '../controller/consultationR.php';
 $consultR = new consultationfunction();
 
-
-
-if(isset($_POST['date'])){
+if (!isset($_POST['date'])) {
+    $selectedDate = date('Y-m-d');
+    $list_Monday = $consultR->listRendez_vous_calendar_Monday($selectedDate);
+    $list_Tuesday = $consultR->listRendez_vous_calendar_Tuesday($selectedDate);
+    $list_Wednesday = $consultR->listRendez_vous_calendar_Wednesday($selectedDate);
+    $list_Thursday = $consultR->listRendez_vous_calendar_Thursday($selectedDate);
+    $list_Friday = $consultR->listRendez_vous_calendar_Friday($selectedDate);
+} else {
     $selectedDate = $_POST['date'];
     $list_Monday = $consultR->listRendez_vous_calendar_Monday($selectedDate);
-
     $list_Tuesday = $consultR->listRendez_vous_calendar_Tuesday($selectedDate);
     $list_Wednesday = $consultR->listRendez_vous_calendar_Wednesday($selectedDate);
     $list_Thursday = $consultR->listRendez_vous_calendar_Thursday($selectedDate);
     $list_Friday = $consultR->listRendez_vous_calendar_Friday($selectedDate);
 }
-
-    
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en" >
@@ -31,11 +29,15 @@ if(isset($_POST['date'])){
 
 </head>
 <body>
+
+<h1 style="font-size: 2em; color: #333; font-weight: bold; text-align: left; margin-bottom: 20px;">
+  <a href="../view/menu_consultation.php" style="text-decoration: none; color: inherit;">Revenir Menu</a>
+</h1>
   <form method="post" action="">
     <div class="name-med" style="text-align: center;">
       <h1 style="font-size: 4em;  color: #333;  font-weight: bold; text-align: center;  margin-bottom: 20px; ">Calendar</h1>
       <br>
-      <h4>Date debut :
+      <h4 style="font-size: 1em; color: #333; font-weight: bold;">Semaine :
       <input type="date" name="date" id="datePicker">
       <input type="submit" value="Afficher" style="padding: 10px 20px;  font-size: 16px;  font-weight: bold;  text-transform: uppercase;  background-color: #0077B6; color: #fff;   border: none;  border-radius: 5px; cursor: pointer;">
     </h4>
@@ -44,13 +46,9 @@ if(isset($_POST['date'])){
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-    var currentDate = new Date().toISOString().slice(0, 10);
-
-    document.getElementById('datePicker').value = currentDate;
+      var currentDate = new Date().toISOString().slice(0, 10);
+      document.getElementById('datePicker').value = currentDate;
     });
-
-
-    
   </script>
 
   <div class="calendar">

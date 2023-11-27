@@ -96,6 +96,7 @@ function submitForm() {
     xhr.open('POST', form.action, true);
     xhr.onload = function () {
         console.log(xhr.responseText);
+        window.location.href = '../view/consulter_consultation.php';
     };
     xhr.send(formData);
 }

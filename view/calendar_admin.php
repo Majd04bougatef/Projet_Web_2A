@@ -37,7 +37,7 @@ if(isset($_POST['date'])){
     <div class="name-med" style="text-align: center;">
       <h1 style="font-size: 4em;  color: #333;  font-weight: bold; text-align: center;  margin-bottom: 20px; ">Calendar</h1>
       <br>
-
+<div style="display: flex; align-items:center; margin-left: 10%;">
       Spécialité : <select name="specialité">
             <option value="">Sélectionner une Spécialité</option>
             <option value="generaliste">Géneraliste</option>
@@ -61,6 +61,7 @@ if(isset($_POST['date'])){
       <input type="date" name="date" id="datePicker">
       <input type="submit" value="Afficher" style="padding: 10px 20px;  font-size: 16px;  font-weight: bold;  text-transform: uppercase;  background-color: #0077B6; color: #fff;   border: none;  border-radius: 5px; cursor: pointer;">
     </h4>
+   </div>
    </div>
   </form>
 

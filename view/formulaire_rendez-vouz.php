@@ -18,6 +18,52 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>Document</title>
+    <style>
+        #medicamentsContainer {
+    margin-top: 20px;
+}
+
+#medicamentsTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#medicamentsTable th, #medicamentsTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#medicamentsTable th {
+    background-color: #f2f2f2;
+}
+
+#nouveauMedicament {
+    padding: 8px;
+}
+
+#ajouterMedicamentBtn {
+    padding: 8px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#examen {
+    display: none; /* Pour cacher le champ "examen" original */
+}
+
+.flex {
+    display: flex;
+}
+
+.medicament-container {
+    margin-right: 10px; /* Ajustez la marge selon vos préférences */
+}
+
+.table-container {
+    flex-grow: 1;
+}
+    </style>
 </head>
 <body>
 
@@ -96,10 +142,28 @@
                     <input class="input" id="prescription"  type="text" name="prescription" >
                 </label> 
                   
-                <label for="examen">
-                    <span>Examen_complementaires</span>
-                    <input class="input" id="examen" type="text" name="examen" >
-                </label> 
+                <div class="flex">
+                    <label for="examen">
+                        <span>Médicaments :</span>
+                        <div class="medicament-container">
+                            <input class="input" id="nouveauMedicament" type="text">
+                            <button class="submit" type="button" id="ajouterMedicamentBtn" onclick="ajouterMedicament()">Ajouter Médicament</button>
+                        </div>
+                    </label>
+                    <div class="table-container">
+                        <table id="medicamentsTable">
+                            <thead>
+                                <tr>
+                                    <th>Médicament</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="medicamentsList"></tbody>
+                        </table>
+                    </div>
+                    <input class="input" id="examen" type="hidden" name="examen" value="">
+                </div>
+
             </div>
 
             
@@ -172,23 +236,38 @@ function validation_champs(event) {
         alert("Manque de Examen");
         return false;
     }
+
     console.log($("form").serialize());
+    var formData = $("form").serializeArray();
+formData.push({name: 'idrdv', value: '<?php echo $id_rdv; ?>'});
+console.log(formData);
     $.ajax({
-        type: "POST",
-        url: "../controller/addconsultation.php",
-        data: $("form").serialize(),
-        success: function (response) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Enregistrement réussi!',
-                text: 'Les données ont été ajoutées avec succès.'
-            });
-        },
-        error: function (xhr, status, error) {
-            console.error("Erreur lors de l'envoi de la requête AJAX", error);
-            console.log(xhr.responseText); 
-        }
-    });
+    type: "POST",
+    url: "../controller/addconsultation.php",
+    data: $("form").serialize(),
+    success: function (response) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Enregistrement réussi!',
+            text: 'Les données ont été ajoutées avec succès.',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Générer Ordonnance'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'formulaire_ordonnance.php?id_rdv=<?php echo $id_rdv; ?>';
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                window.location.href = 'calendar.php';
+            }
+        });
+    },
+    error: function (xhr, status, error) {
+        console.error("Erreur lors de l'envoi de la requête AJAX", error);
+        console.log(xhr.responseText);
+    }
+});
+
 
     return false; 
 }
@@ -198,6 +277,55 @@ document.addEventListener("DOMContentLoaded", function () {
     var dateFormat = dateActuelle.toISOString().slice(0, 10);
     date.value = dateFormat;
 });
+function ajouterMedicament() {
+        var medicamentInput = document.getElementById('examen');
+        var nouveauMedicamentInput = document.getElementById('nouveauMedicament');
+        var medicamentsList = document.getElementById('medicamentsList');
+        var medicamentsTable = document.getElementById('medicamentsTable');
+
+        var nouveauMedicament = nouveauMedicamentInput.value.trim();
+
+        if (nouveauMedicament !== '') {
+            var newRow = medicamentsTable.insertRow();
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+
+            cell1.textContent = nouveauMedicament;
+
+            var deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Supprimer';
+            deleteButton.onclick = function () {
+                medicamentsTable.deleteRow(newRow.rowIndex);
+                mettreAJourChampExamen();
+            };
+
+            cell2.appendChild(deleteButton);
+
+            if (medicamentInput.value !== '') {
+                medicamentInput.value += ', ';
+            }
+            medicamentInput.value += nouveauMedicament;
+
+            nouveauMedicamentInput.value = '';
+        }
+    }
+
+    function mettreAJourChampExamen() {
+        var medicamentInput = document.getElementById('examen');
+        var medicamentsTable = document.getElementById('medicamentsTable');
+        var rows = medicamentsTable.rows;
+
+        medicamentInput.value = '';
+
+        for (var i = 1; i < rows.length; i++) {
+            var medicament = rows[i].cells[0].textContent.trim();
+
+            if (medicamentInput.value !== '') {
+                medicamentInput.value += ', ';
+            }
+            medicamentInput.value += medicament;
+        }
+    }
     </script>
     
    
