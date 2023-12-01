@@ -90,8 +90,6 @@ class EventC
                 'capacite' => $event->getCapacite(),
                 'idUser' => $event->getIdUser(),
             ]);
-
-            // Ajout du return pour indiquer le succès de l'opération
             return "Event added successfully.";
         } catch (Exception $e) {
             throw new Exception('Error adding event: ' . $e->getMessage());
@@ -148,5 +146,6 @@ class EventC
             die('Error: ' . $e->getMessage());
         }
     }
+    
 }
 ?>

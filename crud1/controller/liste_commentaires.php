@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +60,7 @@
     }
     ?>
 
-    <!-- Ajoutez d'autres éléments HTML ou du code PHP au besoin -->
+   
 
 </body>
 

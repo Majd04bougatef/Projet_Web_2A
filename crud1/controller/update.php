@@ -11,7 +11,7 @@ $pdo = config::getConnexion();
 if (isset($_GET["id_event"])) {
     $eventId = $_GET["id_event"];
 
-   
+
     $event = $eventC->showEvent($eventId);
 
 
@@ -33,9 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($missingFields)) {
-       
+
         $event = new Event(
-            $_POST['id_e'], 
+            $_POST['id_e'],
             $_POST['titre_Event'],
             $_POST['sujetEvent'],
             $_POST['descEvent'],
@@ -44,13 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['date_Fin_Event'],
             $_POST['capacite'],
             $_POST['idUser'],
-            $_FILES['eventImage']['name'] 
+            $_FILES['eventImage']['name']
         );
 
-      
+
         $eventC->updateEvent($event);
 
-        
+
         header('Location: listevents.php');
         exit();
     } else {
@@ -209,42 +209,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="modal__body">
                 <?php if ($error): ?>
-                    <div class="input__error"><?= $error; ?></div>
+                    <div class="input__error">
+                        <?= $error; ?>
+                    </div>
                 <?php endif; ?>
                 <form method="post" action="" enctype="multipart/form-data">
                     <input type="hidden" name="id_event" value="<?php echo $event['id_e']; ?>">
                     <div class="input">
                         <label class="input__label" for="titreEvent">Event Title</label>
-                        <input class="input__field" type="text" name="titreEvent" id="titreEvent" value="<?php echo $event['titre_event']; ?>" required>
+                        <input class="input__field" type="text" name="titreEvent" id="titreEvent"
+                            value="<?php echo $event['titre_event']; ?>" required>
                     </div>
                     <div class="input">
-                        
-                    
 
-<label class="input__label" for="descEvent">Event Description</label>
-                        <input class="input__field" type="text" name="sujetEvent" id="sujetEvent" value="<?php echo $event['sujet_event']; ?>" maxlength="50" required>
+
+
+                        <label class="input__label" for="descEvent">Event Description</label>
+                        <input class="input__field" type="text" name="sujetEvent" id="sujetEvent"
+                            value="<?php echo $event['sujet_event']; ?>" maxlength="50" required>
                     </div>
-                    
-                  
+
+
                     <div class="input">
                         <label class="input__label" for="lieuEvent">Event Location</label>
-                        <input class="input__field" type="text" name="lieuEvent" id="lieuEvent" value="<?php echo $event['lieu_event']; ?>" required>
+                        <input class="input__field" type="text" name="lieuEvent" id="lieuEvent"
+                            value="<?php echo $event['lieu_event']; ?>" required>
                     </div>
                     <div class="input">
                         <label class="input__label" for="dateDebutEvent">Event Start Date</label>
-                        <input class="input__field" type="datetime-local" name="dateDebutEvent" id="dateDebutEvent" value="<?php echo $event['date_debut_event']; ?>" required>
+                        <input class="input__field" type="datetime-local" name="dateDebutEvent" id="dateDebutEvent"
+                            value="<?php echo $event['date_debut_event']; ?>" required>
                     </div>
                     <div class="input">
                         <label class="input__label" for="dateFinEvent">Event End Date</label>
-                        <input class="input__field" type="datetime-local" name="dateFinEvent" id="dateFinEvent" value="<?php echo $event['date_fin_event']; ?>" required>
+                        <input class="input__field" type="datetime-local" name="dateFinEvent" id="dateFinEvent"
+                            value="<?php echo $event['date_fin_event']; ?>" required>
                     </div>
                     <div class="input">
                         <label class="input__label" for="capacite">Event Capacity</label>
-                        <input class="input__field" type="number" name="capacite" id="capacite" value="<?php echo $event['capacite']; ?>" required>
+                        <input class="input__field" type="number" name="capacite" id="capacite"
+                            value="<?php echo $event['capacite']; ?>" required>
                     </div>
                     <div class="input">
                         <label class="input__label" for="idUser">User ID</label>
-                        <input class="input__field" type="text" name="idUser" id="idUser" value="<?php echo $event['id_user']; ?>" required>
+                        <input class="input__field" type="text" name="idUser" id="idUser"
+                            value="<?php echo $event['id_user']; ?>" required>
                     </div>
                     <div class="input">
                         <label class="input__label" for="eventImage">Event Image</label>

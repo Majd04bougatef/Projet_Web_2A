@@ -6,7 +6,7 @@ $error = "";
 $eventC = new EventC();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
+
     $requiredFields = ['eventName', 'eventDescription', 'eventLocation', 'eventDate', 'eventEndDate', 'eventCapacity', 'idUser',];
     $missingFields = [];
 
@@ -17,33 +17,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($missingFields)) {
- 
+
         $event = new Event(
             null,
             $_POST['eventName'],
             $_POST['eventDescription'],
-            '', 
+            '',
             $_POST['eventLocation'],
             $_POST['eventDate'],
-            $_POST['eventEndDate'], 
-            intval($_POST['eventCapacity']), 
+            $_POST['eventEndDate'],
+            intval($_POST['eventCapacity']),
             $_POST['idUser'],
-            $_FILES['eventImage']['name'] 
+            $_FILES['eventImage']['name']
         );
 
         if ($eventC->userExists($_POST['idUser'])) {
-         
-            $uploadDir = 'images/'; 
+
+            $uploadDir = 'images/';
             $uploadedFile = $uploadDir . basename($_FILES['eventImage']['name']);
-            
+
 
             if (move_uploaded_file($_FILES['eventImage']['tmp_name'], $uploadedFile)) {
                 $event->setImage($uploadedFile);
 
-     
+
                 $eventC->addEvent($event);
 
-             
+
                 header('Location: listevents.php');
                 exit();
             } else {
@@ -66,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Creation</title>
     <style>
-     
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -77,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         form {
             margin-top: 10%;
         }
+
         header {
             background: linear-gradient(rgba(152, 193, 248, 0.4), rgba(255, 248, 248, 0.4)),
                 url(https://i.pinimg.com/564x/b8/d9/db/b8d9dbbecf1144a150f4230255a112d4.jpg);
@@ -213,7 +213,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="modal__body">
                 <?php if ($error): ?>
-                    <div class="input__error"><?= $error; ?></div>
+                    <div class="input__error">
+                        <?= $error; ?>
+                    </div>
                 <?php endif; ?>
                 <form method="post" action="" enctype="multipart/form-data">
                     <div class="input">
@@ -222,7 +224,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <div class="input">
                         <label class="input__label" for="eventDescription">Event Description</label>
-                        <textarea class="input__field" name="eventDescription" id="eventDescription" rows="4" required></textarea>
+                        <textarea class="input__field" name="eventDescription" id="eventDescription" rows="4"
+                            required></textarea>
                     </div>
                     <div class="input">
                         <label class="input__label" for="eventLocation">Event Location</label>
@@ -234,7 +237,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <div class="input">
                         <label class="input__label" for="eventEndDate">Event End Date</label>
-                        <input class="input__field" type="datetime-local" name="eventEndDate" id="eventEndDate" required>
+                        <input class="input__field" type="datetime-local" name="eventEndDate" id="eventEndDate"
+                            required>
                     </div>
                     <div class="input">
                         <label class="input__label" for="eventCapacity">Event Capacity</label>
@@ -246,7 +250,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <div class="input">
                         <label class="input__label" for="eventImage">Event Image</label>
-                        <input class="input__field" type="file" name="eventImage" id="eventImage" accept="image/*" required>
+                        <input class="input__field" type="file" name="eventImage" id="eventImage" accept="image/*"
+                            required>
                     </div>
                     <div class="modal__footer">
                         <button class="button button--primary" type="submit">Add Event</button>
@@ -255,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
-</div>
+    </div>
 </body>
 
 </html>
