@@ -48,7 +48,7 @@
 
                    
                     <li class="">
-                        <a href="consulter_consultation.php">
+                        <a href="selectionner_dossier_medecin.php">
                             <i class="bx bxs-box icon"></i>
                             <span class="text nav-text">Consulter Dossier</span>
                         </a>

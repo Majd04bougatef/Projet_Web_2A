@@ -96,6 +96,23 @@ class ordonnancefunction
         }
     }
 
+    public function lister_ordonnance($id_c)
+    {
+        $sql = "SELECT * FROM ordonnance WHERE id_c=:id";
+        $db = config::getConnexion();
+
+        try {
+            $query = $db->prepare($sql);
+
+            $query->execute([
+                'id' => $id_c
+            ]);
+
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
     
 
 

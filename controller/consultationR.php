@@ -201,7 +201,9 @@ class consultationfunction
                 'id_rdv' => $consult->getId_r(),
                 'id_m'=>'MM12345676'
             ]);
-    
+
+            $query2 = $db->prepare("UPDATE rendezvous SET statut=1 WHERE id_rdv=:id");
+            $query2->execute([ 'id' => $consult->getId_r() ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }
@@ -210,7 +212,7 @@ class consultationfunction
 
     public function listDossier($id)
     {
-        $sql = "SELECT DISTINCT consultation.id_c, consultation.date_consultation, consultation.description_consultation, consultation.symptomes, consultation.prescription_consultation, consultation.examen_consultation, consultation.isdelete FROM consultation, rendezvous, user WHERE consultation.id_rdv = rendezvous.id_rdv AND rendezvous.id_user =:id AND consultation.isdelete = 0;";
+        $sql = "SELECT DISTINCT ordonnance.fichier_pdf , consultation.id_c, consultation.date_consultation, consultation.description_consultation, consultation.symptomes, consultation.prescription_consultation, consultation.examen_consultation, consultation.isdelete FROM ordonnance,consultation, rendezvous, user WHERE consultation.id_rdv = rendezvous.id_rdv AND rendezvous.id_user =:id AND ordonnance.id_c=consultation.id_c AND consultation.isdelete = 0;";
         $db = config::getConnexion();
         try {
             $list = $db->prepare($sql);

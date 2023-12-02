@@ -1,23 +1,12 @@
-<?php
-    include '../controller/consultationR.php';
 
-    $consult = new consultationfunction();
-    $list = [];
-
-    if (isset($_POST['id'])) {
-        $id = $_POST['id'];
-        if (!empty($id)) {
-            $list = $consult->lister_Medecin($id);
-        }
-    }
-?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/consulter consultation/consulter_Consultation.css"> 
+    <link rel="stylesheet" href="../assets/consulter consultation/consulter_Consultation.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
     <title>Consulter Dossier</title>
 </head>
 <body>
@@ -27,37 +16,30 @@
         
 
 
-            <div class="flex">
-                <label>
-                    <span>ID Patient : *</span>
-                    <input class="input" type="text" name="id">
-                </label>
+        <div class="flex">
+            <label>
+                <span>ID Patient : *</span>
+                <input class="input" type="text" name="id" oninput="valider_champs()">
+            </label>
 
-                <label>
-                    <form>
-                        <span>Medecin : *</span>
-                        <select name="medecin" id="medecinSelect">
-                            <option>Selectionner un medecin</option>
-                            <?php
-                                foreach ($list as $med){
-                            ?>
-                                <option value="<?php echo $med['id_med']; ?>"><?php echo $med['nom'].'  '.$med['prenom']; ?></option>
-                            <?php
-                                }
-                            ?>
-                        </select>
-                        <input class="submit" type="button" value="Afficher Médecin" onclick="submitForm('selectionner_dossier.php')">
-                    </form>
-                                    <input class="submit" type="submit" value="Consulter" onclick="submitForm('../view/dossier_patient.php')">
+            <label>
+                <span>Medecin : *</span>
+                <br>
+                <select name="medecin" id="medecinSelect" style="height:63px;width:60%;">
+                    <option>Selectionner un medecin</option>
+                    <?php
+                        foreach ($list as $med){
+                    ?>
+                        <option value="<?php echo $med['id_med']; ?>"><?php echo $med['nom'].'  '.$med['prenom']; ?></option>
+                    <?php
+                        }
+                    ?>
+                </select>
+            </label>
+        </div>
 
-                </label>
+        <input class="submit" type="submit" value="Consulter" onclick="submitForm('../view/dossier_patient.php')" >
 
-            </div>
-
-          
-           
-        </p>
-        
 
     </form>
 
@@ -65,19 +47,20 @@
         function valider_champs() {
             var id = document.getElementsByName("id")[0].value;
 
-            if (id === "") {
-                alert("Donner une ID");
-                event.preventDefault();
-                return false;
+            if (id.length === 10) {
+                $.ajax({
+                    type: 'POST',
+                    url: '../controller/listermedecin.php',
+                    data: { id: id },
+                    success: function(response) {
+                        console.log('Réponse du serveur :', response);
+                        $('#medecinSelect').html(response);
+                    },
+                    error: function() {
+                        alert('Erreur lors de la mise à jour de la liste déroulante');
+                    }
+                });
             }
-
-            if (id.length !== 10) {
-                alert("L'ID doit avoir une longueur de 10 caractères");
-                event.preventDefault();
-                return false;
-            }
-
-            return true;
         }
 
         function submitForm(action) {

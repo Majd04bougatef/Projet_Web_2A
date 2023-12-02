@@ -1,9 +1,15 @@
 <?php
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
 header('Content-Type: text/html; charset=utf-8');
 require('../view/fpdf/fpdf.php');
-include'../controller/ordonnanceR.php';
+include '../controller/ordonnanceR.php';
+require __DIR__ . "/vendor/autoload.php";
 
-// Vérifiez si les clés existent avant de les utiliser
 $nom_pat = isset($_GET['nomPatient']) ? $_GET['nomPatient'] : '';
 $prenom_pat = isset($_GET['prenomPatient']) ? $_GET['prenomPatient'] : '';
 $age_pat = isset($_GET['agePatient']) ? $_GET['agePatient'] : '';
@@ -12,11 +18,11 @@ $prenom_med = isset($_GET['prenomMedecin']) ? $_GET['prenomMedecin'] : '';
 $date = isset($_GET['date']) ? $_GET['date'] : '';
 $id_c = isset($_GET['id_c']) ? $_GET['id_c'] : '';
 
+
 $medicaments = isset($_GET['nomMedicament']) ? $_GET['nomMedicament'] : [];
 $posologies = isset($_GET['posologie']) ? $_GET['posologie'] : [];
 $remarques = isset($_GET['remarques']) ? $_GET['remarques'] : [];
 
-// Supprimez tout ce qui a déjà été envoyé
 ob_clean();
 
 $pdf = new FPDF();
@@ -66,6 +72,11 @@ $pdf->SetFont('Courier', '', 13);
 $pdf->SetTextColor(0,0,0);
 $pdf->Cell(0, 10, utf8_decode('Mr/Me/Mme : '.$nom_pat.' '.$prenom_pat), 0, 1);
 
+
+$pdf->SetXY(10,85);
+$pdf->SetFont('Courier', '', 13);
+$pdf->SetTextColor(0,0,0);
+$pdf->Cell(0, 10, utf8_decode('Age : '.$age_pat), 0, 1);
 $pdf->Ln(20);
 
 foreach ($medicaments as $i => $medicament) {
@@ -92,14 +103,47 @@ $pdf->Line(10, $pdf->GetY() + 2, 200, $pdf->GetY() + 2);
 
 
 
-$pdfContent = $pdf->Output('S', 'ordonnance_'.$nom_pat.'_'.$prenom_pat.'.pdf', true);
+$pdfContent = $pdf->Output(dest: '', name: 'ordonnance_' . $nom_pat . '_' . $prenom_pat .'_'.$date.'.pdf', isUTF8: true);
 
-// Enregistrement dans la base de données
+
+$pdfFilePath = '../ordonnance/ordonnance_' . $nom_pat . '_' . $prenom_pat .'_'.$date.'.pdf';
+$pdf->Output($pdfFilePath, 'F'); 
+
+
 $ordR = new ordonnancefunction();
-$ordR->addOrdonnanceWithPDF($id_c,$pdfContent);
+$ordR->addOrdonnanceWithPDF($id_c, $pdfFilePath);
+
+$mail = new PHPMailer(true);
+
+try {
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Username = 'bougatefmajd9@gmail.com';
+    $mail->Password = 'elqk unie zvws vckh';
+    $mail->Port = 587;
+
+    $mail->setFrom("bougatefmajd9@gmail.com");
+    $mail->addAddress("bougatefmajd9@gmail.com");
+
+    $mail->isHTML(true);
+    $mail->Subject = 'Message de test';
+    $mail->Body = 'Ceci est un simple message de test.';
+    $mail->AltBody = 'Ceci est un simple message de test en texte brut.';
 
 
 
+    $mail->addAttachment($pdfFilePath, 'ordonnance.pdf');
+
+    $mail->send();
+
+
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+}
 
 exit();
+
 ?>

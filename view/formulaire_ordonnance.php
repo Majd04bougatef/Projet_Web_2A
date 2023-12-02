@@ -114,7 +114,6 @@
             $('#successMessage').removeClass('hidden');
         }
 
-        // Ajoutez ici la logique pour télécharger le PDF.
         $('#successMessage').on('click', '#downloadPDF', function (e) {
             e.preventDefault();
             window.location.href = '../view/ordonnance_pdf.php?' + $('form').serialize();

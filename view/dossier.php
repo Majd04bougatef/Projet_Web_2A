@@ -37,6 +37,7 @@
                 <th>Symptomes</th>
                 <th>Prescription consultation</th>
                 <th>Examen</th>
+                <th>Ordonnance</th>
                 <th>Modification</th>
                 <th>Supprimer</th>
             </tr>
@@ -45,13 +46,22 @@
                 foreach ($list as $dossier){
             ?>
                 <tr>
-                    <td><?php echo $dossier['date_consultation'];?></td>
-                    <td><?php echo $dossier['description_consultation'];?></td>
-                    <td><?php echo $dossier['symptomes'];?></td>
-                    <td><?php echo $dossier['prescription_consultation'];?></td>
-                    <td><?php echo $dossier['examen_consultation'];?></td>
-                    <td><a href="formualire_modifier_consultation.php?id_c=<?php echo $dossier['id_c']; ?>">Modifier</a></td>
-                    <td><a href="#" onclick="confirmDelete(<?php echo $dossier['id_c']; ?>)">Supprimer</a></td>
+                <td><?php echo $dossier['date_consultation']; ?></td>
+                <td><?php echo $dossier['description_consultation']; ?></td>
+                <td><?php echo $dossier['symptomes']; ?></td>
+                <td><?php echo $dossier['prescription_consultation']; ?></td>
+                <td><?php echo $dossier['examen_consultation']; ?></td>
+                <td>
+                    <?php
+                        if (empty($dossier['fichier_pdf'])) {
+                            echo '<a href="../ordonnance/ordonnance_ahmed_ben mansour.pdf' . $dossier['fichier_pdf'] . '" target="_blank">Voir PDF</a>';
+                        } else {
+                            echo 'Aucun fichier PDF disponible';
+                        }
+                    ?>
+                </td>
+                <td><a href="formualire_modifier_consultation.php?id_c=<?php echo $dossier['id_c']; ?>">Modifier</a></td>
+                <td><a href="#" onclick="confirmDelete(<?php echo $dossier['id_c']; ?>)">Supprimer</a></td>
 
                 </tr>
             <?php

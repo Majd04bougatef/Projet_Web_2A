@@ -4,11 +4,11 @@
   --timeHeight: 60px;
   --calBgColor: #cfdcef;
   --eventBorderColor: #023E8A;
-  --eventColor1: #03045E;
-  --eventColor2: #0077B6;
-  --eventColor3: #48CAE4;
-  --eventColor4: #48CAE4;
-  --eventColor5: #90E0EF;
+  --eventColor1: rgba(181, 181, 199, 0.843);
+  --eventColor2: rgb(196, 196, 61);
+  --eventColor3: rgb(22, 137, 7);
+  --eventColor4: rgb(13, 97, 242);
+  --eventColor5: rgb(161, 27, 32);
 }
 
 
@@ -71,6 +71,7 @@ a{
   grid-template-rows: repeat(var(--numHours), var(--timeHeight));
   border-radius: 5px;
   background: var(--calBgColor);
+
 }
 
 .start-10 {
@@ -120,7 +121,7 @@ a{
   padding: 0.5rem;
   margin: 0 0.5rem;
   background: white;
-
+  display: flex;
 }
 
 .space,
@@ -145,11 +146,11 @@ body {
 }
 
 .securities {
-  background: var(--eventColor2);
+  background: var(--eventColor4);
 }
 
 .ssecurities {
-  background: var(--eventColor1);
+  background: var(--eventColor5);
 }
 
 
@@ -168,4 +169,47 @@ body {
   display: inline;
   font-size: 3rem;
   font-weight: 100;
+}
+
+input[type="date"]{
+  background-color: #d7d5d5;
+  padding: 10px;
+
+  
+  font-family: "Roboto Mono",monospace;
+  color: #ffffff;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+::-webkit-calendar-picker-indicator{
+  background-color: #ffffff;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+
+select {
+  background-color: #d7d5d5;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 300px;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #0077B6;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
