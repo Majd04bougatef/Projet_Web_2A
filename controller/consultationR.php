@@ -6,7 +6,7 @@ class consultationfunction
 {
 
     //Medecin
-    public function listRendez_vous_calendar_Monday($selectedDate)
+    public function listRendez_vous_calendar_Monday($selectedDate,$id_m)
     {
         if (empty($selectedDate)) {
             $selectedDate = date('Y-m-d');
@@ -22,18 +22,19 @@ class consultationfunction
 
 
         
-        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user AND rendezvous.id_med=:id_m";
         $db = config::getConnexion();
         try {
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':selectedDate', $mondayOfSelectedWeek);
+            $stmt->bindParam(':id_m', $id_m);
             $stmt->execute();
             return $stmt->fetchAll();
         } catch (Exception $e) {
             die('Error:' . $e->getMessage());
         }
     }
-    public function listRendez_vous_calendar_Tuesday($selectedDate)
+    public function listRendez_vous_calendar_Tuesday($selectedDate,$id_m)
     {
         if (empty($selectedDate)) {
             $selectedDate = date('Y-m-d');
@@ -49,11 +50,12 @@ class consultationfunction
     
 
         
-        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user AND rendezvous.id_med=:id_m";
         $db = config::getConnexion();
         try {
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':selectedDate', $tuesdayOfSelectedWeek);
+            $stmt->bindParam(':id_m', $id_m);
             $stmt->execute();
             return $stmt->fetchAll();
         } catch (Exception $e) {
@@ -61,7 +63,7 @@ class consultationfunction
         }
     }
 
-    public function listRendez_vous_calendar_Wednesday($selectedDate)
+    public function listRendez_vous_calendar_Wednesday($selectedDate,$id_m)
     {
         if (empty($selectedDate)) {
             $selectedDate = date('Y-m-d');
@@ -79,11 +81,12 @@ class consultationfunction
 
     
         
-        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user AND rendezvous.id_med=:id_m";
         $db = config::getConnexion();
         try {
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':selectedDate', $wednesdayOfSelectedWeek);
+            $stmt->bindParam(':id_m', $id_m);
             $stmt->execute();
             return $stmt->fetchAll();
         } catch (Exception $e) {
@@ -91,7 +94,7 @@ class consultationfunction
         }
     }
 
-    public function listRendez_vous_calendar_Thursday($selectedDate)
+    public function listRendez_vous_calendar_Thursday($selectedDate,$id_m)
     {
         if (empty($selectedDate)) {
             $selectedDate = date('Y-m-d');
@@ -109,11 +112,12 @@ class consultationfunction
 
        
         
-        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user AND rendezvous.id_med=:id_m";
         $db = config::getConnexion();
         try {
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':selectedDate', $thursdayOfSelectedWeek);
+            $stmt->bindParam(':id_m', $id_m);
             $stmt->execute();
             return $stmt->fetchAll();
         } catch (Exception $e) {
@@ -121,7 +125,7 @@ class consultationfunction
         }
     }
 
-    public function listRendez_vous_calendar_Friday($selectedDate)
+    public function listRendez_vous_calendar_Friday($selectedDate,$id_m)
     {
         if (empty($selectedDate)) {
             $selectedDate = date('Y-m-d');
@@ -139,11 +143,12 @@ class consultationfunction
 
     
         
-        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user";
+        $sql = "SELECT * FROM rendezvous, user WHERE rendezvous.date_rdv = :selectedDate AND isdelete = 0 AND rendezvous.id_user = user.id_user AND rendezvous.id_med=:id_m";
         $db = config::getConnexion();
         try {
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':selectedDate', $fridayOfSelectedWeek);
+            $stmt->bindParam(':id_m', $id_m);
             $stmt->execute();
             return $stmt->fetchAll();
         } catch (Exception $e) {
@@ -210,14 +215,16 @@ class consultationfunction
     }
 
 
-    public function listDossier($id)
+    public function listDossier($id,$id_m)
     {
-        $sql = "SELECT DISTINCT ordonnance.fichier_pdf , consultation.id_c, consultation.date_consultation, consultation.description_consultation, consultation.symptomes, consultation.prescription_consultation, consultation.examen_consultation, consultation.isdelete FROM ordonnance,consultation, rendezvous, user WHERE consultation.id_rdv = rendezvous.id_rdv AND rendezvous.id_user =:id AND ordonnance.id_c=consultation.id_c AND consultation.isdelete = 0;";
+        $sql = "SELECT user.nom ,user.prenom,consultation.id_c, consultation.date_consultation, consultation.description_consultation, consultation.symptomes, consultation.prescription_consultation, consultation.examen_consultation, consultation.isdelete FROM user,rendezvous,consultation WHERE user.id_user=:id1 AND rendezvous.id_user=:id2 AND rendezvous.id_med=:id_m AND rendezvous.id_rdv=consultation.id_rdv AND consultation.isdelete=0";
         $db = config::getConnexion();
         try {
             $list = $db->prepare($sql);
             $list->execute([
-                'id' => $id
+                'id1' => $id,
+                'id2' => $id,
+                'id_m' => $id_m
             ]);
             return $list;
         } catch (Exception $e) {

@@ -4,18 +4,18 @@ $consultR = new consultationfunction();
 
 if (!isset($_POST['date'])) {
   $selectedDate = date('Y-m-d');
-  $list_Monday = $consultR->listRendez_vous_calendar_Monday($selectedDate);
-  $list_Tuesday = $consultR->listRendez_vous_calendar_Tuesday($selectedDate);
-  $list_Wednesday = $consultR->listRendez_vous_calendar_Wednesday($selectedDate);
-  $list_Thursday = $consultR->listRendez_vous_calendar_Thursday($selectedDate);
-  $list_Friday = $consultR->listRendez_vous_calendar_Friday($selectedDate);
+  $list_Monday = $consultR->listRendez_vous_calendar_Monday($selectedDate,'MM12345676');
+  $list_Tuesday = $consultR->listRendez_vous_calendar_Tuesday($selectedDate,'MM12345676');
+  $list_Wednesday = $consultR->listRendez_vous_calendar_Wednesday($selectedDate,'MM12345676');
+  $list_Thursday = $consultR->listRendez_vous_calendar_Thursday($selectedDate,'MM12345676');
+  $list_Friday = $consultR->listRendez_vous_calendar_Friday($selectedDate,'MM12345676');
 } else {
   $selectedDate = $_POST['date'];
-  $list_Monday = $consultR->listRendez_vous_calendar_Monday($selectedDate);
-  $list_Tuesday = $consultR->listRendez_vous_calendar_Tuesday($selectedDate);
-  $list_Wednesday = $consultR->listRendez_vous_calendar_Wednesday($selectedDate);
-  $list_Thursday = $consultR->listRendez_vous_calendar_Thursday($selectedDate);
-  $list_Friday = $consultR->listRendez_vous_calendar_Friday($selectedDate);
+  $list_Monday = $consultR->listRendez_vous_calendar_Monday($selectedDate,'MM12345676');
+  $list_Tuesday = $consultR->listRendez_vous_calendar_Tuesday($selectedDate,'MM12345676');
+  $list_Wednesday = $consultR->listRendez_vous_calendar_Wednesday($selectedDate,'MM12345676');
+  $list_Thursday = $consultR->listRendez_vous_calendar_Thursday($selectedDate,'MM12345676');
+  $list_Friday = $consultR->listRendez_vous_calendar_Friday($selectedDate,'MM12345676');
 }
 ?>
 

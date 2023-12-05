@@ -5,7 +5,7 @@
 
     $consult = new consultationfunction();
 
-    $list =  $consult->listDossier($_POST['id']);
+    $list =  $consult->listDossier($_POST['id'],'MM12345676');
 
 
 ?>
@@ -54,7 +54,7 @@
                 <td>
                     <?php
                         if (empty($dossier['fichier_pdf'])) {
-                            echo '<a href="../ordonnance/ordonnance_ahmed_ben mansour.pdf' . $dossier['fichier_pdf'] . '" target="_blank">Voir PDF</a>';
+                            echo '<a href="../ordonnance/ordonnance_'.$dossier['nom'].'_'.$dossier['prenom'].'_'.$dossier['date_consultation'].'.pdf' . '" target="_blank">Voir PDF</a>';
                         } else {
                             echo 'Aucun fichier PDF disponible';
                         }
