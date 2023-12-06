@@ -258,11 +258,12 @@ button:active {
                 </div>
             </div>
         <?php endforeach; ?>
-    </div>
-
-    <a href="add.php"></a><button>
+        <a href="add.php"></a><button>
     ajouter un evenement 
 </button>
+    </div>
+
+
 
 </body>
 
