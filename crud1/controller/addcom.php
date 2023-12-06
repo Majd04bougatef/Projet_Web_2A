@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
            
-            echo "Error adding comment: " . $result;
+             "Error adding comment: " . $result;
         }
     } else {
         

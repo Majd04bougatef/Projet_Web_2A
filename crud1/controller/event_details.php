@@ -77,6 +77,8 @@ if (isset($_GET["id_event"])) {
         
     <footer>
         <a href="calendrier.php?id_event=<?= $eventId ?>"><button>Retour à la liste des événements</button></a>
+
+        <a href="../view/index.php?id_event=<?= $eventId ?>"><button>Retour à l'Acceuil</button></a>
     </footer>
 
     </div>

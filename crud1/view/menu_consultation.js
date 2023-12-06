@@ -1,6 +1,3 @@
-
-
-
 document.addEventListener("DOMContentLoaded", function() {
     const body = document.querySelector("body"),
     sidebar = body.querySelector(".sidebar"),
@@ -23,12 +20,6 @@ modeSwitch.addEventListener("click", () => {
         modeText.innerHTML="Dark Mode";
     }
 });
-
-
-
-
-
-
 
 const navLinks = document.querySelectorAll('.nav-link a');
 
