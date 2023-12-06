@@ -1,0 +1,199 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+header {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    text-align: center;
+    padding: 5rem 2rem;
+}
+
+h1 {
+    color: #e44d26; /* Rouge */
+    font-size: 32px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-decoration: underline;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.event-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.event-card {
+    width: 300px;
+    border: 3px solid #622bfb0e;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    background-color: #ffffff9b;
+}
+
+.event-card:hover {
+    transform: scale(1.05);
+}
+
+.event-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #ddddddc8;
+}
+
+.event-details {
+    padding: 20px;
+}
+
+.event-title {
+    color: rgb(51, 51, 51);
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.event-description {
+    font-size: 16px;
+    color: #555555;
+}
+
+.event-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.event-actions a {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.event-actions a.edit,
+.event-actions a.delete {
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.event-actions a.edit {
+    background-color: #4caf50; 
+    color: #fff;
+}
+
+.event-actions a.delete {
+    background-color: #dc3545; /* Rouge */
+    color: #fff;
+}
+
+.event-actions a.edit:hover,
+.event-actions a.delete:hover {
+    background-color: #0056b3; /* Bleu foncé au survol */
+}
+
+
+input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #4caf50;
+}
+
+.ui-btn {
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #2ba8fb;
+    width: 120px;
+    height: 40px;
+    transition: 0.2s ease;
+    text-transform: uppercase;
+    border-width: 2px;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.ui-btn:hover {
+    background-color: #217dbb;
+}
+
+.ui-btn:active {
+    width: 115px;
+    height: 38px;
+}
+
+button {
+    padding: 12.5px 30px;
+    border: 0;
+    border-radius: 100px;
+    background-color: #2ba8fb;
+    color: #ffffff;
+    font-weight: bold;
+    transition: all 0.5s;
+}
+
+button:hover {
+    background-color: #217dbb;
+    box-shadow: 0 0 20px #6fc5ff50;
+    transform: scale(1.1);
+}
+
+button:active {
+    background-color: #195784;
+    transition: all 0.25s;
+    box-shadow: none;
+    transform: scale(0.98);
+}

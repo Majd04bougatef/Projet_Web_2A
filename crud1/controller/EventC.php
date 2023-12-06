@@ -73,28 +73,31 @@ class EventC
         }
     }
     public function addEvent($event)
-    {
-        $sql = "INSERT INTO evenement 
-                VALUES (NULL, :titre, :sujet, :desc, :lieu, :dateDebut, :dateFin, :capacite, :idUser)";
-        $db = config::getConnexion();
+{
+    $sql = "INSERT INTO evenement 
+            VALUES (NULL, :titre, :sujet, :desc, :lieu, :dateDebut, :dateFin, :capacite, :idUser, :image)";
+    $db = config::getConnexion();
 
-        try {
-            $query = $db->prepare($sql);
-            $query->execute([
-                'titre' => $event->getTitreEvent(),
-                'sujet' => $event->getSujetEvent(),
-                'desc' => $event->getDescEvent(),
-                'lieu' => $event->getLieuEvent(),
-                'dateDebut' => $event->getDateDebutEvent(),
-                'dateFin' => $event->getDateFinEvent(),
-                'capacite' => $event->getCapacite(),
-                'idUser' => $event->getIdUser(),
-            ]);
-            return "Event added successfully.";
-        } catch (Exception $e) {
-            throw new Exception('Error adding event: ' . $e->getMessage());
-        }
+    try {
+        $query = $db->prepare($sql);
+        $query->execute([
+            'titre' => $event->getTitreEvent(),
+            'sujet' => $event->getSujetEvent(),
+            'desc' => $event->getDescEvent(),
+            'lieu' => $event->getLieuEvent(),
+            'dateDebut' => $event->getDateDebutEvent(),
+            'dateFin' => $event->getDateFinEvent(),
+            'capacite' => $event->getCapacite(),
+            'idUser' => $event->getIdUser(),
+            'image' => $event->getImage(),  // Ajoutez cette ligne pour la colonne 'image'
+        ]);
+        return "Event added successfully.";
+    } catch (Exception $e) {
+        throw new Exception('Error adding event: ' . $e->getMessage());
     }
+}
+
+    
 
 
 
@@ -145,6 +148,33 @@ class EventC
             // Utilisez un log ou gestionnaire d'erreurs approprié au lieu de mourir directement
             die('Error: ' . $e->getMessage());
         }
+    }
+    public function searchEvents($searchTerm)
+    {
+        $db = Config::getConnexion();
+        $query = "SELECT * FROM evenement WHERE titre_event LIKE '%$searchTerm%'";
+        $result = $db->query($query);
+        return $result->fetchAll();
+    }
+    public function showCalendar()
+    {
+        $query = "SELECT id_e, titre_event, date_debut_event, date_fin_event FROM evenement";
+        $db = config::getConnexion();
+        $stmt = $db->query($query);
+        $events = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $event = array(
+                'id_e' => $row['id_e'],
+                'titre_event' => $row['titre_event'],
+                'date_debut' => $row['date_debut_event'],
+                'date_fin' => $row['date_fin_event'],
+                
+            );
+            $events[] = $event;
+        }
+
+        return $events;
     }
     
 }

@@ -27,7 +27,7 @@ class CommentC
     public function deleteComment($commentId)
     {
         $sql = "DELETE FROM commentaire WHERE id_commentaire = :commentId";
-        $db = Config::getConnexion();  // Assurez-vous que la classe Config est correctement référencée
+        $db = Config::getConnexion();  
 
         try {
             $query = $db->prepare($sql);
@@ -40,7 +40,7 @@ class CommentC
     }
     public function listComments()
     {
-        $sql = "SELECT * FROM commentaire"; // ajustez la requête en fonction de votre structure de base de données
+        $sql = "SELECT * FROM commentaire"; 
         $db = config::getConnexion();
 
         try {
