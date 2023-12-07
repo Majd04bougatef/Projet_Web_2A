@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sélection dépendante</title>
+</head>
+<body>
+
+<form>
+    <label for="pays">Sélectionnez un pays :</label>
+    <select id="pays" onchange="chargerVilles()">
+        <option value="tunisie">Tunisie</option>
+        <option value="france">France</option>
+        <!-- Ajoutez d'autres pays au besoin -->
+    </select>
+
+    <br>
+
+    <label for="ville">Sélectionnez une ville :</label>
+    <select id="ville" onchange="chargerGouvernements()">
+        <!-- Les options seront chargées dynamiquement en JavaScript -->
+    </select>
+
+    <br>
+
+    <label for="gouvernement">Sélectionnez un gouvernement :</label>
+    <select id="gouvernement">
+        <!-- Les options seront chargées dynamiquement en JavaScript -->
+    </select>
+</form>
+
+<script>
+    function chargerVilles() {
+        var paysSelect = document.getElementById("pays");
+        var villeSelect = document.getElementById("ville");
+
+        // Efface les options actuelles
+        villeSelect.innerHTML = "";
+
+        // Ajoute les nouvelles options en fonction du pays sélectionné
+        if (paysSelect.value === "tunisie") {
+            ajouterOption(villeSelect, "tunis", "Tunis");
+            ajouterOption(villeSelect, "sfax", "Sfax");
+            ajouterOption(villeSelect, "sousse", "Sousse");
+            // Ajoutez d'autres villes tunisiennes au besoin
+        } else if (paysSelect.value === "france") {
+            ajouterOption(villeSelect, "paris", "Paris");
+            ajouterOption(villeSelect, "marseille", "Marseille");
+            ajouterOption(villeSelect, "lyon", "Lyon");
+            // Ajoutez d'autres villes françaises au besoin
+        }
+        
+        // Met à jour les gouvernements en fonction de la nouvelle sélection de la ville
+        chargerGouvernements();
+    }
+
+    function chargerGouvernements() {
+        var villeSelect = document.getElementById("ville");
+        var gouvernementSelect = document.getElementById("gouvernement");
+
+        // Efface les options actuelles
+        gouvernementSelect.innerHTML = "";
+
+        // Ajoute les nouvelles options en fonction de la ville sélectionnée
+        if (villeSelect.value === "tunis") {
+            ajouterOption(gouvernementSelect, "tunis", "Tunis");
+            ajouterOption(gouvernementSelect, "ariana", "Ariana");
+            ajouterOption(gouvernementSelect, "manouba", "Manouba");
+            // Ajoutez d'autres gouvernements tunisiens au besoin
+        } else if (villeSelect.value === "sfax") {
+            ajouterOption(gouvernementSelect, "sfax", "Sfax");
+            ajouterOption(gouvernementSelect, "kairouan", "Kairouan");
+            ajouterOption(gouvernementSelect, "mahdia", "Mahdia");
+            // Ajoutez d'autres gouvernements tunisiens au besoin
+        }
+        else if (villeSelect.value === "marseille") {
+            ajouterOption(gouvernementSelect, "ahmed", "ahmed");
+            ajouterOption(gouvernementSelect, "bm", "bm");
+            ajouterOption(gouvernementSelect, "lol", "lol");
+        // Ajoutez des conditions pour d'autres villes au besoin
+    }
+}
+
+    function ajouterOption(selectElement, value, text) {
+        var option = document.createElement("option");
+        option.value = value;
+        option.text = text;
+        selectElement.add(option);
+    }
+
+    // Charge initialement les villes au chargement de la page
+    chargerVilles();
+</script>
+
+</body>
+</html>

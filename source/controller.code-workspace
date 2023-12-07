@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../controller"
+		},
+		{
+			"path": "../model"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../view"
+		}
+	],
+	"settings": {}
+}
