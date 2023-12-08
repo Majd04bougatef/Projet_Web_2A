@@ -319,6 +319,7 @@ $events = $eventC->showCalendar();
 
       </div>
     </section><!-- End Services Section -->
+    
 
     <!-- ======= Appointment Section ======= -->
     <section id="appointment" class="appointment section-bg">
@@ -868,11 +869,11 @@ $events = $eventC->showCalendar();
         <div class="testimonial-wrap">
             <div class="testimonial-item">
                 <a href="../Controller/event_details.php?id_event=<?= $event['id_e']; ?>">
-                    <img src="<?= isset($event['image']) ? $event['image'] : '../controller/placeholder.jpeg'; ?>"
+                    <img src="<?= isset($event['image']) ? $event['image'] : '../controller/placeholder.gif'; ?>"
                         class="testimonial-img" alt="<?= $event['titre_event']; ?>">
                 </a>
                 <h3 data-aos="fade-up"><?= isset($event['titre_event']) ? $event['titre_event'] : 'Titre non spécifié'; ?></h3>                <p>
-                    <?php echo isset($event['desc_event']) ? $event['desc_event'] : 'Aucune description disponible'; ?>
+                    <?php echo isset($event['sujet_event']) ? $event['sujet_event'] : 'Aucune description disponible'; ?>
                     <?php echo isset($event['lieu_event']) ? $event['lieu_event'] : 'Lieu non spécifié'; ?>
                 </p>
             </div>

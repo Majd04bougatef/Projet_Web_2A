@@ -35,12 +35,12 @@ link.addEventListener('click', (e) => {
     const targetId = link.getAttribute('data-target');
 
     if (targetId === 'evenement') {
-        fetch('formulaire.php').then((response) => response.text()).then((html) => {
+        fetch('../controller/events.php').then((response) => response.text()).then((html) => {
             // Insérez le contenu dans la section
             contentSection.innerHTML = html;
         });
     } else {
-        fetch('formulaire.php').then((response) => response.text()).then((html) => {
+        fetch('../controller/events.php').then((response) => response.text()).then((html) => {
             // Insérez le contenu dans la section
             contentSection.innerHTML = html;
         });

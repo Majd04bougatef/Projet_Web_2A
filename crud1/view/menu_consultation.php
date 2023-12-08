@@ -62,14 +62,14 @@
                     <li class="">
                         <a href="../controller/listevents.php">
                             <i class="bx bx-bar-chart-alt-2 icon"></i>
-                            <span class="text nav-text">Modifier Consultation</span>
+                            <span class="text nav-text">afficher liste evenements</span>
                         </a>
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="../controller/events.php">
                             <i class="bx bx-bell icon"></i>
-                            <span class="text nav-text">Consulter Dossier</span>
+                            <span class="text nav-text">s'inscrire a l'evenement</span>
                         </a>
                     </li>
                 </ul>

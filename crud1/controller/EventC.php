@@ -89,7 +89,7 @@ class EventC
             'dateFin' => $event->getDateFinEvent(),
             'capacite' => $event->getCapacite(),
             'idUser' => $event->getIdUser(),
-            'image' => $event->getImage(),  // Ajoutez cette ligne pour la colonne 'image'
+            'image' => $event->getImage(),  
         ]);
         return "Event added successfully.";
     } catch (Exception $e) {
@@ -145,7 +145,7 @@ class EventC
             $event = $query->fetch();
             return $event;
         } catch (Exception $e) {
-            // Utilisez un log ou gestionnaire d'erreurs approprié au lieu de mourir directement
+          
             die('Error: ' . $e->getMessage());
         }
     }
@@ -156,26 +156,45 @@ class EventC
         $result = $db->query($query);
         return $result->fetchAll();
     }
-    public function showCalendar()
-    {
-        $query = "SELECT id_e, titre_event, date_debut_event, date_fin_event FROM evenement";
-        $db = config::getConnexion();
-        $stmt = $db->query($query);
-        $events = array();
+   public function showCalendar()
+{
+    $query = "SELECT id_e, titre_event, date_debut_event, date_fin_event FROM evenement";
+    $db = config::getConnexion();
+    $stmt = $db->query($query);
+    $events = array();
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $event = array(
-                'id_e' => $row['id_e'],
-                'titre_event' => $row['titre_event'],
-                'date_debut' => $row['date_debut_event'],
-                'date_fin' => $row['date_fin_event'],
-                
-            );
-            $events[] = $event;
-        }
-
-        return $events;
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $event = array(
+            'id_e' => $row['id_e'],
+            'titre_event' => $row['titre_event'],
+            'date_debut' => $row['date_debut_event'],
+            'date_fin' => $row['date_fin_event'],
+        );
+        $events[] = $event;
     }
+
+
+
+    return $events;
+}
+
+    function uploadImage($file, $uploadDir)
+{
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($fileExtension, $allowedExtensions)) {
+        return "Only JPG, JPEG, PNG, and GIF files are allowed.";
+    }
+
+    $targetPath = $uploadDir . basename($file['name']);
+
+    if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+        return $targetPath; 
+    } else {
+        return "Failed to upload the image.";
+    }
+}
     
 }
 ?>

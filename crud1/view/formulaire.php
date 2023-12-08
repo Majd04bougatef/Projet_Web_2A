@@ -78,7 +78,7 @@
 
     <main>
         <section>
-            <form action="traitement_formulaire.php" method="POST">
+            <form action="traitement_.php" method="POST">
                 <label for="titre">Titre de l'événement:</label>
                 <input type="text" id="titre" name="titre" required>
 

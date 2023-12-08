@@ -17,19 +17,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
 });
-function searchEvents() {
-  
-    var searchTerm = document.getElementById('searchInput').value.toLowerCase();
 
-    
-    var eventCards = document.querySelectorAll('.event-card');
-    eventCards.forEach(function(card) {
-        var title = card.querySelector('.event-title').textContent.toLowerCase();
-        if (title.includes(searchTerm)) {
-            card.style.display = 'block'; // Affiche la carte si le titre correspond
-        } else {
-            card.style.display = 'none'; // Masque la carte sinon
-        }
-    });
-}
 

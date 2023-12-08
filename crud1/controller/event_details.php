@@ -3,6 +3,7 @@ session_start();
 
 include_once '../Controller/EventC.php';
 include_once '../Controller/CommentC.php';
+include_once '../controller/participantC.php';
 
 $eventC = new EventC();
 $commentC = new CommentC();
@@ -37,11 +38,12 @@ if (isset($_GET["id_event"])) {
 
         <div class="event-details">
             <h2><?= $eventDetails['titre_event'] ?></h2>
-            <p>Capacité : <?= $eventDetails['capacite'] ?></p>
             <p>description : <?= $eventDetails['sujet_event'] ?></p>
-            <p>Date de fin : <?= $eventDetails['date_fin_event'] ?></p>
+            <p>Date debut : <?= $eventDetails['date_debut_event'] ?></p>
+            <p>Date fin : <?= $eventDetails['date_fin_event'] ?></p>
             <p>Lieu : <?= $eventDetails['lieu_event'] ?></p>
             <p>Capacité : <?= $eventDetails['capacite'] ?></p>
+            <a href="addparticipant.php?id_event=<?= htmlspecialchars($eventId) ?>"><button>S'inscrire</button></a>
             
         </div>
 
@@ -76,7 +78,8 @@ if (isset($_GET["id_event"])) {
 
         
     <footer>
-        <a href="calendrier.php?id_event=<?= $eventId ?>"><button>Retour à la liste des événements</button></a>
+
+        <a href="listevents.php?id_event=<?= $eventId ?>"><button>Retour à la liste des événements</button></a>
 
         <a href="../view/index.php?id_event=<?= $eventId ?>"><button>Retour à l'Acceuil</button></a>
     </footer>

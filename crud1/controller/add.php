@@ -33,21 +33,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($eventC->userExists($_POST['idUser'])) {
 
-            $uploadDir = 'images/';
+            $uploadDir = 'image/';
             $uploadedFile = $uploadDir . basename($_FILES['eventImage']['name']);
+            $fileType = pathinfo($uploadedFile, PATHINFO_EXTENSION);
+
+        
+            $validImageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+            if (in_array(strtolower($fileType), $validImageExtensions)) {
+               
+                if (move_uploaded_file($_FILES['eventImage']['tmp_name'], $uploadedFile)) {
+                    $event->setImage($uploadedFile);
+                    
+                    $eventC->addEvent($event);
 
 
-            if (move_uploaded_file($_FILES['eventImage']['tmp_name'], $uploadedFile)) {
-                $event->setImage($uploadedFile);
+                    header('Location: listevents.php');
+                    exit();
 
-
-                $eventC->addEvent($event);
-
-
-                header('Location: listevents.php');
-                exit();
+                } else {
+                    $error = "Failed to upload the image.";
+                }
             } else {
-                $error = "Failed to upload the image.";
+                $error = "Invalid file format. Please upload a JPG, JPEG, PNG, or GIF file.";
             }
         } else {
             $error = "User with ID " . $_POST['idUser'] . " does not exist.";
@@ -57,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -198,6 +207,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #ff1a1a;
         }
     </style>
+     <script>
+        function validateDate() {
+            var currentDate = new Date();
+            var selectedDate = new Date(document.getElementById('eventDate').value);
+
+            if (selectedDate < currentDate) {
+                alert('La date de l\'événement ne peut pas être antérieure à aujourd\'hui.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 
 <body>
@@ -217,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?= $error; ?>
                     </div>
                 <?php endif; ?>
-                <form method="post" action="" enctype="multipart/form-data">
+                <form method="post" action="" enctype="multipart/form-data" onsubmit="return validateDate();">
                     <div class="input">
                         <label class="input__label" for="eventName">Event Name</label>
                         <input class="input__field" type="text" name="eventName" id="eventName" required>
@@ -232,9 +254,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input class="input__field" type="text" name="eventLocation" id="eventLocation" required>
                     </div>
                     <div class="input">
-                        <label class="input__label" for="eventDate">Event Date</label>
-                        <input class="input__field" type="datetime-local" name="eventDate" id="eventDate" required>
-                    </div>
+            <label class="input__label" for="eventDate">Event Date</label>
+            <input class="input__field" type="datetime-local" name="eventDate" id="eventDate" required>
+        </div>
                     <div class="input">
                         <label class="input__label" for="eventEndDate">Event End Date</label>
                         <input class="input__field" type="datetime-local" name="eventEndDate" id="eventEndDate"
