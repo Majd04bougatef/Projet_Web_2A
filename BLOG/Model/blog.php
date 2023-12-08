@@ -7,8 +7,9 @@ class Blog {
     private ?string $desc_blog = null;
     private  $date_blog = null;
     private ?string $id_user = null;
+    private ?string $image = null;
    
- public function __construct($id = null, $titre, $sujet, $desc, $date,$id_user)
+ public function __construct($id = null, $titre, $sujet, $desc, $date,$id_user, $image)
     {
         $this->id_b = $id;
         $this->titre_blog = $titre;
@@ -16,6 +17,7 @@ class Blog {
         $this->desc_blog = $desc;
         $this->date_blog = $date;
         $this->id_user = $id_user;
+        $this->image = $image;
     }
  /**
      * Get the value of idblog
@@ -120,6 +122,25 @@ class Blog {
     public function setId_user($id_user)
     {
         $this->date_blog = $id_user;
+
+        return $this;
+    }
+    /**
+     * Get the value of image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set the value of image
+     *
+     * @return self
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
 
         return $this;
     }
