@@ -2,6 +2,6 @@
 session_start();
 session_unset();
 session_destroy();
-header("Location: pagel_login_create.php");
+header('Location: acceuil.php');
 exit();
 ?>

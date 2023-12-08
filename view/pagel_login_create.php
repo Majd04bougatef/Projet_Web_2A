@@ -3,6 +3,7 @@ include '../controller/userC.php';
 $error = "";
 $user = null;
 $userC = new userC();
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $cin = $_POST["cin"];
     $nom = $_POST["nom"];
@@ -29,8 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $validImageExtensions = ['jpg', 'jpeg', 'png'];
 
         if (in_array(strtolower($fileType), $validImageExtensions)) {
-            move_uploaded_file($_FILES["image"]["tmp_name"], $targetPath);
-
+            move_uploaded_file($_FILES["image"]["tmp_name"], $targetPath);      
             $user = new user(
                 NULL,
                 $cin,
@@ -52,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             );
 
             $userC->adduser($user);
+
         } else {
             $error = "Invalid file format. Please upload a JPG, JPEG, or PNG file.";
         }
@@ -69,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../assets/page_login_create/style.css">
+
     <title>Modern Login Page | AsmrProg</title>
 </head>
 <body>
@@ -108,8 +110,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <option value="f">female</option>
                 </select>
                 <select id="role" name="role" style="margin-left:5px;">
-                    <option value="p">pationte</option>
-                    <option value="m">Medecin</option>    
+                    <option value="patient">pationte</option>
+                    <option value="medecin">Medecin</option>    
                 </select>
                 </div>
                 
@@ -127,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         </div>
                         <input type="lieu_cabinet" id="lieu_cabinet" name="lieu_cabinet" placeholder="lieu_cabinet"><br>
                     </div>
-                <button type="submit"  name="submit">Sign Up</button>
+                <button type="submit"  name="submit" onclick="return validation_champs()">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in">
@@ -138,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <input type="email" placeholder="Email" name="email_signin">
             <input type="password" placeholder="Password" name="password_signin">
             <button type="submit" name="signin_submit">Sign In</button>
-            <a href="http://localhost/projet%202/view/forget.php">forget password</a>
+            <a href="../view/forget.php">forget password</a>
 
 
             </form>
@@ -166,12 +168,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             const roleSelect = document.getElementById('role');
             const doctorFields = document.getElementById('doctorFields');
             function toggleDoctorFields() {
-                doctorFields.style.display = roleSelect.value === 'm' ? 'block' : 'none';
+                doctorFields.style.display = roleSelect.value === 'medecin' ? 'block' : 'none';
             }
             toggleDoctorFields();
             roleSelect.addEventListener('change', toggleDoctorFields);
         });
         </script>
+        
 </body>
 
 </html>
