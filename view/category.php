@@ -1,20 +1,24 @@
-<?php
-include '../controller/rdvC.php';
-$rendezvous = new rdvC();
 
-if (isset($_GET['id_rdv'])){
-    $result = $rendezvous->show_update($_GET['id_rdv']);
-    $list = $result->fetch(PDO::FETCH_ASSOC); // Fetch the data as an associative array
-}
-else{
-    echo 'zefz';
+<?php
+include_once '../controller/catC.php';
+
+$idcat = $_POST["idcat"] ?? "";
+$catrdv = $_POST["catrdv"] ?? "";
+
+$catController = new catC();
+
+if (isset($idcat) && isset($catrdv)) {
+    $category = new categorie(NULL, $catrdv);
+    $catController->addcat($idcat, $category->getCatRdv());
+} else {
+    echo "";
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
@@ -62,21 +66,12 @@ else{
     </style>
 </head>
 <body>
-    <form action="../view/update3.php" method="POST">
-        <h6>nom</h6>
-        <input type="text" value="<?php echo $list['nom']; ?>" name="nom">
-        <h6>prenom</h6>
-        <input type="text" value="<?php echo $list['prenom']; ?>" name="prenom">
-        <h6>rdv</h6>
-        <input type="date" value="<?php echo $list['date_rdv']; ?>" name="date_rdv">
-        <!-- Adjust the following lines based on your actual database fields -->
-        <h6>drdv</h6>
-        <input type="text" value="<?php echo $list['deb_rdv']; ?>" name="deb_rdv">
-        <h6>frdv</h6>
-        <input type="text" value="<?php echo $list['fin_rdv']; ?>" name="fin_rdv">
-        <input type="hidden" value="<?php echo $list['id_rdv']; ?>" name="id_rdv">
-        <input type="submit" value="Update">
+    <form action="" method="POST">
+        <h6>idcat</h6>
+        <input type="text" value="" name="idcat">
+        <h6>catrdv</h6> 
+        <input type="text" value="" name="catrdv">
+        <input type="submit" value="Add Category">
     </form>
 </body>
 </html>
-

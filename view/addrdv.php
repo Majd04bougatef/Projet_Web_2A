@@ -1,5 +1,6 @@
 <?php
 include_once '../controller/rdvC.php';
+include_once '../controller/catC.php';
 $date = $dateDeb = $dateFin = "";
 
 $date = $_GET["date"] ?? "";
@@ -10,26 +11,9 @@ $infop = new rdvC();
 $result = $infop->show_info_patient('PA12345678');
 $info = $result->fetch(PDO::FETCH_ASSOC);
 
-$eror="";
 
 
-$rdvc=new rdvC();
-if(   isset($date)|| isset($dateDeb)||  isset($dateFin)|| isset($_GET["catrdv"])|| isset($id_user) ){
-    $r= new rendezvous(NULL,$date,isset($_GET['idcat']),'PA12345678',$dateDeb,$dateFin);
-
-   
-    $rdvc->addrdv($r);
-  }
-  else{
-    echo "eror";
-  }
-
-
-
-// Le reste de votre code pour traiter les données
-?> 
-
-
+?>
   <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -181,7 +165,7 @@ body {
       </style>
   </head>
   <body>
-  <form class="form">
+  <form class="form" action="../view/addr.php">
       <p class="title">Register </p>
       <p class="message">enter more information </p>
 
@@ -209,13 +193,16 @@ body {
           
       <label>type rendez-vous
           <select name="catrdv">
-              <option value="1">consultation_generale</option>
-              <option value="2">suivie maladie chronique</option>
-              <option value="3">examen spécifique</option>
-              <option value="4">consultation spécialisée</option>
-              <option value="5">Chirurgie</option>
-          </select>
-      </label>
+          <?php
+            $catController = new catC();
+            $categories = $catController->listcat();
+            var_dump($categories);
+
+            foreach ($categories as $category) {
+                echo '<option value="' . $category['id_categorie'] . '">' . $category['categorie'] . '</option>';
+            }
+            ?>
+</label> 
       <label for="date">
         date
       <input required="" placeholder="" type="date" name="date" class="input" value="<?php echo $date;?>">
@@ -229,7 +216,7 @@ body {
       <input required="" placeholder="" type="text" class="input" name="dateFin"  value="<?php echo $dateFin;?>">
       </label>
 
-      <button class="submit">Submit</button>
+      <button class="submit" type="submit">Submit</button>
   </form>
   </body>
   </html>

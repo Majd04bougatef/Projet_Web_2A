@@ -51,6 +51,7 @@ $list = $rendezvous->showR();
             box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
             background: #e62222;
             transition: background 200ms;
+            
         }
 
         button:hover {
