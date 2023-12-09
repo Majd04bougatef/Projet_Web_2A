@@ -70,9 +70,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../assets/page_login_create/style.css">
+    <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/imglogo.png" rel="apple-touch-icon">
+
     <title>Modern Login Page | AsmrProg</title>
 </head>
 <body>
+
+    
+
+
     <div class="container" id="container" >
         <div class="form-container sign-up">
         <form method="POST" enctype="multipart/form-data">
@@ -116,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <option value="m">male</option>
                     <option value="f">female</option>
                 </select>
-                <select id="role" name="roleselect" style="margin-left:5px;">
+                <select id="role" name="role" style="margin-left:5px;">
                     <option value="patient">patient</option>
                     <option value="medecin">Medecin</option>    
                 </select>
@@ -146,13 +153,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
         <div class="form-container sign-in">
         
-        <form method="POST" action="../view/login.php">
-            <h1>SIGN IN</h1>
-            <!-- Your input fields -->
-            <input type="email" placeholder="Email" name="email_signin">
-            <input type="password" placeholder="Password" name="password_signin">
-            <button type="submit" name="signin_submit">Sign In</button>
-            <a href="../view/forget.php">forget password</a>
+            <form method="POST" action="../view/login.php">
+                <h1>SIGN IN</h1>
+                <!-- Your input fields -->
+                <input type="email" placeholder="Email" name="email_signin">
+                <input type="password" placeholder="Password" name="password_signin">
+                <button type="submit" name="signin_submit">Sign In</button>
+                <a href="../view/forget.php">forget password</a>
 
 
             </form>

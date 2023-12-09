@@ -65,7 +65,7 @@ session_start();
             
 
                 <li class="">
-                    <a href="../view/acceuil.php">
+                    <a href="../view/logout.php">
                         <i class="bx bx-log-out icon"></i>
                         <span class="text nav-text">Logout</span>
                     </a>
@@ -145,7 +145,7 @@ session_start();
                             <span> > </span>
                         </a>
 
-                        <a href="logout.php" class="sub-menu-link">
+                        <a href="../view/logout.php" class="sub-menu-link">
                             <img src="images/logout.png">
                             <p>Logout</p>
                             <span> > </span>

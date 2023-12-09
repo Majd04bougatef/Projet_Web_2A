@@ -47,7 +47,7 @@
   <div id="topbar" class="d-flex align-items-center fixed-top">
     <div class="container d-flex justify-content-between">
       <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">MedTun@gmail.com</a>
+        <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">medtun200@gmail.com</a>
         <i class="bi bi-phone"></i> +216 20 981 776
       </div>
       <div class="d-none d-lg-flex social-links align-items-center">
@@ -63,7 +63,7 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="acceuil.html">MedTUN</a></h1>
+      <h1 class="logo me-auto"><a href="../view/acceuil.php">MedTUN</a></h1>
     
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
@@ -118,8 +118,7 @@
             <div class="content">
               <h3>Pourquoi choisissez MedTUN?</h3>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-                Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
+              MedTUN se distingue par sa capacité à simplifier et à rationaliser le processus de prise de rendez-vous, offrant ainsi une solution complète pour les utilisateurs cherchant à organiser efficacement leurs consultations médicales. En plus de sa convivialité, MedTUN propose une interface intuitive qui facilite la planification des rendez-vous, que ce soit pour des consultations médicales régulières, des examens ou d'autres services de santé.
               </p>
               <div class="text-center">
                 <a href="#" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
@@ -238,7 +237,7 @@
       </div>
     </section><!-- End Counts Section -->
 
-    <!-- ======= Services Section ======= -->
+    <!-- ======= Services Section ======= 
     <section id="services" class="services">
       <div class="container">
 
@@ -299,7 +298,7 @@
         </div>
 
       </div>
-    </section><!-- End Services Section -->
+    </section> End Services Section -->
 
     <!-- ======= Appointment Section ======= 
     <section id="appointment" class="appointment section-bg">
@@ -802,7 +801,7 @@
               <div class="email">
                 <i class="bi bi-envelope"></i>
                 <h4>Email:</h4>
-                <p>MedTUN@gmail.com</p>
+                <p>medtun200@gmail.com</p>
               </div>
 
               <div class="phone">
@@ -849,7 +848,7 @@
 
   </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
+  <!-- ======= Footer ======= 
   <footer id="footer">
 
     <div class="footer-top">
@@ -863,7 +862,7 @@
               New York, NY 535022<br>
               United States <br><br>
               <strong>Télephone:</strong> +21620 000 000 <br>
-              <strong>Email:</strong> MedTUN@gmail.com<br>
+              <strong>Email:</strong> medtun200@gmail.com<br>
             </p>
           </div>
 
@@ -888,7 +887,7 @@
 
         </div>
       </div>
-    </div>
+    </div>-->
 
     <div class="container d-md-flex py-4">
 

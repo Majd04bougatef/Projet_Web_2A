@@ -162,21 +162,24 @@ session_start ();
             </nav>
         </div>
         <form class="form" method="POST" action="#">
-        <h1 >Dossier Patient : </h1>
         
-        <hr>
+        
+        
 
-        <table>
-            <tr class="header">
-                
+        <section class="attendance">
+        <div class="attendance-list">
+          <h1>Dossier Patient</h1><br>
+        <table class="table">
+            <thead>
+              <tr>
                 <th>Date consult</th>
                 <th>Description consultation</th>
                 <th>Symptomes</th>
                 <th>Prescription consultation</th>
                 <th>Examen</th>
-                
-            </tr>
-
+              </tr>
+            </thead>
+            <tbody>
             <?php
                 foreach ($list as $dossier){
             ?>
@@ -191,10 +194,12 @@ session_start ();
                 </tr>
             <?php
                 }
-            ?>      
-        
-        </table>
+            ?>   
 
+            </tbody>
+          </table>
+          </div>
+      </section>
     </form>
     </div>
 

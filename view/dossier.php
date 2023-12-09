@@ -6,8 +6,7 @@
     session_start ();
     $consult = new consultationfunction();
 
-    $list =  $consult->listDossier($_POST['id'],'MM12345676');
-
+    $list =  $consult->listDossier($_POST['id'],$_SESSION['user_id']);
 
 ?>
 
@@ -170,14 +169,17 @@
 
             </nav>
         </div>
-        <form class="form" method="POST" action="../controller/listerDossier.php">
-        <h1 >Dossier Patient : </h1>
+        <form class="form" method="POST" action="">
+       
         
         <hr>
 
-        <table>
-            <tr class="header">
-                
+        <section class="attendance">
+        <div class="attendance-list">
+          <h1>Dossier Patient</h1><br>
+        <table class="table">
+            <thead>
+              <tr>
                 <th>Date consult</th>
                 <th>Description consultation</th>
                 <th>Symptomes</th>
@@ -186,35 +188,39 @@
                 <th>Ordonnance</th>
                 <th>Modification</th>
                 <th>Supprimer</th>
-            </tr>
-
+              </tr>
+            </thead>
+            <tbody>
             <?php
                 foreach ($list as $dossier){
             ?>
                 <tr>
-                <td><?php echo $dossier['date_consultation']; ?></td>
-                <td><?php echo $dossier['description_consultation']; ?></td>
-                <td><?php echo $dossier['symptomes']; ?></td>
-                <td><?php echo $dossier['prescription_consultation']; ?></td>
-                <td><?php echo $dossier['examen_consultation']; ?></td>
-                <td>
+                    <td><?php echo $dossier['date_consultation'];?></td>
+                    <td><?php echo $dossier['description_consultation'];?></td>
+                    <td><?php echo $dossier['symptomes'];?></td>
+                    <td><?php echo $dossier['prescription_consultation'];?></td>
+                    <td><?php echo $dossier['examen_consultation'];?></td>
+                    <td>
                     <?php
                         if (empty($dossier['fichier_pdf'])) {
-                            echo '<a href="../ordonnance/ordonnance_'.$dossier['nom'].'_'.$dossier['prenom'].'_'.$dossier['date_consultation'].'.pdf' . '" target="_blank">Voir PDF</a>';
+                            echo '<button><a href="../ordonnance/ordonnance_'.$dossier['nom'].'_'.$dossier['prenom'].'_'.$dossier['date_consultation'].'.pdf' . '" target="_blank">Voir PDF</a></button>';
                         } else {
                             echo 'Aucun fichier PDF disponible';
                         }
                     ?>
                 </td>
-                <td><a href="formualire_modifier_consultation.php?id_c=<?php echo $dossier['id_c']; ?>">Modifier</a></td>
-                <td><a href="#" onclick="confirmDelete(<?php echo $dossier['id_c']; ?>)">Supprimer</a></td>
+                <td><button><a href="../view/formualire_modifier_consultation.php?id_c=<?php echo $dossier['id_c']; ?>&id=<?php echo $_POST['id']; ?>">Modifier</a></button></td>
+                <td><button><a href="#" onclick="confirmDelete(<?php echo $dossier['id_c']; ?>)">Supprimer</a></button></td>
 
                 </tr>
             <?php
                 }
-            ?>      
-        
-        </table>
+            ?>   
+
+            </tbody>
+          </table>
+          </div>
+      </section>
 
     </form>
     </div>
