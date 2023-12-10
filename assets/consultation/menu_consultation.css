@@ -366,14 +366,18 @@ body.dark .switch::before{
 
 
 .profile{
-  padding: 10px 10%;
   align-items: center;
   justify-content: space-between;
   position: relative;
-
-  
-
+  display: flex;
+  background-color: white;
+  left: 2%;
+  top: 10px;
+  height: 50px;
+  width: 95%;
+  border-radius: 10px;
 }
+
 
 
 .user-pic{
@@ -404,7 +408,7 @@ nav .profile ul li a:hover{
 .sub-menu-wrap{
   position: absolute;
   top: 100%;
-  left: 85%;
+  left: 77%;
   width: 280px;
   height: 750px;
   max-height: 0px;

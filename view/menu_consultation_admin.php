@@ -91,6 +91,7 @@ session_start();
     <div class="home" id="content">
         <div class="links-menu">
             <nav class="profile">
+                <div class="pic">
                     <?php
                     if (isset($_SESSION['user_id']))
                     {
@@ -100,7 +101,7 @@ session_start();
                     <?php
                     }
                     ?>
-                
+                </div>
 
                 <div class="sub-menu-wrap" id="subMenu">
                     <div class="sub-menu">
