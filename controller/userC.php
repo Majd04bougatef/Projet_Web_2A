@@ -205,7 +205,29 @@ public static function rechercheParNom($nom)
 }
 
 
+function update_user( $id_user,$cin,$nom,$prenom,$tel,$mail,$diplome , $lieu,$pass)
+{
 
+    $sql = "UPDATE user SET cin=:c,nom=:n,prenom=:p,telephone=:t,mail=:m,diplome=:d,lieu_cabinet=:l,password=:pa WHERE id_user = :id_user";
+    $db = config::getConnexion();
+    try {
+        $query = $db->prepare($sql);
+        $query->execute([
+            'c' => $cin,
+            'n'=> $nom,
+            'p' => $prenom,
+            't' => $tel,
+            'm' => $mail,
+            'd' => $diplome,
+            'l' => $lieu,
+            'pa' => $pass,
+            'id_user' => $id_user
+        ]);
+        echo " records UPDATED successfully <br>";
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+}
 
 
 
@@ -344,7 +366,7 @@ public function validateLogin($email, $password) {
                 $userData['sexe'],
                 $userData['telephone'],
                 $userData['nationalite'],
-                $userData['email'],
+                $userData['mail'],
                 $userData['password'],
                 $userData['role'],
                 $userData['diplome'],

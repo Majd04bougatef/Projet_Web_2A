@@ -28,13 +28,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['pays'] = $user->getpays();
         $_SESSION['ville'] = $user->getville();
         $_SESSION['lieu_cabinet'] = $user->getlieu_cabinet();
-        $_SESSION['image'] = $user->getimage();   
+        $_SESSION['image'] = $user->getimage();  
+        
+       
         
         if ($_SESSION['role']=='patient')
             header('Location: menu_consultation_patient.php');
         else if ($_SESSION['role']=='medecin')
             header('Location: menu_consultation_medecin.php');
-        else    
+        else if ($_SESSION['role']=='admin' )
             header('Location: menu_consultation_admin.php');
 
         exit();

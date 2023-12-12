@@ -54,7 +54,28 @@ session_start();
                     <li class="">
                         <a href="../view/selectionner_dossier_admin.php">
                             <i class="bx bxs-box icon"></i>
-                            <span class="text nav-text">Consulter Dossier PAtient</span>
+                            <span class="text nav-text">Consulter Dossier Patient</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/add.php">
+                            <i class="bx bxs-box icon"></i>
+                            <span class="text nav-text">Ajouter event</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/calendrier.php">
+                            <i class="bx bxs-box icon"></i>
+                            <span class="text nav-text">Calendrier event </span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/listevents.php">
+                            <i class="bx bxs-box icon"></i>
+                            <span class="text nav-text">liste event </span>
                         </a>
                     </li>
 

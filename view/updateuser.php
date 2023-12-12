@@ -1,38 +1,12 @@
+
+
 <?php
-session_start();
-include '../controller/userC.php';
-$user = null;
 
-$userC = new userC();
+include_once '../controller/userC.php';
+$userC= new userC();
+$user=null;
+    session_start();
 
-
-if (isset($_POST["cin"]) && isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["age"]) && isset($_POST["sexe"]) && isset($_POST["nationalite"]) && isset($_POST["telephone"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["role"]) && isset($_POST["diplome"]) && isset($_POST["specialite"]) && isset($_POST["pays"]) && isset($_POST["ville"]) && isset($_POST["lieu_cabinet"])) {
-    $user = new user(
-        null, 
-        $_POST["cin"],
-        $_POST["nom"],
-        $_POST["prenom"],
-        $_POST["age"],
-        $_POST["sexe"],
-        $_POST["telephone"],
-        $_POST["nationalite"],
-        $_POST["email"],
-        $_POST["password"],
-        $_POST["role"],
-        $_POST["diplome"],
-        $_POST["specialite"],
-        $_POST["pays"],
-        $_POST["ville"],
-        $_POST["lieu_cabinet"]
-    );
-    
-    echo 'erger';
-    $userC->updateuser($user, $_POST["user_id"]);
- 
-    header('Location: menu_consultation.php');
-} else {
-    $error = "";
-}
 ?>
 
 <html lang="en">
@@ -41,132 +15,137 @@ if (isset($_POST["cin"]) && isset($_POST["nom"]) && isset($_POST["prenom"]) && i
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../source/list.css">
+    <link rel="stylesheet" href="../assets/update user/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>User Display</title>
 </head>
 
 <body>
 
-
-<div id="error">
-        <?php echo $error; ?>
-    </div>
-
-    <?php
+<?php
     
     if (isset($_SESSION['user_id'])) {
        
         $user = $userC->showuser($_SESSION['user_id']);
-      
+        
         
     ?>
 
-        <form action="" method="POST">
-        <?php
-    foreach ($_POST as $key => $value) {
-        echo "$key: $value<br>";
-    }
-    ?>
-            <table border="1" align="center">
-                <tr>
-                    <td>
-                        <label for="cin">CIN:</label>
-                    </td>
-                    <td><input type="text" name="cin" id="cin" value="<?php echo $_SESSION['cin']; ?>" maxlength="20"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="nom">Nom:</label>
-                    </td>
-                    <td><input type="text" name="nom" id="nom" value="<?php echo $_SESSION['nom']; ?>" maxlength="20"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="prenom">Prenom:</label>
-                    </td>
-                    <td><input type="text" name="prenom" id="prenom" value="<?php echo $_SESSION['prenom']; ?>" maxlength="20"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="age">Age:</label>
-                    </td>
-                    <td><input type="text" name="age" id="age" value="<?php echo $_SESSION['age']; ?>" maxlength="3"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="sexe">Sexe:</label>
-                    </td>
-                    <td><input type="text" name="sexe" id="sexe" value="<?php echo $_SESSION['sexe']; ?>" maxlength="1"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="telephone">Telephone:</label>
-                    </td>
-                    <td><input type="text" name="telephone" id="telephone" value="<?php echo $_SESSION['telephone']; ?>" maxlength="10"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="nationalite">Nationalite:</label>
-                    </td>
-                    <td><input type="text" name="nationalite" id="nationalite" value="<?php echo $_SESSION['nationalite']; ?>" maxlength="20"></td>
-                </tr>
-               
-                <tr>
-                    <td>
-                        <label for="password">Password:</label>
-                    </td>
-                    <td><input type="password" name="password" id="password" value="<?php echo $_SESSION['password']; ?>" maxlength="20"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="role">Role:</label>
-                    </td>
-                    <td><input type="text" name="role" id="role" value="<?php echo $_SESSION['role']; ?>" maxlength="20"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="diplome">Diplome:</label>
-                    </td>
-                    <td><input type="text" name="diplome" id="diplome" value="<?php echo $_SESSION['diplome']; ?>" maxlength="50"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="specialite">Specialite:</label>
-                    </td>
-                    <td><input type="text" name="specialite" id="specialite" value="<?php echo $_SESSION['specialite']; ?>" maxlength="50"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="pays">Pays:</label>
-                    </td>
-                    <td><input type="text" name="pays" id="pays" value="<?php echo $_SESSION['pays']; ?>" maxlength="20"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="ville">Ville:</label>
-                    </td>
-                    <td><input type="text" name="ville" id="ville" value="<?php echo $_SESSION['ville']; ?>" maxlength="20"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="lieu_cabinet">Lieu Cabinet:</label>
-                        </td>
-                    <td><input type="text" name="lieu_cabinet" id="lieu_cabinet" value="<?php echo $_SESSION['lieu_cabinet']; ?>" maxlength="50"></td>
-                </tr>
-                <tr>
-                   
-                    <td colspan="2">
+        
+    <form method="POST" action="../controller/update_user.php" > 
+    <div class="container light-style flex-grow-1 container-p-y">
+            <h4 class="font-weight-bold py-3 mb-4">
+                Parametres compte
+            </h4>
+            <div class="card overflow-hidden">
+                <div class="row no-gutters row-bordered row-border-light">
+                    <div class="col-md-3 pt-0">
+                        <div class="list-group list-group-flush account-settings-links">
+                            <a class="list-group-item list-group-item-action active" data-toggle="list"   href="#account-general">General</a>
+                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Changer mot de passe</a>
+                        </div>
+                    </div>
+
                     
-                        <input type="submit" value="Update">
-                        <input type="reset" value="Reset">
-                        <a href="../view/deleteuser.php" ><p>delete Profile</p>
-                    </td>
-                </tr>
-            </table>
-            <input type="hidden" name="id_user" value="<?php echo $user['id_user']; ?>">
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="account-general">
+                                <div class="card-body media align-items-center">
+                                    <img src="<?php echo '../view/images/'.$_SESSION['image'];?>" alt class="d-block ui-w-80">
+                                    <div class="media-body ml-4">
+                                        <label class="btn btn-outline-primary">
+                                            Upload new photo
+                                            <input type="file" class="account-settings-fileinput">
+                                        </label> &nbsp;
+                                        <button type="button" class="btn btn-default md-btn-flat">Reset</button>
+                                        <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                                    </div>
+                                </div>
+                                <hr class="border-light m-0">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">CIN</label>
+                                        <input name="id" type="hidden" value="<?php echo  $user['id_user'];?>">
+                                        <input class="form-control mb-1" type="text" name="cin" id="cin" value="<?php echo $_SESSION['cin']; ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Nom</label>
+                                        <input class="form-control" type="text" name="nom" id="nom" value="<?php echo $_SESSION['nom']; ?>" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Prénom</label>
+                                        <input class="form-control" type="text" name="prenom" id="prenom" value="<?php echo $_SESSION['prenom']; ?>" maxlength="20">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">E-mail</label>
+                                        <input name="mail" id="mail" type="text" class="form-control mb-1" value="<?php echo $_SESSION['mail']; ?>">
+                                        <div class="alert alert-warning mt-3">
+                                            Your email is not confirmed. Please check your inbox.<br>
+                                            <a href="javascript:void(0)">Resend confirmation</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Téléphone</label>
+                                        <input class="form-control" type="text" name="tel" id="tel" value="<?php echo $_SESSION['telephone']; ?>" maxlength="20">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Diplôme</label>
+                                        <input class="form-control" type="text" name="diplome" id="diplome" value="<?php echo $_SESSION['diplome']; ?>" maxlength="50">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Lieu cabinet</label>
+                                        <input  class="form-control" type="text" name="lieu_cabinet" id="lieu_cabinet" value="<?php echo $_SESSION['lieu_cabinet']; ?>" maxlength="50">                                   
+                                    </div>
+
+                                
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="account-change-password">
+                            <div class="card-body pb-2">
+                                <div class="form-group">
+                                    <label class="form-label">mot de passe actuel</label>
+                                    <input type="password" class="form-control" name="current_password" id="current_password" >
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">nouveau mot de passe</label>
+                                    <input type="password" class="form-control" name="new_password" id="new_password" >
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">confirmer nopuveau mot de passe</label>
+                                    <input type="password" class="form-control" name="confirm_password" id="confirm_password" >
+                                </div>
+                                
+
+
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="text-right mt-3">
+            <button type="submit" class="btn btn-primary">Modifier</button>&nbsp;
+            <button type="button" class="btn btn-default">Vider</button>
+        </div>
+        </div>
+
         </form>
     <?php
     }
     ?>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript"> </script>
+
+    
 </body>
 
 </html>
