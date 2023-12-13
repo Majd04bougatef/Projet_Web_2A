@@ -1,15 +1,23 @@
-<?php 
+
+<?php
+
+    include '../controller/rdvC.php';
 session_start();
+    $rdv= new rdvC();
 
+    $r = $rdv->listrdv_med($_POST['id_user'],$_POST['medecin']);
+   
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" type="text/css" href="../source/page lister medecin/stylecss.css">
+    <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">
     <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
    
@@ -157,19 +165,90 @@ session_start();
 
             </nav>
         </div>
-        <div class="animated-title">
-            <div class="text-top">
-              <div>
-                <span>Vous Pouvez Ici </span>
-                
-                <span>Profitez de nos services</span>
-              </div>
-            </div>
-            <div class="text-bottom">
-              <div>MedTUN</div>
-            </div>
-          </div>
+        <section class="attendance">
+        <div class="attendance-list">
+          <h1>Les médecins disponibles</h1><br>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Date RDV</th>
+                <th>debut rdv</th>
+                <th>fin rdv</th>
+                <th>categorie rdv</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            <?php
+                foreach ($r as $med){
+            ?>
+
+                <tr>
+                    <td><?php echo $med['date_rdv'];?></td>
+                    <td><?php echo $med['deb_rdv'];?></td>
+                    <td><?php echo $med['fin_rdv'];?></td>
+                    <td><?php echo $med['categorie'];?></td>
+                    <td><input type="hidden" name="id_rdv"  value="<?php echo $med['id_rdv'];?>"><button><a href="../view/update2.php?id_rdv=<?php echo $med['id_rdv'];?>">Modifier rdv</a></button></td>
+                    <td><a href="#" onclick="confirmDelete(<?php echo $med['id_rdv']; ?>)"><button>Supprimer</button></a></td>
+                </tr>
+            <?php
+                }
+            ?>   
+
+            </tbody>
+          </table>
         </div>
+    </section>
+    
+
+    <script>
+
+
+function confirmDelete(id_rdv) {
+                Swal.fire({
+                    title: 'Voulez-vous vraiment supprimer ce rdv?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui, supprimer!',
+                    cancelButtonText: 'Annuler'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "../view/delete.php",
+                            data: { id_rdv: id_rdv },
+                            dataType: 'json', 
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Suppression réussie!',
+                                        text: 'Les données ont été supprimées avec succès.'
+                                    });
+                                    location.reload();
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Erreur',
+                                        text: response.message
+                                    });
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Erreur lors de l'envoi de la requête AJAX", error);
+                                console.log(xhr.responseText);
+                            }
+                        });
+                    }
+                });
+            }
+
+</script>
+
     </div>
 
     <script>

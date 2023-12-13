@@ -1,7 +1,17 @@
-<?php 
+<?php
+include '../controller/rdvC.php';
+$rendezvous = new rdvC();
+
+if (isset($_GET['id_rdv'])){
+    $result = $rendezvous->show_update($_GET['id_rdv']);
+    $list = $result->fetch(PDO::FETCH_ASSOC); // Fetch the data as an associative array
+    echo 'ergerger';
+}
+else{
+    echo 'zefz';
+}
+
 session_start();
-
-
 
 ?>
 
@@ -14,6 +24,39 @@ session_start();
 
     <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">
     <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+    <style>
+     
+
+        form {
+            max-width: 600px; /* Set a maximum width for the form */
+            margin: 20px auto; /* Center the form horizontally */
+            padding: 20px;
+            background-color: #fff; /* Set a background color for the form */
+            border-radius: 8px; /* Add rounded corners to the form */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+        }
+
+        h6 {
+            color: #333; /* Set the text color for headings */
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+
+        input[type="submit"] {
+            background-color: #3498db; /* Set the background color for the submit button */
+            color: #fff; /* Set the text color for the submit button */
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9; /* Change the background color on hover */
+        }
+    </style>
    
     <title>Consultation</title>
 </head>
@@ -23,7 +66,7 @@ session_start();
         <header>
             <div class="image-text">
                 <span class="image">
-                    <a href="../view/menu_consultation_medecin.php"><img class="imglogo" src="../image/logo/logo.png" alt="logo"></a>
+                    <a href="../view/menu_consultation_admin.php"><img class="imglogo" src="../image/logo/logo.png" alt="logo"></a>
                 </span>
 
                 <div class="text header-text">
@@ -46,17 +89,17 @@ session_start();
 
                 <ul class="menu-links">
                     <li class="">
-                        <a href="../view/calendar.php" >
+                        <a href="../view/calendar_admin.php" >
                             <i class='bx bx-clinic icon'></i>
-                            <span class="text nav-text" >Calendar</span>
+                            <span class="text nav-text" >Calendar des Médecins </span>
                         </a>
                     </li>
 
                    
                     <li class="">
-                        <a href="../view/selectionner_dossier_medecin.php">
+                        <a href="../view/selectionner_dossier_admin.php">
                             <i class="bx bxs-box icon"></i>
-                            <span class="text nav-text">Consulter Dossier</span>
+                            <span class="text nav-text">Consulter Dossier Patient</span>
                         </a>
                     </li>
 
@@ -82,21 +125,24 @@ session_start();
                     </li>
 
                     <li class="">
-                        <a href="../view/rdvM.php">
+                        <a href="../view/rdvA.php">
                             <i class="bx bxs-box icon"></i>
-                            <span class="text nav-text">Consulter RDV </span>
+                            <span class="text nav-text">Consulter RDV</span>
                         </a>
                     </li>
 
-                    
-
-              
+                    <li class="">
+                        <a href="../view/category.php">
+                            <i class="bx bxs-box icon"></i>
+                            <span class="text nav-text">Ajouter categorie</span>
+                        </a>
+                    </li>
                     
                 </ul>
             </div>
 
             
-            <div class="bottom-content">
+
                 <li class="">
                     <a href="../view/logout.php">
                         <i class="bx bx-log-out icon"></i>
@@ -124,16 +170,17 @@ session_start();
     <div class="home" id="content">
         <div class="links-menu">
             <nav class="profile">
+                <div class="pic">
                     <?php
                     if (isset($_SESSION['user_id']))
                     {
                     ?>
 
-                        <img src="../view/images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
+                        <img src="images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
                     <?php
                     }
                     ?>
-                
+                </div>
 
                 <div class="sub-menu-wrap" id="subMenu">
                     <div class="sub-menu">
@@ -190,20 +237,24 @@ session_start();
 
             </nav>
         </div>
-        <div class="animated-title">
-            <div class="text-top">
-              <div>
-                <span>Vous Pouvez Ici </span>
-                
-                <span>Profitez de nos services</span>
-              </div>
-            </div>
-            <div class="text-bottom">
-              <div>MedTUN</div>
-            </div>
-          </div>
-        </div>
+        <form action="../view/update3.php" method="POST">
+        <h6>nom</h6>
+        <input type="text" value="<?php echo $list['nom']; ?>" name="nom">
+        <h6>prenom</h6>
+        <input type="text" value="<?php echo $list['prenom']; ?>" name="prenom">
+        <h6>rdv</h6>
+        <input type="date" value="<?php echo $list['date_rdv']; ?>" name="date_rdv">
+        <!-- Adjust the following lines based on your actual database fields -->
+        <h6>drdv</h6>
+        <input type="text" value="<?php echo $list['deb_rdv']; ?>" name="deb_rdv">
+        <h6>frdv</h6>
+        <input type="text" value="<?php echo $list['fin_rdv']; ?>" name="fin_rdv">
+        <input type="hidden" value="<?php echo $list['id_rdv']; ?>" name="id_rdv">
+        <input type="submit" value="Update">
+    </form>
     </div>
+
+    
 
     <script>
     let subMenu = document.getElementById("subMenu");

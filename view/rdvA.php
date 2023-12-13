@@ -1,7 +1,10 @@
+
+
+
+
+
 <?php 
 session_start();
-
-
 
 ?>
 
@@ -14,6 +17,16 @@ session_start();
 
     <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">
     <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+    <link rel ="stylesheet" href="../source/rdvA/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+  <link rel="stylesheet" href="https://fonts.gastatic.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+  <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
    
     <title>Consultation</title>
 </head>
@@ -23,7 +36,7 @@ session_start();
         <header>
             <div class="image-text">
                 <span class="image">
-                    <a href="../view/menu_consultation_medecin.php"><img class="imglogo" src="../image/logo/logo.png" alt="logo"></a>
+                    <a href="../view/menu_consultation_admin.php"><img class="imglogo" src="../image/logo/logo.png" alt="logo"></a>
                 </span>
 
                 <div class="text header-text">
@@ -46,17 +59,17 @@ session_start();
 
                 <ul class="menu-links">
                     <li class="">
-                        <a href="../view/calendar.php" >
+                        <a href="../view/calendar_admin.php" >
                             <i class='bx bx-clinic icon'></i>
-                            <span class="text nav-text" >Calendar</span>
+                            <span class="text nav-text" >Calendar des Médecins </span>
                         </a>
                     </li>
 
                    
                     <li class="">
-                        <a href="../view/selectionner_dossier_medecin.php">
+                        <a href="../view/selectionner_dossier_admin.php">
                             <i class="bx bxs-box icon"></i>
-                            <span class="text nav-text">Consulter Dossier</span>
+                            <span class="text nav-text">Consulter Dossier Patient</span>
                         </a>
                     </li>
 
@@ -82,21 +95,24 @@ session_start();
                     </li>
 
                     <li class="">
-                        <a href="../view/rdvM.php">
+                        <a href="../view/rdvA.php">
                             <i class="bx bxs-box icon"></i>
-                            <span class="text nav-text">Consulter RDV </span>
+                            <span class="text nav-text">Consulter RDV</span>
                         </a>
                     </li>
 
-                    
-
-              
+                    <li class="">
+                        <a href="../view/category.php">
+                            <i class="bx bxs-box icon"></i>
+                            <span class="text nav-text">Ajouter categorie</span>
+                        </a>
+                    </li>
                     
                 </ul>
             </div>
 
             
-            <div class="bottom-content">
+
                 <li class="">
                     <a href="../view/logout.php">
                         <i class="bx bx-log-out icon"></i>
@@ -124,16 +140,17 @@ session_start();
     <div class="home" id="content">
         <div class="links-menu">
             <nav class="profile">
+                <div class="pic">
                     <?php
                     if (isset($_SESSION['user_id']))
                     {
                     ?>
 
-                        <img src="../view/images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
+                        <img src="images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
                     <?php
                     }
                     ?>
-                
+                </div>
 
                 <div class="sub-menu-wrap" id="subMenu">
                     <div class="sub-menu">
@@ -190,19 +207,66 @@ session_start();
 
             </nav>
         </div>
-        <div class="animated-title">
-            <div class="text-top">
-              <div>
-                <span>Vous Pouvez Ici </span>
-                
-                <span>Profitez de nos services</span>
-              </div>
-            </div>
-            <div class="text-bottom">
-              <div>MedTUN</div>
-            </div>
-          </div>
+        
+
+<form  class="form" method="POST" action="../controller/afficher_liste_rdv_pat_admin.php" id="calendarForm">
+    <p class="title">Sélectionnr Medecin </p>
+    
+        <div class="flex">
+        <label>
+
+        
+            Spécialité : 
+            <div class="selectdiv" >
+
+            
+            <select name="specialité" id="specialiteSelect">
+            <option value="">Sélectionner une Spécialité</option>
+            <option value="generaliste">Géneraliste</option>
+            <option value="psychiatre">Psychiatre</option>
+            <option value="cardiologie">Cardiologe</option>
+
+            </select>
         </div>
+        </label>
+
+        <label>
+            Médecin : <div id="medecinListContainer" class="selectdiv">
+            <select name="medecin">
+            <option value="">Sélectionner Médecin</option>
+            </select>
+            </div>
+        </label>
+    </div>  
+            
+    
+    <button class="submit" type="submit">Afficher</button>
+    
+
+    <script>
+                function updateMedecinList() {
+                    var selectedSpecialite = document.getElementById('specialiteSelect').value;
+
+                    $.ajax({
+                    type: 'POST',
+                    url: '../controller/listerMedAdmin.php',
+                    data: { specialité: selectedSpecialite },
+                    success: function(response) {
+                        $('#medecinListContainer').html(response);
+                    },
+                    error: function() {
+                        alert('Erreur lors de la mise à jour de la liste déroulante');
+                    }
+                    });
+                }
+
+                document.getElementById('specialiteSelect').addEventListener('change', function() {
+                    updateMedecinList();
+                });
+
+                </script>
+</form>
+
     </div>
 
     <script>

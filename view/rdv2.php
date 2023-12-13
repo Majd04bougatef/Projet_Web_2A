@@ -1,8 +1,13 @@
-<?php 
+
+
+<?php
+
+    include '../controller/rdvC.php';
 session_start();
+    $rdv= new rdvC();
 
-
-
+    $r = $rdv->listrdv($_POST['pays'],$_POST['ville'],$_POST['select-box']);
+   
 ?>
 
 
@@ -11,19 +16,20 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">
+    <link rel="stylesheet" type="text/css" href="../source/page lister medecin/stylecss.css">
+    <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+       <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">
     <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
    
     <title>Consultation</title>
 </head>
 <body>
     
-    <nav class="sidebar close">
+<nav class="sidebar close">
         <header>
             <div class="image-text">
                 <span class="image">
-                    <a href="../view/menu_consultation_medecin.php"><img class="imglogo" src="../image/logo/logo.png" alt="logo"></a>
+                    <a href="../view/menu_consultation_patient.php"><img class="imglogo" src="../image/logo/logo.png" alt="logo"></a>
                 </span>
 
                 <div class="text header-text">
@@ -37,74 +43,43 @@ session_start();
 
         <div class="menu-bar">
             <div class="menu">
-                <li class="search-box">
-                    
-                        <i class="bx bx-search icon"></i>
-                        <input type="search" placeholder="Search..">
-                    
-                </li>
+                
 
                 <ul class="menu-links">
+
                     <li class="">
-                        <a href="../view/calendar.php" >
-                            <i class='bx bx-clinic icon'></i>
-                            <span class="text nav-text" >Calendar</span>
+                        <a href="../view/rendez-vous.php">
+                            <i class="bx bxs-box icon"></i>
+                            <span class="text nav-text">Prendre RDV</span>
                         </a>
                     </li>
 
-                   
                     <li class="">
-                        <a href="../view/selectionner_dossier_medecin.php">
+                        <a href="../view/rdvP.php">
+                            <i class="bx bxs-box icon"></i>
+                            <span class="text nav-text">Consulter RDV</span>
+                        </a>
+                    </li>
+                                 
+                    <li class="">
+                        <a href="selectionner_dossier.php">
                             <i class="bx bxs-box icon"></i>
                             <span class="text nav-text">Consulter Dossier</span>
                         </a>
                     </li>
 
-                    <li class="">
-                        <a href="../controller/add.php">
-                            <i class="bx bxs-box icon"></i>
-                            <span class="text nav-text">Ajouter event</span>
-                        </a>
-                    </li>
-
-                    <li class="">
-                        <a href="../controller/calendrier.php">
-                            <i class="bx bxs-box icon"></i>
-                            <span class="text nav-text">Calendrier event </span>
-                        </a>
-                    </li>
-
-                    <li class="">
-                        <a href="../controller/listevents.php">
-                            <i class="bx bxs-box icon"></i>
-                            <span class="text nav-text">liste event </span>
-                        </a>
-                    </li>
-
-                    <li class="">
-                        <a href="../view/rdvM.php">
-                            <i class="bx bxs-box icon"></i>
-                            <span class="text nav-text">Consulter RDV </span>
-                        </a>
-                    </li>
-
-                    
-
-              
                     
                 </ul>
             </div>
 
-            
             <div class="bottom-content">
+                
                 <li class="">
-                    <a href="../view/logout.php">
-                        <i class="bx bx-log-out icon"></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
-                </li>
-
-
+                        <a href="../view/logout.php">
+                            <i class="bx bx-log-out icon"></i>
+                            <span class="text nav-text">Logout</span>
+                        </a>
+                    </li>
                 <li class="mode">
                     <div class="moon-sun">
                         <i class="bx bx-moon icon moon"></i>
@@ -129,7 +104,7 @@ session_start();
                     {
                     ?>
 
-                        <img src="../view/images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
+                        <img src="images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
                     <?php
                     }
                     ?>
@@ -190,19 +165,55 @@ session_start();
 
             </nav>
         </div>
-        <div class="animated-title">
-            <div class="text-top">
-              <div>
-                <span>Vous Pouvez Ici </span>
-                
-                <span>Profitez de nos services</span>
-              </div>
-            </div>
-            <div class="text-bottom">
-              <div>MedTUN</div>
-            </div>
-          </div>
+        <section class="attendance">
+        <div class="attendance-list">
+          <h1>Les médecins disponibles</h1><br>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Spécialité</th>
+                <th>Prendre rdv</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            <?php
+                foreach ($r as $med){
+            ?>
+
+                <tr>
+                    <td><img width="100px" height="100px"  src="../view/images/<?php echo $med['image'];?>"></td>
+                    <td><?php echo $med['nom'];?></td>
+                    <td><?php echo $med['prenom'];?></td>
+                    <td><?php echo $med['specialite'];?></td>
+                    <td><input type="hidden" name="id_user"  value="<?php echo $med['id_user'];?>"><button><a href="../view/calendar_rdv.php?id_user=<?php echo $med['id_user'];?>">prendre rdv</a></button></td>
+                    
+                </tr>
+            <?php
+                }
+            ?>   
+
+            </tbody>
+          </table>
         </div>
+    </section>
+    
+
+    <script>
+        
+        // Get query parameters from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Display selected values
+        pays=document.getElementById("selectedPays").innerText = urlParams.get("pays");
+        ville=document.getElementById("selectedVille").innerText = urlParams.get("ville");
+        specialite=document.getElementById("selectedSpecialiteMedicale").innerText = urlParams.get("specialite");
+       
+        </script>
+
     </div>
 
     <script>
@@ -216,3 +227,4 @@ session_start();
 
 </body>
 </html>
+

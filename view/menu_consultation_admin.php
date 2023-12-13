@@ -79,6 +79,19 @@ session_start();
                         </a>
                     </li>
 
+                    <li class="">
+                        <a href="../view/rdvA.php">
+                            <i class="bx bxs-box icon"></i>
+                            <span class="text nav-text">Consulter RDV</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../view/category.php">
+                            <i class="bx bxs-box icon"></i>
+                            <span class="text nav-text">Ajouter categorie</span>
+                        </a>
+                    </li>
                     
                 </ul>
             </div>

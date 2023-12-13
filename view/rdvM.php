@@ -4,14 +4,13 @@ session_start();
 
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel ="stylesheet" href="../source/page selectionner medecin patient/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">
     <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
    
@@ -190,19 +189,20 @@ session_start();
 
             </nav>
         </div>
-        <div class="animated-title">
-            <div class="text-top">
-              <div>
-                <span>Vous Pouvez Ici </span>
+        <form class="form" method="POST" action="../controller/afficher_liste_rdv_pat.php">
+    
+            <p class="message"> </p>
+                <div class="flex">
+                    <label>
+                        <input  type="text" class="input" name="id_user" value="">
+                        <span>ID Patient </span>
+                    </label>
                 
-                <span>Profitez de nos services</span>
-              </div>
-            </div>
-            <div class="text-bottom">
-              <div>MedTUN</div>
-            </div>
-          </div>
-        </div>
+                </div>      
+                    
+            <input type="submit" class='submit' value='afficher'>
+            
+        </form>
     </div>
 
     <script>
@@ -216,3 +216,8 @@ session_start();
 
 </body>
 </html>
+
+
+
+
+
