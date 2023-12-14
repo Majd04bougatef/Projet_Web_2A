@@ -28,7 +28,7 @@ if(   isset($date)|| isset($dateDeb)||  isset($dateFin)|| isset($_POST["catrdv"]
    
     $rdvc->addrdv($r);
 
-    echo '<script>window.location.href = "../view/calendar.php";</script>';
+    echo '<script>window.location.href = "../view/calendar_rdv.php";</script>';
   }
   else{
     echo "eror";

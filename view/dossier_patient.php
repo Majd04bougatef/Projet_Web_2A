@@ -27,7 +27,7 @@ session_start ();
 </head>
 <body>
     
-    <nav class="sidebar close">
+     <nav class="sidebar close">
         <header>
             <div class="image-text">
                 <span class="image">
@@ -63,11 +63,61 @@ session_start ();
                    
                     <li class="">
                         <a href="../view/selectionner_dossier_admin.php">
-                            <i class="bx bxs-box icon"></i>
-                            <span class="text nav-text">Consulter Dossier PAtient</span>
+                            <i class="bx bx-folder-open icon"></i>
+                            <span class="text nav-text">Consulter Dossier Patient</span>
                         </a>
                     </li>
 
+                    <li class="">
+                        <a href="../controller/add.php">
+                            <i class="bx bxs-comment-add icon"></i>
+                            <span class="text nav-text">Ajouter event</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/calendrier.php">
+                            <i class="bx bx-calendar-event icon"></i>
+                            <span class="text nav-text">Calendrier event </span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/listevents.php">
+                            <i class="bx bx-list-ul icon"></i>
+                            <span class="text nav-text">liste event </span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../view/rdvA.php">
+                            <i class="bx bxs-cabinet icon"></i>
+                            <span class="text nav-text">Consulter RDV</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../view/category.php">
+                            <i class="bx bxs-comment-add icon"></i>
+                            <span class="text nav-text">Ajouter categorie</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/add_blog.php">
+                            <i class="bx bxl-blogger icon"></i>
+                            <span class="text nav-text">Ajouter Blog</span>
+                        </a>
+                    </li>
+                    
+
+                    <li class="">
+                        <a href="../controller/listeblog.php">
+                            <i class="bx bx-list-ul icon"></i>
+                            <span class="text nav-text">Lister Blog</span>
+                        </a>
+                    </li>
+                    
                     
                 </ul>
             </div>
@@ -75,7 +125,7 @@ session_start ();
             
 
                 <li class="">
-                    <a href="../view/acceuil.php">
+                    <a href="../view/logout.php">
                         <i class="bx bx-log-out icon"></i>
                         <span class="text nav-text">Logout</span>
                     </a>

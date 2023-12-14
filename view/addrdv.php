@@ -3,12 +3,14 @@ include_once '../controller/rdvC.php';
 include_once '../controller/catC.php';
 $date = $dateDeb = $dateFin = "";
 
+session_start();
+
 $date = $_GET["date"] ?? "";
 $dateDeb = $_GET["date_deb"] ?? "";
 $dateFin = $_GET["date_fin"] ?? "";
 $id_user = $_GET["id_user"] ?? "";
 $infop = new rdvC();
-$result = $infop->show_info_patient('PA12345678');
+$result = $infop->show_info_patient($_SESSION['user_id']);
 $info = $result->fetch(PDO::FETCH_ASSOC);
 
 

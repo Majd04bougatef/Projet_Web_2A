@@ -6,7 +6,9 @@
 
 
 form{
-    margin-left: 5%;
+    margin-left: 15%;
+    margin-top: 5%;
+    width: 90%;
 }
 
 hr{
@@ -16,7 +18,7 @@ hr{
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 15px;
-    min-width: 100%;
+ width: 100%;
     overflow: hidden;
     border-radius: 5px 5px 0 0;
   }
@@ -25,6 +27,7 @@ hr{
     background: #1977cc;
     text-align: left;
     font-weight: bold;
+
   }
   .table th,
   .table td{

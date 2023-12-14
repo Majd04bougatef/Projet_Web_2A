@@ -12,6 +12,13 @@
 }
 
 
+.calender{
+  margin-left: 12%;
+}
+
+#calendarForm{
+  display: flex;
+}
 
 #header {
   text-align: center;

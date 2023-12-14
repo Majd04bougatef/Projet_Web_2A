@@ -27,11 +27,12 @@ session_start ();
 </head>
 <body>
     
-    <nav class="sidebar close">
+   
+<nav class="sidebar close">
         <header>
             <div class="image-text">
                 <span class="image">
-                    <a href="../view/menu_consultation_admin.php"><img class="imglogo" src="../image/logo/logo.png" alt="logo"></a>
+                    <a href="../view/menu_consultation_patient.php"><img class="imglogo" src="../image/logo/logo.png" alt="logo"></a>
                 </span>
 
                 <div class="text header-text">
@@ -45,20 +46,28 @@ session_start ();
 
         <div class="menu-bar">
             <div class="menu">
-                <li class="search-box">
-                    
-                        <i class="bx bx-search icon"></i>
-                        <input type="search" placeholder="Search..">
-                    
-                </li>
+                
 
                 <ul class="menu-links">
-                    
-                   
+
                     <li class="">
-                        <a href="../view/selectionner_dossier_admin.php">
-                            <i class="bx bxs-box icon"></i>
-                            <span class="text nav-text">Consulter Dossier </span>
+                        <a href="../view/rendez-vous.php">
+                            <i class="bx bxs-calendar icon"></i>
+                            <span class="text nav-text">Prendre RDV</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../view/rdvP.php">
+                            <i class="bx bxs-cabinet icon"></i>
+                            <span class="text nav-text">Consulter RDV</span>
+                        </a>
+                    </li>
+                                 
+                    <li class="">
+                        <a href="../view/selectionner_dossier.php">
+                            <i class="bx bx-folder-open icon"></i>
+                            <span class="text nav-text">Consulter Dossier</span>
                         </a>
                     </li>
 
@@ -66,16 +75,14 @@ session_start ();
                 </ul>
             </div>
 
-            
-
+            <div class="bottom-content">
+                
                 <li class="">
-                    <a href="../view/acceuil.php">
-                        <i class="bx bx-log-out icon"></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
-                </li>
-
-
+                        <a href="../view/logout.php">
+                            <i class="bx bx-log-out icon"></i>
+                            <span class="text nav-text">Logout</span>
+                        </a>
+                    </li>
                 <li class="mode">
                     <div class="moon-sun">
                         <i class="bx bx-moon icon moon"></i>

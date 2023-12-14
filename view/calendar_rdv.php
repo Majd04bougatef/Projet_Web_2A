@@ -26,11 +26,18 @@ if(isset($_POST['date'])){
 <head>
   <meta charset="UTF-8">
   <title></title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  
   <link rel="stylesheet" href="../source/style.css">
-    <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">
-    <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
-   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="https://fonts.gastatic.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+  <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <link rel="stylesheet" href="../assets/calendar/style.css">
+  <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">
+  <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+  
     <title>Consultation</title>
 </head>
 <body>
@@ -59,21 +66,21 @@ if(isset($_POST['date'])){
 
                     <li class="">
                         <a href="../view/rendez-vous.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bxs-calendar icon"></i>
                             <span class="text nav-text">Prendre RDV</span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="../view/rdvP.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bxs-cabinet icon"></i>
                             <span class="text nav-text">Consulter RDV</span>
                         </a>
                     </li>
                                  
                     <li class="">
                         <a href="selectionner_dossier.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bx-folder-open icon"></i>
                             <span class="text nav-text">Consulter Dossier</span>
                         </a>
                     </li>
@@ -108,13 +115,13 @@ if(isset($_POST['date'])){
 
     <div class="home" id="content">
         <div class="links-menu">
-            <nav class="profile">
+        <nav class="profile">
                     <?php
                     if (isset($_SESSION['user_id']))
                     {
                     ?>
 
-                        <img src="images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
+                        <img src="../view/images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
                     <?php
                     }
                     ?>
@@ -128,7 +135,7 @@ if(isset($_POST['date'])){
                                 {
                                 ?>
                                 <h1>
-                                <img src="images/<?php echo $_SESSION['image'];?>">
+                                <img src="../view/images/<?php echo $_SESSION['image'];?>">
                                     <?php echo $_SESSION['nom'];?>
                                 </h1>
                                 <?php
@@ -146,25 +153,25 @@ if(isset($_POST['date'])){
                         <hr>
 
                         <a href="../view/updateuser.php" class="sub-menu-link">
-                            <img src="images/profile.png">
+                            <img src="../view/images/profile.png">
                             <p>Edit Profile</p>
                             <span> > </span>
                         </a>
 
                         <a href="#" class="sub-menu-link">
-                            <img src="images/setting.png">
+                            <img src="../view/images/setting.png">
                             <p>Settings and Privacy</p>
                             <span> > </span>
                         </a>
 
                         <a href="#" class="sub-menu-link">
-                            <img src="images/help.png">
+                            <img src="../view/images/help.png">
                             <p>Help & Support</p>
                             <span> > </span>
                         </a>
 
                         <a href="../view/logout.php" class="sub-menu-link">
-                            <img src="images/logout.png">
+                            <img src="../view/images/logout.png">
                             <p>Logout</p>
                             <span> > </span>
                         </a>
@@ -176,30 +183,31 @@ if(isset($_POST['date'])){
             </nav>
         </div>
 
+        <div class="calender">
         <form method="POST" action="">
-      <div class="name-med" style="text-align: center;">
-        <h1 style="font-size: 4em;  color: #333;  font-weight: bold; text-align: center;  margin-bottom: 20px; ">Calendar</h1>
-        <br>
-        <h4>Date debut :
-        <input type="date" name="date" id="datePicker">
-        <input type="submit" value="Afficher" style="padding: 10px 20px;  font-size: 16px;  font-weight: bold;  text-transform: uppercase;  background-color: #0077B6; color: #fff;   border: none;  border-radius: 5px; cursor: pointer;">
-      </h4>
-    </div>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Add event listeners for "Add RDV" buttons
-      var addRdvButtons = document.querySelectorAll('.add-rdv');
-      addRdvButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-          var day = button.getAttribute('data-day');
-          var start = button.getAttribute('data-start');
-          var end = button.getAttribute('data-end');
+          <div class="name-med" style="text-align: center;">
+            <h1 style="font-size: 4em;  color: #333;  font-weight: bold; text-align: center;  margin-bottom: 20px; ">Calendar</h1>
+            <br>
+            <h4>Date debut :
+            <input type="date" name="date" id="datePicker">
+            <input type="submit" value="Afficher" style="padding: 10px 20px;  font-size: 16px;  font-weight: bold;  text-transform: uppercase;  background-color: #0077B6; color: #fff;   border: none;  border-radius: 5px; cursor: pointer;">
+          </h4>
+        </div>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          // Add event listeners for "Add RDV" buttons
+          var addRdvButtons = document.querySelectorAll('.add-rdv');
+          addRdvButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+              var day = button.getAttribute('data-day');
+              var start = button.getAttribute('data-start');
+              var end = button.getAttribute('data-end');
 
-          console.log('Add RDV clicked for ' + day + ' from ' + start + ' to ' + end);
+              console.log('Add RDV clicked for ' + day + ' from ' + start + ' to ' + end);
+            });
+          });
         });
-      });
-    });
-  </script>
+      </script>
         </form>
 
 
@@ -435,6 +443,7 @@ if(isset($_POST['date'])){
         </div>
       </div>
 
+      </div>
       <div id="myModal" class="modal"></div>
 
       <script>

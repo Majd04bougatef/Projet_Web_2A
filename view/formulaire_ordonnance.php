@@ -28,7 +28,7 @@
 </head>
 <body>
     
-    <nav class="sidebar close">
+<nav class="sidebar close">
         <header>
             <div class="image-text">
                 <span class="image">
@@ -64,8 +64,50 @@
                    
                     <li class="">
                         <a href="../view/selectionner_dossier_medecin.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bx-folder-open icon"></i>
                             <span class="text nav-text">Consulter Dossier</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/add.php">
+                            <i class="bx bxs-comment-add icon"></i>
+                            <span class="text nav-text">Ajouter event</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/calendrier.php">
+                            <i class="bx bx-calendar-event icon"></i>
+                            <span class="text nav-text">Calendrier event </span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/listevents.php">
+                            <i class="bx bx-list-ul icon"></i>
+                            <span class="text nav-text">liste event </span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../view/rdvM.php">
+                            <i class="bx bxs-cabinet icon"></i>
+                            <span class="text nav-text">Consulter RDV </span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/add_blog_med.php">
+                            <i class="bx bxs-comment-add icon"></i>
+                            <span class="text nav-text">Ajouter Blog</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/listeblog_med.php">
+                            <i class="bx bxl-blogger icon"></i>
+                            <span class="text nav-text">Lister Blog</span>
                         </a>
                     </li>
 
@@ -75,9 +117,9 @@
             </div>
 
             
-
+            <div class="bottom-content">
                 <li class="">
-                    <a href="logout.php">
+                    <a href="../view/logout.php">
                         <i class="bx bx-log-out icon"></i>
                         <span class="text nav-text">Logout</span>
                     </a>
@@ -102,13 +144,13 @@
 
     <div class="home" id="content">
         <div class="links-menu">
-            <nav class="profile">
+        <nav class="profile">
                     <?php
                     if (isset($_SESSION['user_id']))
                     {
                     ?>
 
-                        <img src="images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
+                        <img src="../view/images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
                     <?php
                     }
                     ?>
@@ -122,7 +164,7 @@
                                 {
                                 ?>
                                 <h1>
-                                <img src="images/<?php echo $_SESSION['image'];?>">
+                                <img src="../view/images/<?php echo $_SESSION['image'];?>">
                                     <?php echo $_SESSION['nom'];?>
                                 </h1>
                                 <?php
@@ -140,25 +182,25 @@
                         <hr>
 
                         <a href="../view/updateuser.php" class="sub-menu-link">
-                            <img src="images/profile.png">
+                            <img src="../view/images/profile.png">
                             <p>Edit Profile</p>
                             <span> > </span>
                         </a>
 
                         <a href="#" class="sub-menu-link">
-                            <img src="images/setting.png">
+                            <img src="../view/images/setting.png">
                             <p>Settings and Privacy</p>
                             <span> > </span>
                         </a>
 
                         <a href="#" class="sub-menu-link">
-                            <img src="images/help.png">
+                            <img src="../view/images/help.png">
                             <p>Help & Support</p>
                             <span> > </span>
                         </a>
 
-                        <a href="logout.php" class="sub-menu-link">
-                            <img src="images/logout.png">
+                        <a href="../view/logout.php" class="sub-menu-link">
+                            <img src="../view/images/logout.png">
                             <p>Logout</p>
                             <span> > </span>
                         </a>

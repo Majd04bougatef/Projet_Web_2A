@@ -3,14 +3,14 @@
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 15px;
-  min-width: 100%;
+  width: 100%;
   overflow: hidden;
   border-radius: 5px 5px 0 0;
 }
 table thead tr{
   color: #fff;
   background: #1977cc;
-  text-align: left;
+  text-align: center;
   font-weight: bold;
 }
 .table th,
@@ -44,8 +44,8 @@ table thead tr{
 }
 
 .attendance{
-  margin-top: 10%;
-  width: 70%;
+  margin-top:5%;
+  width: 90%;
   justify-items: center;
   justify-content: flex;
   margin-left: 15%;

@@ -12,17 +12,26 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des événements : </title>
-
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">
+    <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">  
+  <link rel="stylesheet" type="text/css" href="../source/page lister medecin/stylecss.css">
+    <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+ 
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  
+  <link rel="stylesheet" href="https://fonts.gastatic.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+  <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+       
 
         .container {
             width: 100%;
@@ -33,12 +42,7 @@ session_start();
             overflow: hidden;
         }
 
-        header {
-            background-color: #4a90e2;
-            color: #fff;
-            padding: 5rem 2rem;
-            text-align: center;
-        }
+       
 
         h1 {
             color: #4a90e2;
@@ -209,8 +213,7 @@ session_start();
             display: block;
         }
     </style>
-
-    <script>
+  <script>
         function confirmDeletion() {
             return confirm("Voulez-vous vraiment supprimer cet événement ?");
 
@@ -257,12 +260,206 @@ session_start();
 
 
     </script>
+    <title>Consultation</title>
 </head>
-
 <body>
-    <div class="container">
+    <?php
+        if (substr($_SESSION['user_id'], 0, 1)=='A'){
+    ?>
+     
+<nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <a href="../view/menu_consultation_admin.php"><img class="imglogo" src="../image/logo/logo.png" alt="logo"></a>
+                </span>
+
+                <div class="text header-text">
+                    <span class="name">Med<span class="tun">TUN</span></span><br>
+                    <span class="profession">Best For Medical</span>
+                </div>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box">
+                    
+                        <i class="bx bx-search icon"></i>
+                        <input type="search" placeholder="Search..">
+                    
+                </li>
+
+                <ul class="menu-links">
+                    <li class="">
+                        <a href="../view/calendar_admin.php" >
+                            <i class='bx bx-clinic icon'></i>
+                            <span class="text nav-text" >Calendar des Médecins </span>
+                        </a>
+                    </li>
+
+                   
+                    <li class="">
+                        <a href="../view/selectionner_dossier_admin.php">
+                            <i class="bx bx-folder-open icon"></i>
+                            <span class="text nav-text">Consulter Dossier Patient</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/add.php">
+                            <i class="bx bxs-comment-add icon"></i>
+                            <span class="text nav-text">Ajouter event</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/calendrier.php">
+                            <i class="bx bx-calendar-event icon"></i>
+                            <span class="text nav-text">Calendrier event </span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/listevents.php">
+                            <i class="bx bx-list-ul icon"></i>
+                            <span class="text nav-text">liste event </span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../view/rdvA.php">
+                            <i class="bx bxs-cabinet icon"></i>
+                            <span class="text nav-text">Consulter RDV</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../view/category.php">
+                            <i class="bx bxs-comment-add icon"></i>
+                            <span class="text nav-text">Ajouter categorie</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/add_blog.php">
+                            <i class="bx bxl-blogger icon"></i>
+                            <span class="text nav-text">Ajouter Blog</span>
+                        </a>
+                    </li>
+                    
+
+                    <li class="">
+                        <a href="../controller/listeblog.php">
+                            <i class="bx bx-list-ul icon"></i>
+                            <span class="text nav-text">Lister Blog</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+
+            
+
+                <li class="">
+                    <a href="../view/logout.php">
+                        <i class="bx bx-log-out icon"></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+
+
+                <li class="mode">
+                    <div class="moon-sun">
+                        <i class="bx bx-moon icon moon"></i>
+                        <i class="bx bx-sun icon sun"></i>
+                    </div>
+
+                    <span class="mod-text text">Dark Mode</span>
+
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <div class="home" id="content">
+        <div class="links-menu">
+        <nav class="profile">
+                    <?php
+                    if (isset($_SESSION['user_id']))
+                    {
+                    ?>
+
+                        <img src="../view/images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
+                    <?php
+                    }
+                    ?>
+                
+
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                        <?php
+                                if (isset($_SESSION['user_id']))
+                                {
+                                ?>
+                                <h1>
+                                <img src="../view/images/<?php echo $_SESSION['image'];?>">
+                                    <?php echo $_SESSION['nom'];?>
+                                </h1>
+                                <?php
+                                }
+                                else{
+                                    ?>
+                                    <li><a href="#"></a><li>
+
+                                    <?php
+                                }
+                            ?>
+                            
+                            
+                        </div>
+                        <hr>
+
+                        <a href="../view/updateuser.php" class="sub-menu-link">
+                            <img src="../view/images/profile.png">
+                            <p>Edit Profile</p>
+                            <span> > </span>
+                        </a>
+
+                        <a href="#" class="sub-menu-link">
+                            <img src="../view/images/setting.png">
+                            <p>Settings and Privacy</p>
+                            <span> > </span>
+                        </a>
+
+                        <a href="#" class="sub-menu-link">
+                            <img src="../view/images/help.png">
+                            <p>Help & Support</p>
+                            <span> > </span>
+                        </a>
+
+                        <a href="logout.php" class="sub-menu-link">
+                            <img src="../view/images/logout.png">
+                            <p>Logout</p>
+                            <span> > </span>
+                        </a>
+
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <section class="attendance">
         <h1>Liste des événements : </h1>
-        <div class="search-container">
+        <!--<div class="search-container">
             <form method="post" action="" onsubmit="searchEvents(); return false;">
                 <input type="text" id="searchInput" class="search-input" placeholder="Rechercher par titre">
                 <button type="submit" class="search-button">Rechercher</button>
@@ -272,16 +469,24 @@ session_start();
                 <input type="date" id="endDate" name="endDate" placeholder="Date de fin">
                 <button type="button" onclick="filterByDate()">Filtrer par date</button>
             </form>
+        </div>-->
+        <div class="attendance-list">
+          <h1></h1><br>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>titre event</th>
+                <th>sujet event</th>
+                <th>date debut</th>
+                <th>date fin</th>
+                <th>Modifier event</th>
+                <th>supprimer event</th>
+                <th>détails</th>
+              </tr>
+            </thead>
+            <tbody>
 
-
-
-
-
-
-        </div>
-
-
-        <div class="event-container">
             <?php
             include '../config.php';
             include '../Controller/EventC.php';
@@ -292,52 +497,433 @@ session_start();
                 $searchTerm = $_POST['searchTerm'];
                 $events = $eventC->searchEvents($searchTerm);
             } else {
-
-                $events = $eventC->listEvents_medecin($_SESSION['user_id']);
+                
+                    
+                    $events = $eventC->listEvents();
             }
 
             foreach ($events as $event) {
                 $date_debut_event = isset($event['date_debut']) ? $event['date_debut'] : '';
                 $date_fin_event = isset($event['date_fin']) ? $event['date_fin'] : ''; ?>
-                <div class="event-card" data-date="<?php echo $date_debut_event; ?>">
 
-                    <img class="event-image"
-                        src="../controller/<?php echo isset($event['image']) ? $event['image'] : ''; ?>"
-                        alt="<?php echo isset($event['image']) ? htmlspecialchars($event['image']) : 'eventImage'; ?>">
-                    <a href="event_details.php?id_event=<?php echo $event['id_e']; ?>">Voir les détails de l'événement</a>
+                <tr>
+                    <td><img width="100px" height="100px" src="../controller/<?php echo isset($event['image']) ? $event['image'] : ''; ?>"></td>
+                    
+                    <th><?php echo $event['titre_event']; ?></th>
+                    <th><?php echo $event['sujet_event'];?></th>
+                    <th><?php echo $event['date_debut_event'];?></th>
+                    <th><?php echo $event['date_fin_event'];?></th>
+                    
+                    <td><input type="hidden" name="id_b"  value="<?php echo $event['id_e'];?>"><button><a href="../controller/update.php?id_e=<?php echo $event['id_e'];?>">Modifier Event</a></button></td>
+                    <td><a href="#" onclick="confirmDelete(<?php echo $event['id_e']; ?>)"><button>Supprimer</button></a></td>
+                    <td><a href="event_details.php?id_event=<?php echo $event['id_e']; ?>"><button>Voir les détails de l'événement</button></a></td>
+                </tr>
+            <?php
+                }
+            ?>   
 
-                    <div class="event-details">
-                        <p class="event-title">
-                            <?php echo $event['titre_event']; ?>
-                        </p>
-                        <p class="event-description">
-                            <?php echo $event['desc_event']; ?>
-                        </p>
-                        <p class="event-date">
-                            Début :
-                            <?php echo $date_debut_event; ?><br>
-                            Fin :
-                            <?php echo $date_fin_event; ?>
-                        </p>
+            </tbody>
+          </table>
+        </div>
+    </section>
+    
+
+    <script>
 
 
+function confirmDelete(id_b) {
+                Swal.fire({
+                    title: 'Voulez-vous vraiment supprimer ce rdv?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui, supprimer!',
+                    cancelButtonText: 'Annuler'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "../controller/delete.php",
+                            data: { id_b: id_b },
+                            dataType: 'json', 
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire({
+                                        icon: 'success ',
+                                        title: 'Suppression réussie!',
+                                        text: 'Les données ont été supprimées avec succès.'
+                                    });
+                                    location.reload();
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Erreur',
+                                        text: response.message
+                                    });
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Erreur lors de l'envoi de la requête AJAX", error);
+                                console.log(xhr.responseText);
+                            }
+                        });
+                    }
+                });
+            }
 
-                        <div class="event-actions">
-                            <a class="edit" href="update.php?id_event=<?php echo $event['id_e']; ?>">Modifier</a>
-                            <a class="delete" href="delete.php?id_e=<?php echo $event['id_e']; ?>"
-                                onclick="return confirmDeletion();">Supprimer</a>
+</script>
+    </div>
+
+    <script>
+    let subMenu = document.getElementById("subMenu");
+    
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
+    <script src="../assets/consultation/menu_consultaion.js"></script>
+
+
+    <?php
+        }
+        else{
+    ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">
+    <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+    
+
+   
+    <title>Consultation</title>
+</head>
+<body>
+    
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <a href="../view/menu_consultation_medecin.php"><img class="imglogo" src="../image/logo/logo.png" alt="logo"></a>
+                </span>
+
+                <div class="text header-text">
+                    <span class="name">Med<span class="tun">TUN</span></span><br>
+                    <span class="profession">Best For Medical</span>
+                </div>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box">
+                    
+                        <i class="bx bx-search icon"></i>
+                        <input type="search" placeholder="Search..">
+                    
+                </li>
+
+                <ul class="menu-links">
+                    <li class="">
+                        <a href="../view/calendar.php" >
+                            <i class='bx bx-clinic icon'></i>
+                            <span class="text nav-text" >Calendar</span>
+                        </a>
+                    </li>
+
+                   
+                    <li class="">
+                        <a href="../view/selectionner_dossier_medecin.php">
+                            <i class="bx bx-folder-open icon"></i>
+                            <span class="text nav-text">Consulter Dossier</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/add_event.php">
+                            <i class="bx bxs-comment-add icon"></i>
+                            <span class="text nav-text">Ajouter event</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/calendrier.php">
+                            <i class="bx bx-calendar-event icon"></i>
+                            <span class="text nav-text">Calendrier event </span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/listevents.php">
+                            <i class="bx bx-list-ul icon"></i>
+                            <span class="text nav-text">liste event </span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../view/rdvM.php">
+                            <i class="bx bxs-cabinet icon"></i>
+                            <span class="text nav-text">Consulter RDV </span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/add_blog_med.php">
+                            <i class="bx bxs-comment-add icon"></i>
+                            <span class="text nav-text">Ajouter Blog</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="../controller/listeblog_med.php">
+                            <i class="bx bxl-blogger icon"></i>
+                            <span class="text nav-text">Lister Blog</span>
+                        </a>
+                    </li>
+
+              
+                    
+                </ul>
+            </div>
+
+            
+            <div class="bottom-content">
+                <li class="">
+                    <a href="../view/logout.php">
+                        <i class="bx bx-log-out icon"></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+
+
+                <li class="mode">
+                    <div class="moon-sun">
+                        <i class="bx bx-moon icon moon"></i>
+                        <i class="bx bx-sun icon sun"></i>
+                    </div>
+
+                    <span class="mod-text text">Dark Mode</span>
+
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <div class="home" id="content">
+        <div class="links-menu">
+            <nav class="profile">
+                    <?php
+                    if (isset($_SESSION['user_id']))
+                    {
+                    ?>
+
+                        <img src="../view/images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
+                    <?php
+                    }
+                    ?>
+                
+
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                        <?php
+                                if (isset($_SESSION['user_id']))
+                                {
+                                ?>
+                                <h1>
+                                <img src="../view/images/<?php echo $_SESSION['image'];?>">
+                                    <?php echo $_SESSION['nom'];?>
+                                </h1>
+                                <?php
+                                }
+                                else{
+                                    ?>
+                                    <li><a href="#"></a><li>
+
+                                    <?php
+                                }
+                            ?>
+                            
+                            
                         </div>
+                        <hr>
+
+                        <a href="../view/updateuser.php" class="sub-menu-link">
+                            <img src="../view/images/profile.png">
+                            <p>Edit Profile</p>
+                            <span> > </span>
+                        </a>
+
+                        <a href="#" class="sub-menu-link">
+                            <img src="../view/images/setting.png">
+                            <p>Settings and Privacy</p>
+                            <span> > </span>
+                        </a>
+
+                        <a href="#" class="sub-menu-link">
+                            <img src="../view/images/help.png">
+                            <p>Help & Support</p>
+                            <span> > </span>
+                        </a>
+
+                        <a href="../view/logout.php" class="sub-menu-link">
+                            <img src="../view/images/logout.png">
+                            <p>Logout</p>
+                            <span> > </span>
+                        </a>
+
+
                     </div>
                 </div>
-                <?php
-            }
-            ?>
+
+            </nav>
         </div>
-        <footer>
-            <a href="add.php" class="add-button">Ajouter un événement</a>
-        </footer>
+        <section class="attendance">
+        <h1>Liste des événements : </h1>
+        <!--<div class="search-container">
+            <form method="post" action="" onsubmit="searchEvents(); return false;">
+                <input type="text" id="searchInput" class="search-input" placeholder="Rechercher par titre">
+                <button type="submit" class="search-button">Rechercher</button>
+            </form>
+            <form method="post" action="" onsubmit="filterByDate(); return false;">
+                <input type="date" id="startDate" name="startDate" placeholder="Date de début">
+                <input type="date" id="endDate" name="endDate" placeholder="Date de fin">
+                <button type="button" onclick="filterByDate()">Filtrer par date</button>
+            </form>
+        </div>-->
+        <div class="attendance-list">
+          <h1></h1><br>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>titre event</th>
+                <th>sujet event</th>
+                <th>date debut</th>
+                <th>date fin</th>
+                <th>Modifier event</th>
+                <th>supprimer event</th>
+                <th>détails</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            <?php
+            include '../config.php';
+            include '../Controller/EventC.php';
+            
+            $eventC = new EventC();
+
+            if (isset($_POST['searchTerm'])) {
+                $searchTerm = $_POST['searchTerm'];
+                $events = $eventC->searchEvents($searchTerm);
+            } else {
+                
+                    
+                    $events = $eventC->listEvents();
+            }
+
+            foreach ($events as $event) {
+                $date_debut_event = isset($event['date_debut']) ? $event['date_debut'] : '';
+                $date_fin_event = isset($event['date_fin']) ? $event['date_fin'] : ''; ?>
+
+                <tr>
+                    <td><img width="100px" height="100px" src="../controller/<?php echo isset($event['image']) ? $event['image'] : ''; ?>"></td>
+                    
+                    <th><?php echo $event['titre_event']; ?></th>
+                    <th><?php echo $event['sujet_event'];?></th>
+                    <th><?php echo $event['date_debut_event'];?></th>
+                    <th><?php echo $event['date_fin_event'];?></th>
+                    
+                    <td><input type="hidden" name="id_b"  value="<?php echo $event['id_e'];?>"><button><a href="../controller/update.php?id_e=<?php echo $event['id_e'];?>">Modifier Event</a></button></td>
+                    <td><a href="#" onclick="confirmDelete(<?php echo $event['id_e']; ?>)"><button>Supprimer</button></a></td>
+                    <td><a href="event_details.php?id_event=<?php echo $event['id_e']; ?>"><button>Voir les détails de l'événement</button></a></td>
+                </tr>
+            <?php
+                }
+            ?>   
+
+            </tbody>
+          </table>
+        </div>
+    </section>
+    
+
+    <script>
+
+
+function confirmDelete(id_b) {
+                Swal.fire({
+                    title: 'Voulez-vous vraiment supprimer ce rdv?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui, supprimer!',
+                    cancelButtonText: 'Annuler'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "../controller/delete.php",
+                            data: { id_b: id_b },
+                            dataType: 'json', 
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire({
+                                        icon: 'success ',
+                                        title: 'Suppression réussie!',
+                                        text: 'Les données ont été supprimées avec succès.'
+                                    });
+                                    location.reload();
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Erreur',
+                                        text: response.message
+                                    });
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Erreur lors de l'envoi de la requête AJAX", error);
+                                console.log(xhr.responseText);
+                            }
+                        });
+                    }
+                });
+            }
+
+</script>
+    </div>
+
 
     </div>
-</body>
 
+    <script>
+    let subMenu2 = document.getElementById("subMenu");
+    
+    function toggleMenu(){
+        subMenu2.classList.toggle("open-menu");
+    }
+</script>
+    <script src="../assets/consultation/menu_consultaion.js"></script>
+
+
+    <?php
+        }
+    ?>
+</body>
+</html>
+</body>
 </html>

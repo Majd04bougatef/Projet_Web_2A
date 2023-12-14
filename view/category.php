@@ -29,18 +29,16 @@ if (isset($idcat) && isset($catrdv)) {
     <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
     <style>
       
-      body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh; /* Make sure the body takes up the full viewport height */
-            margin: 0; 
-            background-size: cover;
-            background-position: center;
-        }
+      .calendar{
+  margin-top: 5%;
+  margin-left: 10%;
+}
+
 
         form {
-            max-width: 600px; /* Set a maximum width for the form */
+            margin-top: 5%;
+            margin-left: 20%;/* Set a maximum width for the form */
+            width: 80%;
             margin: 20px auto; /* Center the form horizontally */
             padding: 20px;
             background-color: #fff; /* Set a background color for the form */
@@ -72,8 +70,7 @@ if (isset($idcat) && isset($catrdv)) {
     <title>Consultation</title>
 </head>
 <body>
-    
-    <nav class="sidebar close">
+<nav class="sidebar close">
         <header>
             <div class="image-text">
                 <span class="image">
@@ -109,45 +106,61 @@ if (isset($idcat) && isset($catrdv)) {
                    
                     <li class="">
                         <a href="../view/selectionner_dossier_admin.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bx-folder-open icon"></i>
                             <span class="text nav-text">Consulter Dossier Patient</span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="../controller/add.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bxs-comment-add icon"></i>
                             <span class="text nav-text">Ajouter event</span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="../controller/calendrier.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bx-calendar-event icon"></i>
                             <span class="text nav-text">Calendrier event </span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="../controller/listevents.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bx-list-ul icon"></i>
                             <span class="text nav-text">liste event </span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="../view/rdvA.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bxs-cabinet icon"></i>
                             <span class="text nav-text">Consulter RDV</span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="../view/category.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bxs-comment-add icon"></i>
                             <span class="text nav-text">Ajouter categorie</span>
                         </a>
                     </li>
+
+                    <li class="">
+                        <a href="../controller/add_blog.php">
+                            <i class="bx bxl-blogger icon"></i>
+                            <span class="text nav-text">Ajouter Blog</span>
+                        </a>
+                    </li>
+                    
+
+                    <li class="">
+                        <a href="../controller/listeblog.php">
+                            <i class="bx bx-list-ul icon"></i>
+                            <span class="text nav-text">Lister Blog</span>
+                        </a>
+                    </li>
+                    
                     
                 </ul>
             </div>
@@ -180,18 +193,17 @@ if (isset($idcat) && isset($catrdv)) {
 
     <div class="home" id="content">
         <div class="links-menu">
-            <nav class="profile">
-                <div class="pic">
+        <nav class="profile">
                     <?php
                     if (isset($_SESSION['user_id']))
                     {
                     ?>
 
-                        <img src="images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
+                        <img src="../view/images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
                     <?php
                     }
                     ?>
-                </div>
+                
 
                 <div class="sub-menu-wrap" id="subMenu">
                     <div class="sub-menu">
@@ -201,7 +213,7 @@ if (isset($idcat) && isset($catrdv)) {
                                 {
                                 ?>
                                 <h1>
-                                <img src="images/<?php echo $_SESSION['image'];?>">
+                                <img src="../view/images/<?php echo $_SESSION['image'];?>">
                                     <?php echo $_SESSION['nom'];?>
                                 </h1>
                                 <?php
@@ -219,25 +231,25 @@ if (isset($idcat) && isset($catrdv)) {
                         <hr>
 
                         <a href="../view/updateuser.php" class="sub-menu-link">
-                            <img src="images/profile.png">
+                            <img src="../view/images/profile.png">
                             <p>Edit Profile</p>
                             <span> > </span>
                         </a>
 
                         <a href="#" class="sub-menu-link">
-                            <img src="images/setting.png">
+                            <img src="../view/images/setting.png">
                             <p>Settings and Privacy</p>
                             <span> > </span>
                         </a>
 
                         <a href="#" class="sub-menu-link">
-                            <img src="images/help.png">
+                            <img src="../view/images/help.png">
                             <p>Help & Support</p>
                             <span> > </span>
                         </a>
 
-                        <a href="../view/logout.php" class="sub-menu-link">
-                            <img src="images/logout.png">
+                        <a href="logout.php" class="sub-menu-link">
+                            <img src="../view/images/logout.png">
                             <p>Logout</p>
                             <span> > </span>
                         </a>
@@ -248,6 +260,8 @@ if (isset($idcat) && isset($catrdv)) {
 
             </nav>
         </div>
+
+        <div class="calendar">
         <form action="" method="POST">
         <h6>idcat</h6>
         <input type="text" value="<?php  echo $nbrcat ?>" name="idcat">
@@ -255,6 +269,7 @@ if (isset($idcat) && isset($catrdv)) {
         <input type="text" value="" name="catrdv">
         <input type="submit" value="Add Category">
     </form>
+    </div>
     </div>
 
     <script>

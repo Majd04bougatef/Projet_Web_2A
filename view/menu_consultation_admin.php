@@ -1,6 +1,5 @@
 <?php 
-session_start();
-
+    session_start();
 ?>
 
 
@@ -53,45 +52,61 @@ session_start();
                    
                     <li class="">
                         <a href="../view/selectionner_dossier_admin.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bx-folder-open icon"></i>
                             <span class="text nav-text">Consulter Dossier Patient</span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="../controller/add.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bxs-comment-add icon"></i>
                             <span class="text nav-text">Ajouter event</span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="../controller/calendrier.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bx-calendar-event icon"></i>
                             <span class="text nav-text">Calendrier event </span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="../controller/listevents.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bx-list-ul icon"></i>
                             <span class="text nav-text">liste event </span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="../view/rdvA.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bxs-cabinet icon"></i>
                             <span class="text nav-text">Consulter RDV</span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="../view/category.php">
-                            <i class="bx bxs-box icon"></i>
+                            <i class="bx bxs-comment-add icon"></i>
                             <span class="text nav-text">Ajouter categorie</span>
                         </a>
                     </li>
+
+                    <li class="">
+                        <a href="../controller/add_blog.php">
+                            <i class="bx bxl-blogger icon"></i>
+                            <span class="text nav-text">Ajouter Blog</span>
+                        </a>
+                    </li>
+                    
+
+                    <li class="">
+                        <a href="../controller/listeblog.php">
+                            <i class="bx bx-list-ul icon"></i>
+                            <span class="text nav-text">Lister Blog</span>
+                        </a>
+                    </li>
+                    
                     
                 </ul>
             </div>
@@ -131,7 +146,7 @@ session_start();
                     {
                     ?>
 
-                        <img src="images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
+                        <img src="../view/images/<?php echo $_SESSION['image'];?>" class="user-pic" onclick="toggleMenu()">
                     <?php
                     }
                     ?>
@@ -145,7 +160,7 @@ session_start();
                                 {
                                 ?>
                                 <h1>
-                                <img src="images/<?php echo $_SESSION['image'];?>">
+                                <img src="../view/images/<?php echo $_SESSION['image'];?>">
                                     <?php echo $_SESSION['nom'];?>
                                 </h1>
                                 <?php
@@ -163,25 +178,25 @@ session_start();
                         <hr>
 
                         <a href="../view/updateuser.php" class="sub-menu-link">
-                            <img src="images/profile.png">
+                            <img src="../view/images/profile.png">
                             <p>Edit Profile</p>
                             <span> > </span>
                         </a>
 
                         <a href="#" class="sub-menu-link">
-                            <img src="images/setting.png">
+                            <img src="../view/images/setting.png">
                             <p>Settings and Privacy</p>
                             <span> > </span>
                         </a>
 
                         <a href="#" class="sub-menu-link">
-                            <img src="images/help.png">
+                            <img src="../view/images/help.png">
                             <p>Help & Support</p>
                             <span> > </span>
                         </a>
 
                         <a href="../view/logout.php" class="sub-menu-link">
-                            <img src="images/logout.png">
+                            <img src="../view/images/logout.png">
                             <p>Logout</p>
                             <span> > </span>
                         </a>
