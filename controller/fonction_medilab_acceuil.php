@@ -37,6 +37,37 @@ class function_medtun
             die('Error:' . $e->getMessage());
         }
     }
+
+
+    public function conter_nombre_blog()
+    {
+        $sql = "SELECT COUNT(DISTINCT id_b)  FROM blog";
+        $db = config::getConnexion();
+        try {
+            $result = $db->prepare($sql);
+            $result->execute();
+            $nombre_specialite = $result->fetchColumn();
+
+            return $nombre_specialite;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+
+    public function conter_nombre_event()
+    {
+        $sql = "SELECT COUNT(DISTINCT id_e)  FROM evenement";
+        $db = config::getConnexion();
+        try {
+            $result = $db->prepare($sql);
+            $result->execute();
+            $nombre_specialite = $result->fetchColumn();
+
+            return $nombre_specialite;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
 }
 
 

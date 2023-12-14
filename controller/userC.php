@@ -43,6 +43,7 @@ class userC
         try {
             $liste = $db->query($sql);
             return $liste;
+            
         } catch (Exception $e) {
             die('Error:' . $e->getMessage());
         }
@@ -205,7 +206,31 @@ public static function rechercheParNom($nom)
 }
 
 
-function update_user( $id_user,$cin,$nom,$prenom,$tel,$mail,$diplome , $lieu,$pass)
+function update_user( $id_user,$cin,$nom,$prenom,$tel,$mail,$pass)
+{
+
+    $sql = "UPDATE user SET cin=:c,nom=:n,prenom=:p,telephone=:t,mail=:m,password=:pa WHERE id_user = :id_user";
+    $db = config::getConnexion();
+    try {
+        $query = $db->prepare($sql);
+        $query->execute([
+            'c' => $cin,
+            'n'=> $nom,
+            'p' => $prenom,
+            't' => $tel,
+            'm' => $mail,
+            'pa' => $pass,
+            'id_user' => $id_user
+        ]);
+        echo " records UPDATED successfully <br>";
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+}
+
+
+
+function update_med( $id_user,$cin,$nom,$prenom,$tel,$mail,$diplome , $lieu,$pass)
 {
 
     $sql = "UPDATE user SET cin=:c,nom=:n,prenom=:p,telephone=:t,mail=:m,diplome=:d,lieu_cabinet=:l,password=:pa WHERE id_user = :id_user";

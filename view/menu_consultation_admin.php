@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../assets/consultation/menu_consultation.css">
     <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+    
    
     <title>Consultation</title>
 </head>
@@ -106,6 +107,21 @@
                             <span class="text nav-text">Lister Blog</span>
                         </a>
                     </li>
+
+                    <li class="">
+                        <a href="../view/afficherReclamation1.php">
+                            <i class="bx bx-list-ul icon"></i>
+                            <span class="text nav-text">Lister Réclamation</span>
+                        </a>
+                    </li>
+
+                    
+                    <li class="">
+                        <a href="../view/Listuser.php">
+                            <i class="bx bx-list-ul icon"></i>
+                            <span class="text nav-text">Lister Compte</span>
+                        </a>
+                    </li>
                     
                     
                 </ul>
@@ -140,7 +156,6 @@
     <div class="home" id="content">
         <div class="links-menu">
             <nav class="profile">
-                <div class="pic">
                     <?php
                     if (isset($_SESSION['user_id']))
                     {
@@ -150,7 +165,7 @@
                     <?php
                     }
                     ?>
-                </div>
+                
 
                 <div class="sub-menu-wrap" id="subMenu">
                     <div class="sub-menu">
@@ -177,7 +192,7 @@
                         </div>
                         <hr>
 
-                        <a href="../view/updateuser.php" class="sub-menu-link">
+                        <a href="../view/updatemed.php" class="sub-menu-link">
                             <img src="../view/images/profile.png">
                             <p>Edit Profile</p>
                             <span> > </span>

@@ -1,19 +1,23 @@
 
 <?php
 include_once '../config.php';
-include_once '../Controller/CommentC.php';
+include_once '../Controller/commentaireC.php';
 
-if (isset($_GET["id_commentaire"])) {
+if (isset($_GET['comment_id']) && isset($_GET['id_b'])) {
+    $idComment = $_GET['comment_id'];
+    echo $idComment;
+    $blogId = $_GET['id_b'];
     $commentC = new CommentC();
-    $idComment = $_GET["id_commentaire"];
+   
 
-    $commentC->deleteComment($idComment);
+    $commentC->deleteCommentaire($idComment);
 
-    if (isset($_GET["id_event"])) {
-        header('Location: event_details.php?id_event=' . $_GET["id_event"]);
+    if (isset($_GET["id_b"])) {
+        header("Location:read_more.php?id_b={$_GET['id_b']}");
         exit();
     } else {
-        echo "Event ID not provided.";
+        header("Location:read_more.php?id_b={$_GET['id_b']}");
+        exit();
     }
 } else {
     echo "Comment ID not provided.";

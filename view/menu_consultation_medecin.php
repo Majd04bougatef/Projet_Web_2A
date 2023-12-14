@@ -174,7 +174,7 @@ session_start();
                         </div>
                         <hr>
 
-                        <a href="../view/updateuser.php" class="sub-menu-link">
+                        <a href="../view/updatemed.php" class="sub-menu-link">
                             <img src="../view/images/profile.png">
                             <p>Edit Profile</p>
                             <span> > </span>

@@ -18,24 +18,27 @@ class commentC
 
     function deleteCommentaire($id)
     {
+    
         $sql = "UPDATE commentaire_blog SET isdelete = 1 WHERE id_com = :id";
         $db = config::getConnexion();
-    
+   
         try {
+           
             $req = $db->prepare($sql);
             $req->bindValue(':id', $id, PDO::PARAM_INT);
             $req->execute();
     
             echo $req->rowCount() . " enregistrements supprimés avec succès <br>";
         } catch (PDOException $e) {
+        
             die('Error: ' . $e->getMessage());
         }
     }
     
 
-    function addCommentaire($commentaire)
+    function addCommentaire($commentaire,$nom)
     {
-        $sql = "INSERT INTO `commentaire_blog` (`id_com`, `id_b`, `date_commentaire`, `desc_commentaire`) VALUES (NULL, :id_b, :date_commentaire, :desc_commentaire);";
+        $sql = "INSERT INTO `commentaire_blog` (`id_com`, `id_b`, `date_commentaire`, `desc_commentaire`,`nom`) VALUES (NULL, :id_b, :date_commentaire, :desc_commentaire,:nom);";
 
         $db = config::getConnexion();
         try {
@@ -44,6 +47,7 @@ class commentC
                 'id_b' => $commentaire->getIdB(),
                 'date_commentaire' => $commentaire->getDateCommentaire()->format('Y-m-d'),
                 'desc_commentaire' => $commentaire->getDescCommentaire(),
+                'nom' => $nom
             ]);
 
             echo 'Commentaire ajouté avec succès.';
@@ -96,9 +100,9 @@ class commentC
 
     public function getCommentsForBlog($blogId)
     {
-        $sql = "SELECT * FROM commentaire_blog WHERE id_b = :blogId  AND isdelete = 0";
+        $sql = "SELECT * FROM commentaire_blog WHERE id_b = :blogId AND isdelete = 0";
         $db = config::getConnexion();
-        
+
         try {
             $query = $db->prepare($sql);
             $query->bindParam(':blogId', $blogId, PDO::PARAM_INT);

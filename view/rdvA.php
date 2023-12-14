@@ -226,7 +226,7 @@ session_start();
 <form  class="form" method="POST" action="../controller/afficher_liste_rdv_pat_admin.php" id="calendarForm">
     <p class="title">Sélectionnr Medecin </p>
     
-        <div class="flex">
+    <div class="flex">
         <label>
 
         

@@ -16,12 +16,24 @@
   }
 
   $medtun= new function_medtun();
+
+
+
   $blog= new blogC();
+
+  if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $searchTerm = $_GET['search'];
+    $blog_list = $blog->searchBlogsByTitle($searchTerm);
+  } else {
+    $blog_list = $blog->listBlogsAcceuil();
+  }
   $count_medecin = $medtun->conter_nombre_medecin();
   $count_specialite = $medtun->conter_nombre_specialite();
+  $count_blog = $medtun->conter_nombre_blog();
+  $count_event = $medtun->conter_nombre_event();
 
+ 
 
-  $blog_list = $blog->listBlogsAcceuil();
 $blog_list = $blog_list->fetchAll(PDO::FETCH_ASSOC); 
 
 $blogPerPage = 4; 
@@ -69,6 +81,49 @@ $paginatedBlogs = array_slice($blog_list, $offset, $blogPerPage);
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
+
+  <style>
+ .search-input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+
+  .search-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  /* Style de la pagination */
+  .pagination {
+    margin-top: 20px;
+  }
+
+  .pagination a {
+    color: #007bff;
+    padding: 8px 16px;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    border-radius: 5px;
+  }
+
+  .pagination a.active {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .pagination a:hover:not(.active) {
+    background-color: #ddd;
+  }
+    </style>
 </head>
 
 <body>
@@ -144,22 +199,22 @@ $paginatedBlogs = array_slice($blog_list, $offset, $blogPerPage);
                 <div class="col-xl-4 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <i class="bx bx-receipt"></i>
-                    <h4>Corporis voluptates sit</h4>
-                    <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                    <h4>Services</h4>
+                    <p>Gérez vos rendez-vous médicaux facilement et efficacement</p>
                   </div>
                 </div>
                 <div class="col-xl-4 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <i class="bx bx-cube-alt"></i>
-                    <h4>Ullamco laboris ladore pan</h4>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+                    <h4>Avantages pour les Patients</h4>
+                    <p>Réservation 24/7, n'importe où, n'importe quand</p>
                   </div>
                 </div>
                 <div class="col-xl-4 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <i class="bx bx-images"></i>
-                    <h4>Labore consequatur</h4>
-                    <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+                    <h4>Avantages pour les Médecins</h4>
+                    <p>Gestion centralisée des rendez-vous pour une journée plus organisée</p>
                   </div>
                 </div>
               </div>
@@ -180,25 +235,23 @@ $paginatedBlogs = array_slice($blog_list, $offset, $blogPerPage);
           </div>
 
           <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
-            <h3>Enim quis est voluptatibus aliquid consequatur fugiat</h3>
-            <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam sint et id nulla tenetur. Suscipit aut voluptate.</p>
-
+            
             <div class="icon-box">
               <div class="icon"><i class="bx bx-fingerprint"></i></div>
-              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+              <h4 class="title"><a href="">Votre Confidentialité, Notre Priorité</a></h4>
+              <p class="description">Nous sommes déterminés à assurer la confidentialité et la sécurité à chaque étape de votre expérience sur notre plateforme.</p>
             </div>
 
             <div class="icon-box">
-              <div class="icon"><i class="bx bx-gift"></i></div>
-              <h4 class="title"><a href="">Nemo Enim</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+              <div class="icon"><i class="bx bxs-detail"></i></div>
+              <h4 class="title"><a href="">Découvrez Notre Blog</a></h4>
+              <p class="description">Nous croyons en la diffusion d'informations utiles pour améliorer votre expérience de santé et vous tenir informé des dernières avancées.</p>
             </div>
 
             <div class="icon-box">
-              <div class="icon"><i class="bx bx-atom"></i></div>
-              <h4 class="title"><a href="">Dine Pad</a></h4>
-              <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
+              <div class="icon"><i class="bx bx-mail-send"></i></div>
+              <h4 class="title"><a href="">Mail</a></h4>
+              <p class="description">Veuillez noter que vous recevrez des e-mails de notification pour confirmer vos rendez-vous et vous informer sur l'envoi d'ordonnances. </p>
             </div>
 
           </div>
@@ -231,17 +284,17 @@ $paginatedBlogs = array_slice($blog_list, $offset, $blogPerPage);
 
           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
-              <i class="fas fa-flask"></i>
-              <span data-purecounter-start="0" data-purecounter-end="12" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Research Labs</p>
+              <i class="bx bxs-detail"></i>
+              <span data-purecounter-start="0" data-purecounter-end="<?php echo $count_blog;?>" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Blog</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
-              <i class="fas fa-award"></i>
-              <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Awards</p>
+              <i class="bx bx-calendar-event"></i>
+              <span data-purecounter-start="0" data-purecounter-end="<?php echo $count_event;?>" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Evenements</p>
             </div>
           </div>
 
@@ -261,11 +314,17 @@ $paginatedBlogs = array_slice($blog_list, $offset, $blogPerPage);
         
 
       <div class="row">
+                <form method="GET" action="">
+                    <input type="text" name="search" class="search-input" placeholder="Trouvez votre article...">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
             <?php foreach ($paginatedBlogs as $list) : ?>
               <input type="hidden" name="id_b" value="<?php echo $list['id_b'];?>">
                 <div class="col-lg-6">
                   <div class="member d-flex align-items-start">
-                    <div class="pic"><img src="../controller/image/<?php echo $list['image'];?>" class="img-fluid" alt=""></div>
+                    <div class="pic"><img  src="../controller/<?php echo $list['image'];?>" class="img-fluid" alt=""></div>
                     <div class="member-info">
                       <h4><?php echo $list['titre_blog'];?></h4>
                       <span><?php echo $list['nom'].'  '.$list['prenom'];?></span>
@@ -277,6 +336,7 @@ $paginatedBlogs = array_slice($blog_list, $offset, $blogPerPage);
                     </div>
                   </div>   
                 </div>
+                
             <?php endforeach; ?>
         </div>
 
@@ -432,8 +492,9 @@ $paginatedBlogs = array_slice($blog_list, $offset, $blogPerPage);
       </div>
 
       <div>
-        <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
-      </div>
+    <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3193006.801292632!2d10.130123353294925!3d36.80464158596226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12beacfaec75a9c3%3A0x71df9a62b3bb6f82!2sTunis%2C%20Tunisia!5e0!3m2!1sen!2sus!4v1645013521940!5m2!1sen!2sus" frameborder="0" allowfullscreen></iframe>
+</div>
+
 
       <div class="container">
         <div class="row mt-5">
@@ -443,7 +504,7 @@ $paginatedBlogs = array_slice($blog_list, $offset, $blogPerPage);
               <div class="address">
                 <i class="bi bi-geo-alt"></i>
                 <h4>Localisation:</h4>
-                <p>A108 Adam Street, New York, NY 535022</p>
+                <p>Tunis ,Tunsisie</p>
               </div>
 
               <div class="email">
@@ -464,7 +525,7 @@ $paginatedBlogs = array_slice($blog_list, $offset, $blogPerPage);
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form action="#" method="post" role="form" class="php-email-form">
+            <form action="../view/mailmedtun.php" method="post" role="form" class="php-email-form">
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Nom" required>

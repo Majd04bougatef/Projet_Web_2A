@@ -33,7 +33,7 @@ class BlogC
 
     public function listBlogsAcceuil()
     {
-        $sql = "SELECT * FROM blog,user WHERE isdelete=0 and blog.id_user=user.id_user";
+        $sql = "SELECT user.nom,user.prenom,blog.image,blog.titre_blog,sujet_blog,blog.id_b,desc_blog FROM blog,user WHERE isdelete=0 and blog.id_user=user.id_user";
         $db = config::getConnexion();
         try {
             $liste = $db->query($sql);
@@ -139,10 +139,10 @@ class BlogC
     public function searchBlogsByTitle($searchTerm)
     {
         $db = config::getConnexion();
-        $query = $db->prepare("SELECT * FROM blog WHERE titre_blog LIKE :searchTerm");
+        $query = $db->prepare("SELECT user.nom,user.prenom,blog.image,blog.titre_blog,sujet_blog,blog.id_b,desc_blog FROM blog,user WHERE isdelete=0 and blog.id_user=user.id_user and titre_blog LIKE :searchTerm");
         $query->bindValue(':searchTerm', '%' . $searchTerm . '%', PDO::PARAM_STR);
         $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        return $query;
     }
     
 }

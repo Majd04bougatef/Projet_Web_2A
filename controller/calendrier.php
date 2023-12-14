@@ -275,6 +275,9 @@ session_start();
                 },
                 defaultView: 'month',
                 events: eventsFormatted,
+                dayClick: function (date, jsEvent, view) {
+                // Redirige vers add.php avec la date sélectionnée
+                window.location.href = 'add.php?selected_date=' + moment(date).format('YYYY-MM-DD'); }
                
             });
         });

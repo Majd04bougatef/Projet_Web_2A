@@ -1,150 +1,298 @@
-<?php
-include_once '../Controller/blogC.php';
-include_once '../Controller/commentaireC.php';
+<!DOCTYPE html>
+<html lang="en">
 
-$blogC = new BlogC();
-$commentC = new CommentC();
-
-if (isset($_GET['id_b'])) {
-    $blogId = $_GET['id_b'];
-    $blogDetails = $blogC->getBlogDetails($blogId);
-    $comments = $commentC->getCommentsForBlog($blogId);
-
-    echo "<!DOCTYPE html>";
-    echo "<html lang='en'>";
-    echo "<head>";
-    echo "<meta charset='UTF-8'>";
-    echo "<meta name='viewport' content='width=device-width, initial-scale=1.0'>";
-    echo "<title>{$blogDetails['titre_blog']}</title>";
-    echo "<style>
-            body {
-                font-family: 'Arial', sans-serif;
-                margin: 0;
-                padding: 0;
-                background-color: #f4f4f4;
-            }
-
-            .container {
-                width: 80%;
-                margin: auto;
-            }
-
-            h1, h2, p {
-                color: #333;
-            }
-
-            ul {
-                list-style-type: none;
-                padding: 0;
-            }
-
-            li {
-                margin-bottom: 15px;
-            }
-
-            a {
-                color: #3498db;
-                text-decoration: none;
-            }
-        </style>";
-    echo "</head>";
-    echo "<body>";
-    echo "<div class='container'>";
-    echo "<h1>{$blogDetails['titre_blog']}</h1>";
-
-    // Ajout de la balise img pour afficher l'image
-    echo "<img src='{$blogDetails['image']}' alt='{$blogDetails['titre_blog']}' style='max-width: 100%; height: auto;'>";
-    echo "<p>{$blogDetails['sujet_blog']}</p>";
-echo "<p>{$blogDetails['desc_blog']}</p>";
-    
-if (!empty($comments)) {
-        echo "<h2>Comments</h2>";
-        echo "<ul>";
-        foreach ($comments as $comment) {
-            echo "<li>{$comment['desc_commentaire']}";
-            echo " <a href='read_more.php?id_b={$blogId}&edit_comment={$comment['id_com']}'>Edit</a>";
-            echo " <a href='read_more.php?id_b={$blogId}&delete_comment={$comment['id_com']}'>Delete</a></li>";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
+    <title>Blog with Comments</title>
+    <style>
+        .container {
+            width: 50%;
+            margin: auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-align: center; /* Ajout pour centrer l'image */
         }
-        echo "</ul>";
-    } else {
-        echo "<p>No comments yet.</p>";
-    }
 
-    // Comment form
-    ?>
-    <h2>Add a Comment</h2>
-    <form action="" method="post">
-        <label for="desc_commentaire">Comment:</label><br>
-        <textarea id="desc_commentaire" name="desc_commentaire" rows="4" cols="50" required></textarea><br>
+        .container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+            margin-bottom: 10px; /* Ajout pour un espacement en bas */
+        }
 
-        <input type="hidden" name="blog_id" value="<?php echo $blogId; ?>">
+        h1, h2, p {
+            color: #343a40;
+        }
 
-        <input type="submit" value="Add Comment">
-    </form>
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
 
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $commentaire = new Comment(
-            null,
-            $blogId,
-            new DateTime(),
-            $_POST['desc_commentaire']
-        );
-        $commentC->addCommentaire($commentaire);
+        li {
+            margin-bottom: 15px;
+        }
 
-        header("Location: read_more.php?id_b={$blogId}");
-        exit();
-    }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
 
-    // Update comment form
-    if (isset($_GET['edit_comment'])) {
-        $commentId = $_GET['edit_comment'];
-        $commentToEdit = $commentC->showCommentaire($commentId);
+        #comment-section {
+            margin-top: 20px;
+            max-height: 200px;
+            overflow: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+        }
 
-        ?>
-        <h2>Edit Comment</h2>
-        <form action="" method="post">
-            <label for="desc_commentaire_edit">Edit Comment:</label><br>
-            <textarea id="desc_commentaire_edit" name="desc_commentaire_edit" rows="4" cols="50" required><?= $commentToEdit['desc_commentaire'] ?? ''; ?></textarea><br>
+        .comment {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
 
-            <input type="hidden" name="comment_id_edit" value="<?= $commentId; ?>">
+        .comment a {
+            color: #dc3545;
+            margin-left: 10px;
+        }
 
-            <input type="submit" value="Update Comment">
-        </form>
+        .comment a:hover {
+            text-decoration: underline;
+        }
+
+        .comment p {
+            margin: 0;
+        }
+
+        .comment p strong {
+            color: #007bff;
+        }
+
+        .comment-form {
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .comment-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .comment-form input[type="text"],
+        .comment-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .comment-form input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .comment-form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .comment-form textarea {
+            resize: vertical;
+        }
+
+        .pagination {
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            margin-right: 5px;
+            text-decoration: none;
+        }
+
+        .pagination a.active {
+            background-color: #0056b3;
+        }
+
+        .comment p {
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Nombre de lignes à afficher */
+            -webkit-box-orient: vertical;
+        }
+
+        /* Styles modernes pour les détails du blog */
+        .container {
+            background-color: #f8f9fa;
+        }
+
+        .container h1 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        .container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .container p {
+            color: #343a40;
+            margin-bottom: 15px;
+        }
+
+        #comment-section {
+            background-color: #fff;
+            width: 80%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            margin-left: 10%;
+            max-height: 200px;
+            overflow: auto;
+        }
+
+        .comment-form {
+            background-color: #fff;
+            width: 50%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-left: 25%;
+            margin-top: 20px;
+        }
+
+        .comment-form h2 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        .comment-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .comment-form input[type="text"],
+        .comment-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .comment-form input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .comment-form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .comment-form textarea {
+            resize: vertical;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
         <?php
-    }
+        // Include your PHP logic here
+        include_once 'blogC.php';
+        include_once 'CommentaireC.php';
 
-    // Process comment update
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['comment_id_edit'])) {
-        $editedComment = new Comment(
-            null,
-            null,
-            new DateTime(),
-            $_POST['desc_commentaire_edit']
-        );
+        $blogC = new BlogC();
+        $commentC = new CommentC();
 
-        $commentC->updateCommentaire($editedComment, $_POST['comment_id_edit']);
-        header("Location: read_more.php?id_b={$blogId}");
-        exit();
-    }
+        // Assuming you have the blog ID from the URL or any other source
+        if (isset($_GET['id_b'])) {
+            $blogId = $_GET['id_b'];
+            $blogDetails = $blogC->getBlogDetails($blogId);
+            $comments = $commentC->getCommentsForBlog($blogId);
 
-    // Process comment delete
-    if (isset($_GET['delete_comment'])) {
-        $commentIdToDelete = $_GET['delete_comment'];
-        $commentC->deleteCommentaire($commentIdToDelete);
-        header("Location: read_more.php?id_b={$blogId}");
-        exit();
-    }
+            // Display blog details
+            echo "<h1>{$blogDetails['titre_blog']}</h1>";
+            echo "<img width='400px' height='100px' src='{$blogDetails['image']}' alt='{$blogDetails['titre_blog']}' style='max-width: 100%; height: auto;'>";
+            echo "<p>{$blogDetails['sujet_blog']}</p>";
+            echo "<p>{$blogDetails['desc_blog']}</p>";
 
-    echo "<a href='fichier.pdf' download='article.pdf'>Télécharger le PDF</a>";
+            // Display comments
+            echo "<h2>Commentaires</h2>";
+            echo "<div id='comment-section'>";
 
-    echo "</div>"; 
-    echo "<a href='listeblog.php'><button>Liste des Blogs</button></a>"; 
-    
-    echo "</body>";
-    echo "</html>";
+            if (!empty($comments)) {
+                foreach ($comments as $comment) {
+                    echo "<div class='comment'>";
+                    echo "<p><strong>{$comment['nom']}</strong> | <strong>Date:</strong> {$comment['date_commentaire']}</p>";
+                    echo "<p>{$comment['desc_commentaire']}</p>";
+                    // Delete button for the comment
+                    echo "<a href='delete_comment.php?comment_id={$comment['id_com']}&id_b={$blogId}'><i class='bx bx-comment-x'></i></a>";
+                    echo "</div>";
+                }
+            } else {
+                echo "<p>No comments yet.</p>";
+            }
 
-} else {
-    echo "Blog ID not provided.";
-}
-?>
+            echo "</div>"; // Close comment-section div
+
+            // Comment form (outside comment-section)
+            echo "<div class='comment-form'>";
+            echo "<h2>Ajouter un commentaire</h2>";
+            echo "<form action='../controller/add__commentaire.php' method='post'>";
+            echo "<label for='username'>Votre Nom:</label><br>";
+            echo "<input type='text' name='username'>";
+            echo "<label for='desc_commentaire'>Commentaire:</label><br>";
+            echo "<textarea id='desc_commentaire' name='desc_commentaire' rows='4' cols='50' required></textarea><br>";
+
+            // Hidden input to store the blog ID
+            echo "<input type='hidden' name='id_b' value='{$blogId}'>";
+
+            echo "<input type='submit' value='Ajouter un commentaire'>";
+            echo "</form>";
+            echo "</div>"; // Close comment-form div
+        } else {
+            echo "Blog ID not provided.";
+        }
+        ?>
+    </div>
+</body>
+
+</html>

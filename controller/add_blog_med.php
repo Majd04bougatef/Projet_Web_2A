@@ -280,7 +280,7 @@ if (
                   <div class="input">
                       <label class="input__label" for="titre_blog">Titre</label>
                       <input class="input__field" name="titre_blog" type="text" id="titre_blog" autocomplete="off">
-                      <p class="input__description">The title must contain a maximum of 32 characters</p>
+                      <p class="input__description">LE titre doit contient maximum 32 caractéres</p>
                   </div>
                   <div class="input">
                       <label class="input__label" for="sujet_blog">Sujet</label>
@@ -289,7 +289,7 @@ if (
                   <div class="input">
                       <label class="input__label" for="desc_blog">Description</label>
                       <textarea class="input__field input__field--textarea" name="desc_blog" id="desc_blog" autocomplete="off"></textarea>
-                      <p class="input__description">Give your project a good description so everyone knows what it's for</p>
+                      <p class="input__description">Rédigez une bonne description de votre article</p>
                   </div>
                   <form method="POST" action="" enctype="multipart/form-data">
                   <div class="input">

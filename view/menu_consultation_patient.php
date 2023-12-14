@@ -60,6 +60,14 @@ session_start();
                         </a>
                     </li>
 
+                    <li class="">
+                        <a href="../view/choix_pat_reclamation.php">
+                            <i class="bx bxs-calendar-exclamation icon"></i>
+                            <span class="text nav-text">Réclamation</span>
+                        </a>
+                    </li>
+
+
                     
                 </ul>
             </div>

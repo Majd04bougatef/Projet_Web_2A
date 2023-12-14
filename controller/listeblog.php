@@ -5,12 +5,14 @@ $list = $blogC->listblogs();
 
 session_start();
 
+
+
 if (isset($_GET['search']) && !empty($_GET['search'])) {
-  $searchTerm = $_GET['search'];
-  $list = $blogC->searchBlogsByTitle($searchTerm);
-} else {
-  $list = $blogC->listblogs();
-}
+    $searchTerm = $_GET['search'];
+    $list = $blogC->searchBlogsByTitle($searchTerm);
+  } else {
+    $list = $blogC->listblogs();
+  }
 ?>
 
 
