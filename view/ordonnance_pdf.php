@@ -5,6 +5,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
+
 header('Content-Type: text/html; charset=utf-8');
 require('../view/fpdf/fpdf.php');
 include '../controller/ordonnanceR.php';
@@ -13,6 +14,7 @@ require __DIR__ . "/vendor/autoload.php";
 $nom_pat = isset($_GET['nomPatient']) ? $_GET['nomPatient'] : '';
 $prenom_pat = isset($_GET['prenomPatient']) ? $_GET['prenomPatient'] : '';
 $age_pat = isset($_GET['agePatient']) ? $_GET['agePatient'] : '';
+$mail_pat = isset($_GET['mail']) ? $_GET['mail'] : '';
 $nom_med = isset($_GET['nomMedecin']) ? $_GET['nomMedecin'] : '';
 $prenom_med = isset($_GET['prenomMedecin']) ? $_GET['prenomMedecin'] : '';
 $date = isset($_GET['date']) ? $_GET['date'] : '';
@@ -125,8 +127,8 @@ try {
     $mail->Password = 'tdbl donc blkx nsmq';
     $mail->Port = 587;
 
-    $mail->setFrom("bougatefmajd9@gmail.com");
-    $mail->addAddress("bougatefmajd9@gmail.com");
+    $mail->setFrom($mail_pat);
+    $mail->addAddress($mail_pat);
 
     $mail->isHTML(true);
     $mail->Subject = 'Ordonnance '.$nom_pat.' '.$prenom_pat;

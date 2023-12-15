@@ -61,6 +61,7 @@ body.dark{
 
 .sidebar.close {
   width: 88px;
+  overflow-y: auto;
 }
 
 @media only screen and (max-width: 15.6in) {

@@ -5,6 +5,7 @@ include_once '../Controller/EventC.php';
 include_once '../Controller/CommentC.php';
 include_once '../controller/participantC.php';
 
+
 $eventC = new EventC();
 $commentC = new CommentC();
 
@@ -56,8 +57,7 @@ if (isset($_GET["id_event"])) {
                     <p>ID de l'utilisateur : <?= $comment['id_user'] ?></p>
                     <a class="update-link"
                         href="update_comment_form.php?id_commentaire=<?= $comment['id_commentaire'] ?>&id_event=<?= $eventId ?>"><button>modifier</button></a>
-                    <a class="delete-link"
-                        href="delete_comment.php?id_commentaire=<?= $comment['id_commentaire'] ?>&id_event=<?= $eventId ?>"><button>Delete</button></a>
+                    <a class="delete-link"  href="delete_comment_event.php?id_commentaire=<?= $comment['id_commentaire'] ?>&id_event=<?= $eventId ?>"><button>Delete</button></a>
                     <hr>
                 </div>
             <?php endforeach; ?>

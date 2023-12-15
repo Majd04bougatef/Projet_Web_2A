@@ -287,7 +287,7 @@ $list = $userC->listuser();
                 <td><?= $user['lieu_cabinet']; ?></td>
                 <td>
                 <div class="del">
-                <div>Delete</div>     
+                <div><a href="../view/deletuseradmin.php?id_user=<?php echo $user['id_user'];?>"> Delete</a></div>     
                 </div>
                 </td>	
                 </tr>

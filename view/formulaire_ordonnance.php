@@ -221,6 +221,7 @@
             <input type="text" id="prenomPatient" name="prenomPatient" value="<?php echo $liste['prenom'];?>">
             <label for="agePatient">Âge :</label>
             <input type="number" id="agePatient" name="agePatient" value="<?php echo $liste['age'];?>">
+            <input type="hidden"  name="mail" value="<?php echo $liste['mail'];?>">
         </div><br>
         <h2>Information Médicaments</h2><br>
         <div class="info">

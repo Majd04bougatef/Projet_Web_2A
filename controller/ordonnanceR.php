@@ -11,7 +11,7 @@ class ordonnancefunction
     
     public function list_Pat_consult($id)
     {
-        $sql = "SELECT user.nom , user.prenom , user.age FROM user,rendezvous,consultation WHERE user.id_user = rendezvous.id_user and rendezvous.id_rdv = :id";
+        $sql = "SELECT user.nom , user.prenom , user.age , user.mail FROM user,rendezvous,consultation WHERE user.id_user = rendezvous.id_user and rendezvous.id_rdv = :id";
         $db = config::getConnexion();
         try {
             $liste = $db->prepare($sql);

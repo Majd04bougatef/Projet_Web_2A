@@ -67,7 +67,7 @@ public function adduser($user)
         $c=$user->getcin();
         $id =$mr.$mn.$c;
 
-        echo $id;
+       
         $query = $db->prepare('INSERT INTO user (id_user,cin, nom, prenom, age, sexe, telephone, nationalite, mail, password, role, diplome, specialite, pays, ville, lieu_cabinet,image) VALUES (:id,:cin, :nom, :prenom, :age, :sexe, :telephone, :nationalite, :email, :password, :role, :diplome, :specialite, :pays, :ville, :lieu_cabinet,:image)');
         $query->execute([
             'id'  => $id,
